@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Payslip — Diya Patel · May 2026</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .slip-frame {
+                max-width: 900px;
+                margin: 0 auto;
+                background: #fff;
+                border-radius: var(--radius-xl);
+                box-shadow: var(--shadow-lg);
+                overflow: hidden;
+            }
+            .slip-head {
+                background: linear-gradient(135deg, #4338ca, #6366f1);
+                color: #fff;
+                padding: 28px 32px;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+            .slip-head h2 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+            .slip-head .sub { color: rgba(255,255,255,0.85); font-size: 13.5px; }
+            .slip-head .logo-mark { font-weight: 700; font-size: 16px; opacity: 0.9; }
+
+            .slip-body { padding: 28px 32px; }
+
+            .slip-meta {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+                padding: 16px;
+                background: var(--gray-50);
+                border-radius: var(--radius-md);
+                margin-bottom: var(--space-6);
+            }
+            .slip-meta .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+            .slip-meta .val { font-size: 13.5px; font-weight: 600; margin-top: 2px; }
+
+            .col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+            .line-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+            .line-table th { text-align: left; padding: 8px 0; color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--border-soft); }
+            .line-table td { padding: 10px 0; border-bottom: 1px solid var(--border-soft); }
+            .line-table td.amount { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+            .line-table tfoot td { border-top: 2px solid var(--text-primary); border-bottom: 0; padding-top: 12px; font-weight: 700; font-size: 14px; }
+
+            .section-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+            .net-banner {
+                margin-top: var(--space-6);
+                background: linear-gradient(135deg, #10b981, #047857);
+                color: #fff;
+                border-radius: var(--radius-lg);
+                padding: 24px 28px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .net-banner .label { font-size: 12px; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.05em; }
+            .net-banner .amount { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin-top: 2px; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active" href="runs.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Payroll</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <a href="runs.html" class="btn btn-ghost btn-sm">← Back to runs</a>
+                    <div class="topbar-actions">
+                        <button class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>Print</button>
+                        <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download PDF</button>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="slip-frame">
+                        <div class="slip-head">
+                            <div>
+                                <div class="logo-mark">HYRIUS HR</div>
+                                <h2 style="margin-top: 10px;">Payslip · May 2026</h2>
+                                <div class="sub">Salary breakdown for the period · May 1 to May 31, 2026</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="sub">Payslip ID</div>
+                                <div style="font-size: 16px; font-weight: 700;">PS-2026-05-00002</div>
+                            </div>
+                        </div>
+
+                        <div class="slip-body">
+                            <div class="slip-meta">
+                                <div><div class="lbl">Employee</div><div class="val">Diya Patel</div></div>
+                                <div><div class="lbl">Employee code</div><div class="val">EMP0002</div></div>
+                                <div><div class="lbl">Department</div><div class="val">Backend Team</div></div>
+                                <div><div class="lbl">Designation</div><div class="val">Sr. Software Engineer</div></div>
+                                <div><div class="lbl">PAN</div><div class="val">ABCDE1234F</div></div>
+                                <div><div class="lbl">Bank A/c</div><div class="val">•••• 4321 (HDFC)</div></div>
+                                <div><div class="lbl">Paid days</div><div class="val">30 of 31</div></div>
+                                <div><div class="lbl">LOP days</div><div class="val">1 (May 15)</div></div>
+                            </div>
+
+                            <div class="col-2">
+                                <div>
+                                    <p class="section-title" style="color: var(--emerald-600);">Earnings</p>
+                                    <table class="line-table">
+                                        <thead><tr><th>Component</th><th style="text-align: right;">Amount (₹)</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>Basic (40%)</td><td class="amount">50,000</td></tr>
+                                            <tr><td>HRA (20%)</td><td class="amount">25,000</td></tr>
+                                            <tr><td>Special Allowance (30%)</td><td class="amount">37,500</td></tr>
+                                            <tr><td>Conveyance</td><td class="amount">1,600</td></tr>
+                                            <tr><td>Medical</td><td class="amount">1,250</td></tr>
+                                        </tbody>
+                                        <tfoot><tr><td>Total earnings</td><td class="amount">1,15,350</td></tr></tfoot>
+                                    </table>
+                                </div>
+
+                                <div>
+                                    <p class="section-title" style="color: var(--red-600);">Deductions</p>
+                                    <table class="line-table">
+                                        <thead><tr><th>Component</th><th style="text-align: right;">Amount (₹)</th></tr></thead>
+                                        <tbody>
+                                            <tr><td>Provident Fund (12% of basic)</td><td class="amount">6,000</td></tr>
+                                            <tr><td>Professional Tax</td><td class="amount">200</td></tr>
+                                            <tr><td>Income Tax (TDS)</td><td class="amount">11,535</td></tr>
+                                            <tr><td>LOP recovery (1 day)</td><td class="amount">4,167</td></tr>
+                                        </tbody>
+                                        <tfoot><tr><td>Total deductions</td><td class="amount">21,902</td></tr></tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="net-banner">
+                                <div>
+                                    <div class="label">Net payable</div>
+                                    <div class="amount">₹93,448</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 12px; opacity: 0.85;">Ninety-three thousand four hundred forty-eight rupees only</div>
+                                    <div style="margin-top: 8px; font-size: 12px;">Credit on May 31, 2026 · HDFC •••• 4321</div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-muted);">
+                                <span>This is a system-generated payslip and does not require a signature.</span>
+                                <span>Generated on May 14, 2026 · 09:31 AM IST</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

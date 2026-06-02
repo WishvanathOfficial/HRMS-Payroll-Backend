@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Leave Types — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .type-card { padding: 18px; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); background: #fff; }
+            .type-icon { width: 44px; height: 44px; border-radius: var(--radius-md); display: grid; place-items: center; color: #fff; font-weight: 700; }
+            .attr-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+            .attr-row .text-muted { font-size: 12px; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Leave</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Leave</div>
+                    <a class="nav-item sub" href="requests.html">Requests</a>
+                    <a class="nav-item sub active">Types</a>
+                    <a class="nav-item sub" href="balances.html">Balances</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Leave types</h1>
+                            <p class="page-subtitle">Categories, annual allocations, accrual rules, and approval policies.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New leave type</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-3" style="gap: 16px;">
+                        <div class="type-card">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                                <div class="type-icon" style="background: var(--emerald-500);">CL</div>
+                                <div><div style="font-weight: 700;">Casual leave</div><div class="text-xs text-muted">Code: CL</div></div>
+                                <span class="badge badge-success" style="margin-left: auto;">Active</span>
+                            </div>
+                            <div class="attr-row"><span class="text-muted">Annual allocation</span><strong>12 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Accrual</span><strong>1/month</strong></div>
+                            <div class="attr-row"><span class="text-muted">Carry forward</span><strong>Up to 5 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Max consecutive</span><strong>3 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Requires approval</span><strong>Yes · L1 mgr</strong></div>
+                            <div class="attr-row"><span class="text-muted">Notice period</span><strong>1 day prior</strong></div>
+                        </div>
+
+                        <div class="type-card">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                                <div class="type-icon" style="background: var(--blue-500);">SL</div>
+                                <div><div style="font-weight: 700;">Sick leave</div><div class="text-xs text-muted">Code: SL</div></div>
+                                <span class="badge badge-success" style="margin-left: auto;">Active</span>
+                            </div>
+                            <div class="attr-row"><span class="text-muted">Annual allocation</span><strong>10 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Accrual</span><strong>Front-loaded Jan 1</strong></div>
+                            <div class="attr-row"><span class="text-muted">Carry forward</span><strong>None</strong></div>
+                            <div class="attr-row"><span class="text-muted">Max consecutive</span><strong>5 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Requires approval</span><strong>Yes · L1 mgr</strong></div>
+                            <div class="attr-row"><span class="text-muted">Doctor note</span><strong>If &gt;2 days</strong></div>
+                        </div>
+
+                        <div class="type-card">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                                <div class="type-icon" style="background: var(--violet-500);">EL</div>
+                                <div><div style="font-weight: 700;">Earned leave</div><div class="text-xs text-muted">Code: EL · PL</div></div>
+                                <span class="badge badge-success" style="margin-left: auto;">Active</span>
+                            </div>
+                            <div class="attr-row"><span class="text-muted">Annual allocation</span><strong>20 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Accrual</span><strong>1.67/month</strong></div>
+                            <div class="attr-row"><span class="text-muted">Carry forward</span><strong>Up to 30 total</strong></div>
+                            <div class="attr-row"><span class="text-muted">Encashable</span><strong>On exit</strong></div>
+                            <div class="attr-row"><span class="text-muted">Notice period</span><strong>7 days prior</strong></div>
+                            <div class="attr-row"><span class="text-muted">Approval</span><strong>L1 + HR if &gt;5d</strong></div>
+                        </div>
+
+                        <div class="type-card">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                                <div class="type-icon" style="background: var(--pink-500);">ML</div>
+                                <div><div style="font-weight: 700;">Maternity leave</div><div class="text-xs text-muted">Code: ML</div></div>
+                                <span class="badge badge-success" style="margin-left: auto;">Active</span>
+                            </div>
+                            <div class="attr-row"><span class="text-muted">Allocation</span><strong>26 weeks</strong></div>
+                            <div class="attr-row"><span class="text-muted">Eligibility</span><strong>80+ days tenure</strong></div>
+                            <div class="attr-row"><span class="text-muted">Paid</span><strong>Fully paid</strong></div>
+                            <div class="attr-row"><span class="text-muted">Statutory</span><strong>Maternity Benefit Act</strong></div>
+                            <div class="attr-row"><span class="text-muted">Approval</span><strong>HR direct</strong></div>
+                        </div>
+
+                        <div class="type-card">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                                <div class="type-icon" style="background: var(--amber-500);">PL</div>
+                                <div><div style="font-weight: 700;">Paternity leave</div><div class="text-xs text-muted">Code: PTL</div></div>
+                                <span class="badge badge-success" style="margin-left: auto;">Active</span>
+                            </div>
+                            <div class="attr-row"><span class="text-muted">Allocation</span><strong>15 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Within</span><strong>3 mo of birth</strong></div>
+                            <div class="attr-row"><span class="text-muted">Paid</span><strong>Fully paid</strong></div>
+                            <div class="attr-row"><span class="text-muted">Approval</span><strong>L1 + HR</strong></div>
+                        </div>
+
+                        <div class="type-card">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+                                <div class="type-icon" style="background: var(--red-500);">CO</div>
+                                <div><div style="font-weight: 700;">Compensatory off</div><div class="text-xs text-muted">Code: COMP</div></div>
+                                <span class="badge badge-success" style="margin-left: auto;">Active</span>
+                            </div>
+                            <div class="attr-row"><span class="text-muted">Earned by</span><strong>Working weekend/holiday</strong></div>
+                            <div class="attr-row"><span class="text-muted">Validity</span><strong>90 days</strong></div>
+                            <div class="attr-row"><span class="text-muted">Carry forward</span><strong>None</strong></div>
+                            <div class="attr-row"><span class="text-muted">Approval</span><strong>L1 mgr</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

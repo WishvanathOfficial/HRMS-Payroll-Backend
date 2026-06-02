@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Manager Dashboard — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .hero { background: linear-gradient(135deg, #10b981, #047857); color: #fff; border-radius: var(--radius-xl); padding: 28px 32px; position: relative; overflow: hidden; margin-bottom: var(--space-6); }
+            .hero::after { content:''; position:absolute; right:-60px; top:-60px; width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+            .hero h1 { margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+            .hero p { margin: 0; color: rgba(255,255,255,0.85); font-size: 13.5px; }
+
+            .team-card {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px;
+                border-radius: var(--radius-md);
+                border: 1px solid var(--border-soft);
+                background: #fff;
+            }
+            .team-card .stat-meta { font-size: 11px; color: var(--text-muted); }
+            .team-card .stat-meta strong { color: var(--text-primary); font-size: 13px; }
+
+            .att-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 8px; }
+            .att-tile { aspect-ratio: 1; display: grid; place-items: center; border-radius: 8px; font-weight: 700; font-size: 13px; }
+            .att-tile.p { background: var(--emerald-50); color: var(--emerald-700); }
+            .att-tile.a { background: var(--red-50); color: var(--red-600); }
+            .att-tile.l { background: var(--amber-50); color: var(--amber-600); }
+            .att-tile.h { background: var(--gray-100); color: var(--text-muted); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>Manager Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>My team</a>
+                    <a class="nav-item" href="../leave/requests.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Approvals<span class="nav-badge">4</span></a>
+                    <a class="nav-item"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>Appraisals</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search team…</span></div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><span class="dot"></span></button>
+                        <div class="user-chip"><div class="avatar sm avatar-1">AS</div><div><div class="name">Aarav Sharma</div></div><span class="role">MANAGER</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="hero">
+                        <h1>Engineering · 18 reports</h1>
+                        <p>4 approvals waiting · 3 ongoing appraisals · team attendance at 94% this week</p>
+                    </div>
+
+                    <div class="kpis">
+                        <div class="kpi"><div class="kpi-icon indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><p class="kpi-label">Direct reports</p><div class="kpi-value">18</div><span class="kpi-delta flat">3 senior · 12 mid · 3 jr</span></div>
+                        <div class="kpi"><div class="kpi-icon emerald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><p class="kpi-label">Team attendance</p><div class="kpi-value">94%</div><span class="kpi-delta up">↑ 2% this week</span></div>
+                        <div class="kpi"><div class="kpi-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><p class="kpi-label">Leave approvals</p><div class="kpi-value">4</div><span class="kpi-delta flat">2 urgent</span></div>
+                        <div class="kpi"><div class="kpi-icon pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/></svg></div><p class="kpi-label">Avg team rating</p><div class="kpi-value">4.2</div><span class="kpi-delta up">↑ 0.3 vs last cycle</span></div>
+                    </div>
+
+                    <div class="grid grid-3" style="margin-bottom: var(--space-6);">
+                        <div class="card col-span-2">
+                            <div class="card-header"><div><h3 class="card-title">My team</h3><p class="card-subtitle">Direct reports · status &amp; current task</p></div><button class="btn btn-sm btn-ghost">View all</button></div>
+                            <table class="table">
+                                <thead><tr><th>Member</th><th>Role</th><th>Status</th><th>Today</th><th>Appraisal</th></tr></thead>
+                                <tbody>
+                                    <tr><td><div class="person"><div class="avatar avatar-2 sm">DP</div><div class="meta"><span class="name">Diya Patel</span><span class="sub">Sr. SE · 4 yrs</span></div></div></td><td>Senior Software Engineer</td><td><span class="badge badge-success"><span class="dot"></span>Working</span></td><td>Backend API refactor</td><td><span class="badge badge-info">★ 4.40</span></td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-3 sm">RK</div><div class="meta"><span class="name">Rohit Kumar</span><span class="sub">SE · 2 yrs</span></div></div></td><td>Software Engineer</td><td><span class="badge badge-warning"><span class="dot"></span>Late</span></td><td>Auth integration</td><td><span class="badge badge-info">★ 3.85</span></td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-6 sm">MN</div><div class="meta"><span class="name">Meera Nair</span><span class="sub">SE · 6 mo</span></div></div></td><td>Software Engineer</td><td><span class="badge badge-success"><span class="dot"></span>Working</span></td><td>Bug fixes</td><td><span class="badge badge-neutral">Pending</span></td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-7 sm">SI</div><div class="meta"><span class="name">Sneha Iyer</span><span class="sub">FE · 3 yrs</span></div></div></td><td>Frontend Developer</td><td><span class="badge badge-danger"><span class="dot"></span>On leave</span></td><td>—</td><td><span class="badge badge-info">★ 3.90</span></td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-9 sm">PG</div><div class="meta"><span class="name">Priyanka Gupta</span><span class="sub">SE · 2 weeks</span></div></div></td><td>Software Engineer</td><td><span class="badge badge-success"><span class="dot"></span>Working</span></td><td>Onboarding</td><td><span class="badge badge-neutral">N/A</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"><div><h3 class="card-title">Approvals</h3><p class="card-subtitle">Quick triage</p></div></div>
+                            <div class="activity">
+                                <div class="activity-item">
+                                    <div class="avatar avatar-2 sm">DP</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Casual leave · 3 days</p>
+                                        <p class="activity-meta">Diya Patel · May 20 — 22</p>
+                                        <div style="display: flex; gap: 6px; margin-top: 6px;">
+                                            <button class="btn btn-sm btn-success">Approve</button>
+                                            <button class="btn btn-sm">Decline</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-3 sm">RK</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Sick leave · 1 day</p>
+                                        <p class="activity-meta">Rohit Kumar · May 16</p>
+                                        <div style="display: flex; gap: 6px; margin-top: 6px;">
+                                            <button class="btn btn-sm btn-success">Approve</button>
+                                            <button class="btn btn-sm">Decline</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-7 sm">SI</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">WFH request · 2 days</p>
+                                        <p class="activity-meta">Sneha Iyer · May 22 — 23</p>
+                                        <div style="display: flex; gap: 6px; margin-top: 6px;">
+                                            <button class="btn btn-sm btn-success">Approve</button>
+                                            <button class="btn btn-sm">Decline</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team attendance grid -->
+                    <div class="card">
+                        <div class="card-header"><div><h3 class="card-title">Team attendance · this week</h3><p class="card-subtitle">May 12 — May 16 · P = Present · L = Late · A = Absent · H = Holiday</p></div></div>
+                        <table class="table">
+                            <thead><tr><th>Member</th><th style="text-align: center;">Mon</th><th style="text-align: center;">Tue</th><th style="text-align: center;">Wed</th><th style="text-align: center;">Thu</th><th style="text-align: center;">Fri</th></tr></thead>
+                            <tbody>
+                                <tr><td><div class="person"><div class="avatar avatar-2 sm">DP</div><div class="meta"><span class="name">Diya Patel</span></div></div></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-3 sm">RK</div><div class="meta"><span class="name">Rohit Kumar</span></div></div></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-warning">L</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-warning">L</span></td><td style="text-align: center;"><span class="badge badge-neutral">—</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-6 sm">MN</div><div class="meta"><span class="name">Meera Nair</span></div></div></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-neutral">—</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-7 sm">SI</div><div class="meta"><span class="name">Sneha Iyer</span></div></div></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-danger">A</span></td><td style="text-align: center;"><span class="badge badge-danger">A</span></td><td style="text-align: center;"><span class="badge badge-neutral">—</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-9 sm">PG</div><div class="meta"><span class="name">Priyanka Gupta</span></div></div></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-success">P</span></td><td style="text-align: center;"><span class="badge badge-neutral">—</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

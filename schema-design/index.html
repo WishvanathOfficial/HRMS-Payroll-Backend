@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>HRMS &amp; Payroll — Schema Design</title>
+        <style>
+            :root {
+                --bg: #f7f8fb;
+                --panel: #ffffff;
+                --text: #0f172a;
+                --muted: #64748b;
+                --border: #e2e8f0;
+                --shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+
+                --m-auth: #8b5cf6;
+                --m-auth-soft: #f3efff;
+                --m-org: #0ea5e9;
+                --m-org-soft: #e6f4fb;
+                --m-emp: #06b6d4;
+                --m-emp-soft: #e3f5f8;
+                --m-att: #14b8a6;
+                --m-att-soft: #e2f6f3;
+                --m-leave: #22c55e;
+                --m-leave-soft: #e6f6ec;
+                --m-salary: #f59e0b;
+                --m-salary-soft: #fbf2e0;
+                --m-payroll: #f97316;
+                --m-payroll-soft: #fdeadb;
+                --m-recruit: #ef4444;
+                --m-recruit-soft: #fde6e6;
+                --m-appraisal: #ec4899;
+                --m-appraisal-soft: #fde4f0;
+            }
+
+            * { box-sizing: border-box; }
+
+            body {
+                margin: 0;
+                font-family:
+                    'Inter',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    'Segoe UI',
+                    Roboto,
+                    sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.5;
+                font-size: 14px;
+            }
+
+            header {
+                background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+                color: #fff;
+                padding: 32px 40px;
+                box-shadow: var(--shadow);
+            }
+
+            header h1 {
+                margin: 0 0 8px 0;
+                font-size: 28px;
+                font-weight: 600;
+                letter-spacing: -0.02em;
+            }
+
+            header p {
+                margin: 0;
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 14px;
+                max-width: 900px;
+            }
+
+            .container {
+                max-width: 1600px;
+                margin: 24px auto;
+                padding: 0 40px 60px;
+            }
+
+            .summary-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .summary-card {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 16px 18px;
+                box-shadow: var(--shadow);
+            }
+
+            .summary-card .label {
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                margin-bottom: 6px;
+            }
+
+            .summary-card .value {
+                font-size: 26px;
+                font-weight: 600;
+                color: var(--text);
+            }
+
+            .legend {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 20px 24px;
+                margin-bottom: 24px;
+                box-shadow: var(--shadow);
+            }
+
+            .legend h2 {
+                margin: 0 0 16px 0;
+                font-size: 16px;
+                font-weight: 600;
+                letter-spacing: -0.01em;
+            }
+
+            .modules {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 10px;
+            }
+
+            .module {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 12px;
+                border-radius: 8px;
+                background: #fafbfc;
+                border: 1px solid var(--border);
+            }
+
+            .module .swatch {
+                width: 14px;
+                height: 14px;
+                border-radius: 4px;
+                flex-shrink: 0;
+            }
+
+            .module .name {
+                font-weight: 600;
+                color: var(--text);
+                font-size: 13px;
+            }
+
+            .module .count {
+                margin-left: auto;
+                font-size: 12px;
+                color: var(--muted);
+                background: #fff;
+                border: 1px solid var(--border);
+                padding: 1px 8px;
+                border-radius: 999px;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .diagram-panel {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 24px;
+                box-shadow: var(--shadow);
+                overflow: auto;
+            }
+
+            .diagram-panel h2 {
+                margin: 0 0 12px 0;
+                font-size: 16px;
+                font-weight: 600;
+            }
+
+            .diagram-panel .hint {
+                font-size: 12px;
+                color: var(--muted);
+                margin: 0 0 20px 0;
+            }
+
+            #erd-wrap {
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-bottom: 8px;
+            }
+
+            #erd svg {
+                max-width: none !important;
+                height: auto;
+                font-family: 'Inter', sans-serif !important;
+            }
+
+            /* Mermaid ER entity styling — applied by JS after render */
+            #erd .er.entityBox.module-auth { fill: var(--m-auth-soft) !important; stroke: var(--m-auth) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-org { fill: var(--m-org-soft) !important; stroke: var(--m-org) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-emp { fill: var(--m-emp-soft) !important; stroke: var(--m-emp) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-att { fill: var(--m-att-soft) !important; stroke: var(--m-att) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-leave { fill: var(--m-leave-soft) !important; stroke: var(--m-leave) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-salary { fill: var(--m-salary-soft) !important; stroke: var(--m-salary) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-payroll { fill: var(--m-payroll-soft) !important; stroke: var(--m-payroll) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-recruit { fill: var(--m-recruit-soft) !important; stroke: var(--m-recruit) !important; stroke-width: 2px !important; }
+            #erd .er.entityBox.module-appraisal { fill: var(--m-appraisal-soft) !important; stroke: var(--m-appraisal) !important; stroke-width: 2px !important; }
+
+            /* Header bar inside each entity */
+            #erd .er.entityLabel.module-auth { fill: var(--m-auth) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-org { fill: var(--m-org) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-emp { fill: var(--m-emp) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-att { fill: var(--m-att) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-leave { fill: var(--m-leave) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-salary { fill: var(--m-salary) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-payroll { fill: var(--m-payroll) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-recruit { fill: var(--m-recruit) !important; font-weight: 700; }
+            #erd .er.entityLabel.module-appraisal { fill: var(--m-appraisal) !important; font-weight: 700; }
+
+            /* Relationship lines */
+            #erd .er .relationshipLine,
+            #erd .er.relationshipLine {
+                stroke: #475569 !important;
+                stroke-width: 1.5px !important;
+            }
+
+            /* Tables grid below the diagram */
+            .tables-grid {
+                margin-top: 32px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+            }
+
+            .table-card {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-left-width: 5px;
+                border-radius: 8px;
+                padding: 14px 16px;
+                box-shadow: var(--shadow);
+                font-size: 13px;
+            }
+
+            .table-card.module-auth { border-left-color: var(--m-auth); }
+            .table-card.module-org { border-left-color: var(--m-org); }
+            .table-card.module-emp { border-left-color: var(--m-emp); }
+            .table-card.module-att { border-left-color: var(--m-att); }
+            .table-card.module-leave { border-left-color: var(--m-leave); }
+            .table-card.module-salary { border-left-color: var(--m-salary); }
+            .table-card.module-payroll { border-left-color: var(--m-payroll); }
+            .table-card.module-recruit { border-left-color: var(--m-recruit); }
+            .table-card.module-appraisal { border-left-color: var(--m-appraisal); }
+
+            .table-card .table-name {
+                font-weight: 700;
+                font-size: 14px;
+                color: var(--text);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+
+            .table-card .module-tag {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                padding: 2px 7px;
+                border-radius: 999px;
+                color: #fff;
+                font-weight: 600;
+            }
+
+            .table-card.module-auth .module-tag { background: var(--m-auth); }
+            .table-card.module-org .module-tag { background: var(--m-org); }
+            .table-card.module-emp .module-tag { background: var(--m-emp); }
+            .table-card.module-att .module-tag { background: var(--m-att); }
+            .table-card.module-leave .module-tag { background: var(--m-leave); }
+            .table-card.module-salary .module-tag { background: var(--m-salary); }
+            .table-card.module-payroll .module-tag { background: var(--m-payroll); }
+            .table-card.module-recruit .module-tag { background: var(--m-recruit); }
+            .table-card.module-appraisal .module-tag { background: var(--m-appraisal); }
+
+            .table-card .desc {
+                color: var(--muted);
+                margin-bottom: 8px;
+                font-size: 12px;
+            }
+
+            .table-card .keys {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .table-card .key {
+                font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+                font-size: 11px;
+                padding: 2px 6px;
+                background: #f1f5f9;
+                border-radius: 4px;
+                color: #475569;
+            }
+
+            .table-card .key.fk { color: #2563eb; background: #dbeafe; }
+            .table-card .key.pk { color: #b45309; background: #fef3c7; font-weight: 700; }
+
+            footer {
+                text-align: center;
+                margin-top: 40px;
+                color: var(--muted);
+                font-size: 12px;
+            }
+
+            footer code {
+                background: #f1f5f9;
+                padding: 2px 6px;
+                border-radius: 4px;
+                font-size: 11px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>HRMS &amp; Payroll — Database Schema</h1>
+            <p>
+                Full entity-relationship diagram for all 26 tables in the HRMS &amp; Payroll backend, grouped and
+                color-coded by feature module. Lines indicate foreign-key relationships; entity headers show the
+                attribute list with primary keys and foreign keys marked.
+            </p>
+        </header>
+
+        <div class="container">
+            <div class="summary-cards">
+                <div class="summary-card"><div class="label">Tables</div><div class="value">26</div></div>
+                <div class="summary-card"><div class="label">Modules</div><div class="value">9</div></div>
+                <div class="summary-card"><div class="label">Foreign Keys</div><div class="value">37</div></div>
+                <div class="summary-card"><div class="label">Self-referential</div><div class="value">2</div></div>
+            </div>
+
+            <div class="legend">
+                <h2>Modules</h2>
+                <div class="modules">
+                    <div class="module"><span class="swatch" style="background: var(--m-auth)"></span><span class="name">Auth</span><span class="count">3 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-org)"></span><span class="name">Organization</span><span class="count">2 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-emp)"></span><span class="name">Employee</span><span class="count">2 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-att)"></span><span class="name">Attendance</span><span class="count">3 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-leave)"></span><span class="name">Leave</span><span class="count">3 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-salary)"></span><span class="name">Salary</span><span class="count">4 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-payroll)"></span><span class="name">Payroll</span><span class="count">4 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-recruit)"></span><span class="name">Recruitment</span><span class="count">3 tables</span></div>
+                    <div class="module"><span class="swatch" style="background: var(--m-appraisal)"></span><span class="name">Appraisal</span><span class="count">2 tables</span></div>
+                </div>
+            </div>
+
+            <div class="diagram-panel">
+                <h2>Entity-Relationship Diagram</h2>
+                <p class="hint">
+                    Scroll horizontally if needed. Notation: <code>||--o{</code> = one-to-many,
+                    <code>||--o|</code> = one-to-one (optional). PK / FK columns are marked on each entity.
+                    Self-referential FKs (<code>DEPARTMENTS.ParentDeptId</code>,
+                    <code>EMPLOYEES.ReportingTo</code>) are indicated by the <code>FK</code> column annotation
+                    inside the entity rather than a self-loop arc, to keep the diagram readable.
+                </p>
+                <div id="erd-wrap"><div id="erd"></div></div>
+            </div>
+
+            <div class="tables-grid" id="tables-grid">
+                <!-- Filled in by JS -->
+            </div>
+
+            <footer>
+                Auto-generated from <code>src/migrations/</code> and <code>src/models/</code>. Update the migrations,
+                then refresh this page for the latest view.
+            </footer>
+        </div>
+
+        <script type="module">
+            import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+
+            await document.fonts.ready;
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                fontFamily: '"Inter", sans-serif',
+                themeVariables: {
+                    fontSize: '13px',
+                    fontFamily: '"Inter", sans-serif',
+                    lineColor: '#475569',
+                    textColor: '#0f172a',
+                    primaryColor: '#ffffff',
+                    primaryBorderColor: '#94a3b8',
+                },
+                er: {
+                    layoutDirection: 'TB',
+                    minEntityWidth: 130,
+                    minEntityHeight: 80,
+                    entityPadding: 14,
+                },
+            });
+
+            const diagram = `erDiagram
+  USERS {
+    int Id PK
+    int EmployeeId FK
+    string Email
+    string PasswordHash
+    bool IsActive
+    datetime LastLoginAt
+  }
+  ROLES {
+    int Id PK
+    string Name
+    string Description
+  }
+  USER_ROLES {
+    int Id PK
+    int UserId FK
+    int RoleId FK
+  }
+  DEPARTMENTS {
+    int Id PK
+    string Name
+    int ParentDeptId FK
+    int ManagerId FK
+  }
+  DESIGNATIONS {
+    int Id PK
+    string Title
+    string Grade
+    int DepartmentId FK
+  }
+  EMPLOYEES {
+    int Id PK
+    string EmpCode
+    string FirstName
+    string LastName
+    string Email
+    string Phone
+    date Dob
+    string Gender
+    date JoinDate
+    int DepartmentId FK
+    int DesignationId FK
+    int ReportingTo FK
+    string Status
+  }
+  EMPLOYMENT_HISTORY {
+    int Id PK
+    int EmployeeId FK
+    int DepartmentId FK
+    int DesignationId FK
+    date EffectiveFrom
+    date EffectiveTo
+    string Reason
+  }
+  SHIFTS {
+    int Id PK
+    string Name
+    time StartTime
+    time EndTime
+    int WeeklyOffDay
+    float OvertimeMultiplier
+  }
+  EMPLOYEE_SHIFTS {
+    int Id PK
+    int EmployeeId FK
+    int ShiftId FK
+    date EffectiveFrom
+    date EffectiveTo
+  }
+  ATTENDANCE_LOGS {
+    int Id PK
+    int EmployeeId FK
+    date LogDate
+    datetime CheckIn
+    datetime CheckOut
+    float WorkHours
+    string Status
+    string Source
+  }
+  LEAVE_TYPES {
+    int Id PK
+    string Name
+    int DaysAllowed
+    bool IsPaid
+    bool CarryForward
+  }
+  LEAVE_BALANCES {
+    int Id PK
+    int EmployeeId FK
+    int LeaveTypeId FK
+    int Year
+    float Allocated
+    float Used
+    float Balance
+  }
+  LEAVE_REQUESTS {
+    int Id PK
+    int EmployeeId FK
+    int LeaveTypeId FK
+    date FromDate
+    date ToDate
+    float Days
+    string Reason
+    string Status
+    int ApprovedBy FK
+  }
+  SALARY_STRUCTURES {
+    int Id PK
+    string Name
+    string Description
+  }
+  SALARY_COMPONENTS {
+    int Id PK
+    string Name
+    string Type
+    string CalcType
+    float Value
+    bool Taxable
+  }
+  SALARY_STRUCTURE_COMPONENTS {
+    int Id PK
+    int StructureId FK
+    int ComponentId FK
+    float Amount
+    float Percentage
+  }
+  EMPLOYEE_SALARIES {
+    int Id PK
+    int EmployeeId FK
+    int StructureId FK
+    float Ctc
+    date EffectiveFrom
+    date EffectiveTo
+  }
+  PAYROLL_RUNS {
+    int Id PK
+    int Month
+    int Year
+    string Status
+    datetime ProcessedAt
+    int ProcessedBy FK
+  }
+  PAYSLIPS {
+    int Id PK
+    int PayrollRunId FK
+    int EmployeeId FK
+    float GrossSalary
+    float TotalDeductions
+    float NetSalary
+    int PaidDays
+    int LopDays
+    string Status
+  }
+  PAYSLIP_DETAILS {
+    int Id PK
+    int PayslipId FK
+    int ComponentId FK
+    float Amount
+    string ComponentType
+  }
+  STATUTORY_DEDUCTIONS {
+    int Id PK
+    int PayslipId FK
+    string Type
+    float EmployeeShare
+    float EmployerShare
+    float TaxableIncome
+    float TdsAmount
+  }
+  JOB_POSTINGS {
+    int Id PK
+    int DesignationId FK
+    int DepartmentId FK
+    int Openings
+    string Status
+    date PostedOn
+    date ClosesOn
+  }
+  APPLICANTS {
+    int Id PK
+    int JobPostingId FK
+    string Name
+    string Email
+    string Phone
+    string ResumeUrl
+    string Status
+  }
+  INTERVIEW_STAGES {
+    int Id PK
+    int ApplicantId FK
+    string Stage
+    date ScheduledOn
+    int InterviewerId FK
+    string Result
+    string Feedback
+  }
+  APPRAISAL_CYCLES {
+    int Id PK
+    string Name
+    date StartDate
+    date EndDate
+    string Status
+  }
+  EMPLOYEE_APPRAISALS {
+    int Id PK
+    int CycleId FK
+    int EmployeeId FK
+    float SelfRating
+    float ManagerRating
+    float FinalRating
+    string Comments
+  }
+
+  %% Auth
+  EMPLOYEES        ||--o| USERS               : "login"
+  USERS            ||--o{ USER_ROLES          : "has"
+  ROLES            ||--o{ USER_ROLES          : "granted to"
+
+  %% Organization
+  %% Note: DEPARTMENTS.ParentDeptId (self-ref) is shown via the FK column rather than a self-loop arc.
+  DEPARTMENTS      ||--o{ DESIGNATIONS        : "contains"
+  DEPARTMENTS      ||--o{ EMPLOYEES           : "houses"
+  DESIGNATIONS     ||--o{ EMPLOYEES           : "held by"
+  EMPLOYEES        ||--o| DEPARTMENTS         : "manages"
+
+  %% Employee history
+  %% Note: EMPLOYEES.ReportingTo (self-ref) is shown via the FK column rather than a self-loop arc.
+  EMPLOYEES        ||--o{ EMPLOYMENT_HISTORY  : "audit trail"
+  DEPARTMENTS      ||--o{ EMPLOYMENT_HISTORY  : "context"
+  DESIGNATIONS     ||--o{ EMPLOYMENT_HISTORY  : "context"
+
+  %% Attendance
+  EMPLOYEES        ||--o{ EMPLOYEE_SHIFTS     : "scheduled in"
+  SHIFTS           ||--o{ EMPLOYEE_SHIFTS     : "covers"
+  EMPLOYEES        ||--o{ ATTENDANCE_LOGS     : "logs"
+
+  %% Leave
+  EMPLOYEES        ||--o{ LEAVE_BALANCES      : "holds"
+  LEAVE_TYPES      ||--o{ LEAVE_BALANCES      : "type"
+  EMPLOYEES        ||--o{ LEAVE_REQUESTS      : "applies"
+  LEAVE_TYPES      ||--o{ LEAVE_REQUESTS      : "type"
+  EMPLOYEES        ||--o{ LEAVE_REQUESTS      : "approves"
+
+  %% Salary
+  SALARY_STRUCTURES ||--o{ SALARY_STRUCTURE_COMPONENTS : "contains"
+  SALARY_COMPONENTS ||--o{ SALARY_STRUCTURE_COMPONENTS : "part of"
+  EMPLOYEES         ||--o{ EMPLOYEE_SALARIES           : "earns"
+  SALARY_STRUCTURES ||--o{ EMPLOYEE_SALARIES           : "applied"
+
+  %% Payroll
+  EMPLOYEES        ||--o{ PAYROLL_RUNS        : "processed by"
+  PAYROLL_RUNS     ||--o{ PAYSLIPS            : "generates"
+  EMPLOYEES        ||--o{ PAYSLIPS            : "receives"
+  PAYSLIPS         ||--o{ PAYSLIP_DETAILS     : "breaks down"
+  SALARY_COMPONENTS ||--o{ PAYSLIP_DETAILS    : "component"
+  PAYSLIPS         ||--o{ STATUTORY_DEDUCTIONS: "includes"
+
+  %% Recruitment
+  DEPARTMENTS      ||--o{ JOB_POSTINGS        : "owns"
+  DESIGNATIONS     ||--o{ JOB_POSTINGS        : "for"
+  JOB_POSTINGS     ||--o{ APPLICANTS          : "receives"
+  APPLICANTS       ||--o{ INTERVIEW_STAGES    : "goes through"
+  EMPLOYEES        ||--o{ INTERVIEW_STAGES    : "interviewer"
+
+  %% Appraisal
+  APPRAISAL_CYCLES ||--o{ EMPLOYEE_APPRAISALS : "contains"
+  EMPLOYEES        ||--o{ EMPLOYEE_APPRAISALS : "evaluated"
+`;
+
+            const { svg } = await mermaid.render('erd-svg', diagram);
+            document.getElementById('erd').innerHTML = svg;
+
+            // Module assignment for each entity
+            const moduleMap = {
+                USERS: 'auth',
+                ROLES: 'auth',
+                USER_ROLES: 'auth',
+                DEPARTMENTS: 'org',
+                DESIGNATIONS: 'org',
+                EMPLOYEES: 'emp',
+                EMPLOYMENT_HISTORY: 'emp',
+                SHIFTS: 'att',
+                EMPLOYEE_SHIFTS: 'att',
+                ATTENDANCE_LOGS: 'att',
+                LEAVE_TYPES: 'leave',
+                LEAVE_BALANCES: 'leave',
+                LEAVE_REQUESTS: 'leave',
+                SALARY_STRUCTURES: 'salary',
+                SALARY_COMPONENTS: 'salary',
+                SALARY_STRUCTURE_COMPONENTS: 'salary',
+                EMPLOYEE_SALARIES: 'salary',
+                PAYROLL_RUNS: 'payroll',
+                PAYSLIPS: 'payroll',
+                PAYSLIP_DETAILS: 'payroll',
+                STATUTORY_DEDUCTIONS: 'payroll',
+                JOB_POSTINGS: 'recruit',
+                APPLICANTS: 'recruit',
+                INTERVIEW_STAGES: 'recruit',
+                APPRAISAL_CYCLES: 'appraisal',
+                EMPLOYEE_APPRAISALS: 'appraisal',
+            };
+
+            // Color each entity box + label by walking the rendered SVG nodes.
+            const root = document.getElementById('erd').querySelector('svg');
+            if (root) {
+                // Mermaid 11 emits g.node containing rect.er.entityBox and text.er.entityLabel
+                root.querySelectorAll('g.node').forEach((g) => {
+                    const label = g.querySelector('text.er.entityLabel');
+                    if (!label) return;
+                    const name = label.textContent.trim();
+                    const mod = moduleMap[name];
+                    if (!mod) return;
+
+                    g.querySelectorAll('rect.er.entityBox').forEach((rect) => rect.classList.add(`module-${mod}`));
+                    label.classList.add(`module-${mod}`);
+                });
+
+                // Make boxes look softer
+                root.querySelectorAll('rect.er.entityBox').forEach((rect) => {
+                    rect.setAttribute('rx', '6');
+                    rect.setAttribute('ry', '6');
+                });
+            }
+
+            // Build the per-table reference cards below the diagram
+            const tableMeta = {
+                USERS: { module: 'auth', desc: 'Login credentials; one user per employee (nullable).', keys: [['Id','pk'],['EmployeeId','fk'],['Email',null]] },
+                ROLES: { module: 'auth', desc: 'Role catalog: ADMIN, HR, MANAGER, EMPLOYEE.', keys: [['Id','pk'],['Name',null]] },
+                USER_ROLES: { module: 'auth', desc: 'Many-to-many bridge for User ↔ Role.', keys: [['Id','pk'],['UserId','fk'],['RoleId','fk']] },
+
+                DEPARTMENTS: { module: 'org', desc: 'Org tree; self-referential parent + manager link.', keys: [['Id','pk'],['ParentDeptId','fk'],['ManagerId','fk']] },
+                DESIGNATIONS: { module: 'org', desc: 'Job titles, scoped to a department.', keys: [['Id','pk'],['DepartmentId','fk']] },
+
+                EMPLOYEES: { module: 'emp', desc: 'Core employee master record.', keys: [['Id','pk'],['EmpCode',null],['DepartmentId','fk'],['DesignationId','fk'],['ReportingTo','fk']] },
+                EMPLOYMENT_HISTORY: { module: 'emp', desc: 'Audit trail of department / designation changes.', keys: [['Id','pk'],['EmployeeId','fk'],['DepartmentId','fk'],['DesignationId','fk']] },
+
+                SHIFTS: { module: 'att', desc: 'Work-shift definitions (general / morning / night).', keys: [['Id','pk'],['Name',null]] },
+                EMPLOYEE_SHIFTS: { module: 'att', desc: 'Employee ↔ shift assignment over time windows.', keys: [['Id','pk'],['EmployeeId','fk'],['ShiftId','fk']] },
+                ATTENDANCE_LOGS: { module: 'att', desc: 'Daily check-in/out; one row per employee per day.', keys: [['Id','pk'],['EmployeeId','fk'],['LogDate',null]] },
+
+                LEAVE_TYPES: { module: 'leave', desc: 'Leave category catalog.', keys: [['Id','pk'],['Name',null]] },
+                LEAVE_BALANCES: { module: 'leave', desc: 'Per-year balance per employee per leave type.', keys: [['Id','pk'],['EmployeeId','fk'],['LeaveTypeId','fk'],['Year',null]] },
+                LEAVE_REQUESTS: { module: 'leave', desc: 'Leave applications with approval workflow.', keys: [['Id','pk'],['EmployeeId','fk'],['LeaveTypeId','fk'],['ApprovedBy','fk']] },
+
+                SALARY_STRUCTURES: { module: 'salary', desc: 'Named salary templates.', keys: [['Id','pk'],['Name',null]] },
+                SALARY_COMPONENTS: { module: 'salary', desc: 'Atomic salary line items (Basic, HRA, PF, TDS).', keys: [['Id','pk'],['Name',null]] },
+                SALARY_STRUCTURE_COMPONENTS: { module: 'salary', desc: 'M2M bridge with the amount/percent override.', keys: [['Id','pk'],['StructureId','fk'],['ComponentId','fk']] },
+                EMPLOYEE_SALARIES: { module: 'salary', desc: 'CTC + assigned structure per employee, dated.', keys: [['Id','pk'],['EmployeeId','fk'],['StructureId','fk']] },
+
+                PAYROLL_RUNS: { module: 'payroll', desc: 'Month-end payroll execution.', keys: [['Id','pk'],['Month',null],['Year',null],['ProcessedBy','fk']] },
+                PAYSLIPS: { module: 'payroll', desc: 'Per-employee payslip generated by a run.', keys: [['Id','pk'],['PayrollRunId','fk'],['EmployeeId','fk']] },
+                PAYSLIP_DETAILS: { module: 'payroll', desc: 'Line items contributing to gross / deductions.', keys: [['Id','pk'],['PayslipId','fk'],['ComponentId','fk']] },
+                STATUTORY_DEDUCTIONS: { module: 'payroll', desc: 'PF / ESI / PT / TDS with employer + employee shares.', keys: [['Id','pk'],['PayslipId','fk']] },
+
+                JOB_POSTINGS: { module: 'recruit', desc: 'Open requisitions tied to dept + designation.', keys: [['Id','pk'],['DesignationId','fk'],['DepartmentId','fk']] },
+                APPLICANTS: { module: 'recruit', desc: 'Candidates who applied to a job posting.', keys: [['Id','pk'],['JobPostingId','fk']] },
+                INTERVIEW_STAGES: { module: 'recruit', desc: 'Per-applicant interview rounds with results.', keys: [['Id','pk'],['ApplicantId','fk'],['InterviewerId','fk']] },
+
+                APPRAISAL_CYCLES: { module: 'appraisal', desc: 'Performance review cycle (H1, Annual).', keys: [['Id','pk'],['Name',null]] },
+                EMPLOYEE_APPRAISALS: { module: 'appraisal', desc: 'Per-employee review record per cycle.', keys: [['Id','pk'],['CycleId','fk'],['EmployeeId','fk']] },
+            };
+
+            const moduleNames = {
+                auth: 'Auth',
+                org: 'Organization',
+                emp: 'Employee',
+                att: 'Attendance',
+                leave: 'Leave',
+                salary: 'Salary',
+                payroll: 'Payroll',
+                recruit: 'Recruitment',
+                appraisal: 'Appraisal',
+            };
+
+            const grid = document.getElementById('tables-grid');
+            for (const [name, meta] of Object.entries(tableMeta)) {
+                const card = document.createElement('div');
+                card.className = `table-card module-${meta.module}`;
+                card.innerHTML = `
+                    <div class="table-name">
+                        <span>${name}</span>
+                        <span class="module-tag">${moduleNames[meta.module]}</span>
+                    </div>
+                    <div class="desc">${meta.desc}</div>
+                    <div class="keys">
+                        ${meta.keys.map(([k, kind]) => `<span class="key ${kind || ''}">${k}</span>`).join('')}
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+        </script>
+    </body>
+</html>

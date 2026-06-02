@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# ------------------------------------------------------------------
+# Pre-commit gate
+#   1. Prettier auto-formats staged files
+#   2. ESLint runs with --max-warnings=0 (any warning aborts the commit)
+#   3. Jest runs related tests + the full suite
+# Any failure aborts the commit.
+# ------------------------------------------------------------------
+set -e
+
+echo "[pre-commit] formatting + linting staged files..."
+npx lint-staged
+
+echo "[pre-commit] running unit tests..."
+npm run test -- --bail --passWithNoTests
+
+echo "[pre-commit] ok — commit allowed."

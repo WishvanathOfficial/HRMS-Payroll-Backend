@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>General Settings — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .setting-section { padding: 24px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); margin-bottom: 18px; }
+            .setting-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; padding: 16px 0; border-bottom: 1px solid var(--border-soft); align-items: center; }
+            .setting-row:last-child { border-bottom: none; }
+            .toggle { width: 40px; height: 22px; background: var(--gray-300); border-radius: 99px; position: relative; cursor: pointer; }
+            .toggle::after { content: ''; position: absolute; width: 16px; height: 16px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: all 0.2s; }
+            .toggle.on { background: var(--primary-500); }
+            .toggle.on::after { left: 21px; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>Settings</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Settings</div>
+                    <a class="nav-item sub" href="roles.html">Roles &amp; permissions</a>
+                    <a class="nav-item sub" href="users.html">Users</a>
+                    <a class="nav-item sub active">General</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">General settings</h1>
+                            <p class="page-subtitle">Organization profile, locale, fiscal year, and feature flags.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3 style="margin: 0 0 4px;">Organization</h3>
+                        <p class="text-muted text-sm" style="margin: 0 0 12px;">Public-facing details used in offer letters, payslips, and email.</p>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Company name</div>
+                                <div class="text-xs text-muted">Shown on all documents</div>
+                            </div>
+                            <input type="text" value="Hyrius Technologies Pvt. Ltd." style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px;" />
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">CIN</div>
+                                <div class="text-xs text-muted">Corporate Identity Number</div>
+                            </div>
+                            <input type="text" value="U72200KA2019PTC125874" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px;" />
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Registered address</div>
+                                <div class="text-xs text-muted">Used in legal documents</div>
+                            </div>
+                            <textarea rows="3" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px; resize: vertical; font-family: inherit;">3rd Floor, Brigade Magnum, Whitefield, Bengaluru 560066</textarea>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3 style="margin: 0 0 4px;">Locale &amp; calendar</h3>
+                        <p class="text-muted text-sm" style="margin: 0 0 12px;">Regional defaults applied across the system.</p>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Time zone</div>
+                                <div class="text-xs text-muted">Default for all schedules and timestamps</div>
+                            </div>
+                            <select style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px;"><option selected>(GMT+5:30) India Standard Time</option><option>(GMT) UTC</option></select>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Currency</div>
+                                <div class="text-xs text-muted">Used in payroll, payslips, reports</div>
+                            </div>
+                            <select style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px;"><option selected>INR · Indian Rupee (₹)</option><option>USD · US Dollar ($)</option></select>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Fiscal year</div>
+                                <div class="text-xs text-muted">Affects appraisal cycles and tax</div>
+                            </div>
+                            <select style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px;"><option selected>April — March</option><option>January — December</option></select>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Week starts on</div>
+                                <div class="text-xs text-muted">Calendar &amp; attendance views</div>
+                            </div>
+                            <select style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px;"><option>Sunday</option><option selected>Monday</option></select>
+                        </div>
+                    </div>
+
+                    <div class="setting-section">
+                        <h3 style="margin: 0 0 4px;">Feature flags</h3>
+                        <p class="text-muted text-sm" style="margin: 0 0 12px;">Toggle modules on or off for the entire organization.</p>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Recruitment module</div>
+                                <div class="text-xs text-muted">Job postings, applicants, interviews</div>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;"><div class="toggle on"></div></div>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Appraisal module</div>
+                                <div class="text-xs text-muted">Performance reviews, calibration</div>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;"><div class="toggle on"></div></div>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Geo-fenced attendance</div>
+                                <div class="text-xs text-muted">Restrict check-ins to office locations</div>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;"><div class="toggle"></div></div>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Mandatory 2FA</div>
+                                <div class="text-xs text-muted">Enforce two-factor for all users</div>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;"><div class="toggle"></div></div>
+                        </div>
+                        <div class="setting-row">
+                            <div>
+                                <div style="font-weight: 600;">Slack notifications</div>
+                                <div class="text-xs text-muted">Send approval requests to Slack</div>
+                            </div>
+                            <div style="display: flex; justify-content: flex-end;"><div class="toggle on"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Self Review — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .step-rail { display: flex; gap: 6px; margin-bottom: 24px; }
+            .step { flex: 1; padding: 12px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-md); position: relative; }
+            .step.done { background: var(--emerald-50); border-color: var(--emerald-100); }
+            .step.active { background: var(--primary-50); border-color: var(--primary-200); box-shadow: var(--shadow-sm); }
+            .step .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--gray-200); color: var(--text-secondary); display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+            .step.done .step-num { background: var(--emerald-500); color: #fff; }
+            .step.active .step-num { background: var(--primary-500); color: #fff; }
+            .rating-row { display: flex; gap: 6px; }
+            .rating-row .star {
+                width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--border-soft); border-radius: 6px; cursor: pointer; transition: all 0.15s;
+            }
+            .rating-row .star.filled { background: var(--amber-50); border-color: var(--amber-500); color: var(--amber-600); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>Self-service</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">My workspace</div>
+                    <a class="nav-item" href="../dashboard/employee.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/></svg>My review</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-2">DP</div><div><div class="name">Diya Patel</div></div><span class="role">Employee</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">H1 2026 self-review</h1>
+                            <p class="page-subtitle">Due June 15, 2026 · Manager: Priya Reddy</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Save draft</button>
+                            <button class="btn btn-primary">Submit to manager</button>
+                        </div>
+                    </div>
+
+                    <div class="step-rail">
+                        <div class="step done"><div style="display: flex; align-items: center; gap: 10px;"><span class="step-num">✓</span><div><div style="font-weight: 600; font-size: 13px;">Goals review</div><div class="text-xs text-muted">Q1 + Q2 goals</div></div></div></div>
+                        <div class="step active"><div style="display: flex; align-items: center; gap: 10px;"><span class="step-num">2</span><div><div style="font-weight: 600; font-size: 13px;">Competencies</div><div class="text-xs text-muted">Rate yourself</div></div></div></div>
+                        <div class="step"><div style="display: flex; align-items: center; gap: 10px;"><span class="step-num">3</span><div><div style="font-weight: 600; font-size: 13px;">Achievements</div><div class="text-xs text-muted">Top 3 wins</div></div></div></div>
+                        <div class="step"><div style="display: flex; align-items: center; gap: 10px;"><span class="step-num">4</span><div><div style="font-weight: 600; font-size: 13px;">Growth areas</div><div class="text-xs text-muted">Development</div></div></div></div>
+                        <div class="step"><div style="display: flex; align-items: center; gap: 10px;"><span class="step-num">5</span><div><div style="font-weight: 600; font-size: 13px;">Review</div><div class="text-xs text-muted">Submit</div></div></div></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><div><h3 class="card-title">Step 2 · Competencies</h3><p class="card-subtitle">Rate yourself honestly · 1 (developing) to 5 (exceeds expectations)</p></div></div>
+
+                        <div style="display: flex; flex-direction: column; gap: 22px;">
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div><div style="font-weight: 700;">Technical proficiency</div><div class="text-xs text-muted">Depth of expertise in your craft</div></div>
+                                    <div class="rating-row">
+                                        <div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star">★</div>
+                                    </div>
+                                </div>
+                                <textarea rows="2" placeholder="Optional context…" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px; resize: vertical; font-family: inherit;">Led the migration to React 19 RSC; mentored 2 juniors. Want to deepen on perf profiling.</textarea>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div><div style="font-weight: 700;">Collaboration &amp; communication</div><div class="text-xs text-muted">Working with team and stakeholders</div></div>
+                                    <div class="rating-row">
+                                        <div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div>
+                                    </div>
+                                </div>
+                                <textarea rows="2" placeholder="Optional context…" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px; resize: vertical; font-family: inherit;">Drove RFC alignment with backend and design; ran biweekly platform demos.</textarea>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div><div style="font-weight: 700;">Ownership &amp; delivery</div><div class="text-xs text-muted">Outcomes shipped on time</div></div>
+                                    <div class="rating-row">
+                                        <div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star">★</div>
+                                    </div>
+                                </div>
+                                <textarea rows="2" placeholder="Optional context…" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px; resize: vertical; font-family: inherit;">Shipped 4/5 OKRs. One slipped due to dependency change.</textarea>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div><div style="font-weight: 700;">Leadership &amp; mentorship</div><div class="text-xs text-muted">Growing the team around you</div></div>
+                                    <div class="rating-row">
+                                        <div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star">★</div><div class="star">★</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                    <div><div style="font-weight: 700;">Innovation &amp; impact</div><div class="text-xs text-muted">Going beyond the brief</div></div>
+                                    <div class="rating-row">
+                                        <div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star filled">★</div><div class="star">★</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-soft);">
+                            <div><div class="text-xs text-muted">Self-rating average</div><div style="font-weight: 700; font-size: 20px; color: var(--primary-700);">★ 4.2 / 5.0</div></div>
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-ghost">← Back</button>
+                                <button class="btn btn-primary">Next · Achievements →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

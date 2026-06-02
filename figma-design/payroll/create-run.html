@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Create Payroll Run — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .wizard-rail { display: flex; gap: 0; margin-bottom: 28px; }
+            .wizard-step { flex: 1; padding: 14px; background: #fff; border: 1px solid var(--border-soft); position: relative; }
+            .wizard-step:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+            .wizard-step:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+            .wizard-step + .wizard-step { border-left: none; }
+            .wizard-step.done { background: var(--emerald-50); border-color: var(--emerald-200); }
+            .wizard-step.active { background: var(--primary-50); border-color: var(--primary-200); }
+            .wizard-step .num { width: 22px; height: 22px; border-radius: 50%; background: var(--gray-200); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+            .wizard-step.done .num { background: var(--emerald-500); color: #fff; }
+            .wizard-step.active .num { background: var(--primary-500); color: #fff; }
+            .summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-soft); }
+            .summary-row:last-child { border-bottom: none; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/></svg>Payroll</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Payroll</div>
+                    <a class="nav-item sub" href="runs.html">Runs</a>
+                    <a class="nav-item sub active">New run</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Create payroll run</h1>
+                            <p class="page-subtitle">May 2026 payroll · 1,247 employees</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Save draft</button>
+                            <button class="btn btn-primary">Calculate &amp; preview</button>
+                        </div>
+                    </div>
+
+                    <div class="wizard-rail">
+                        <div class="wizard-step done"><div style="display: flex; align-items: center; gap: 10px;"><span class="num">✓</span><div><div style="font-weight: 600; font-size: 13px;">Period</div></div></div></div>
+                        <div class="wizard-step done"><div style="display: flex; align-items: center; gap: 10px;"><span class="num">✓</span><div><div style="font-weight: 600; font-size: 13px;">Inclusions</div></div></div></div>
+                        <div class="wizard-step active"><div style="display: flex; align-items: center; gap: 10px;"><span class="num">3</span><div><div style="font-weight: 600; font-size: 13px;">Adjustments</div></div></div></div>
+                        <div class="wizard-step"><div style="display: flex; align-items: center; gap: 10px;"><span class="num">4</span><div><div style="font-weight: 600; font-size: 13px;">Preview</div></div></div></div>
+                        <div class="wizard-step"><div style="display: flex; align-items: center; gap: 10px;"><span class="num">5</span><div><div style="font-weight: 600; font-size: 13px;">Approve</div></div></div></div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+                        <div class="card">
+                            <div class="card-header"><div><h3 class="card-title">Step 3 · One-off adjustments</h3><p class="card-subtitle">Bonuses, deductions, or arrears for this run only</p></div><button class="btn btn-primary btn-sm">+ Add adjustment</button></div>
+
+                            <table class="data-table">
+                                <thead>
+                                    <tr><th>Employee</th><th>Type</th><th>Component</th><th>Amount</th><th>Note</th><th></th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-2 sm">AS</div>Aarav Sharma</div></td><td><span class="badge badge-success">Earning</span></td><td>Performance bonus</td><td style="font-weight: 700;">+ ₹1,20,000</td><td class="text-xs text-muted">Q1 OKR overachievement</td><td><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-4 sm">DP</div>Diya Patel</div></td><td><span class="badge badge-success">Earning</span></td><td>Spot bonus</td><td style="font-weight: 700;">+ ₹50,000</td><td class="text-xs text-muted">Migration delivery</td><td><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-1 sm">RK</div>Rohit Kumar</div></td><td><span class="badge badge-info">Arrear</span></td><td>Salary revision</td><td style="font-weight: 700;">+ ₹18,200</td><td class="text-xs text-muted">Effective Apr 1, paid this run</td><td><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-6 sm">AM</div>Arjun Mehta</div></td><td><span class="badge badge-danger">Deduction</span></td><td>Loan EMI</td><td style="font-weight: 700; color: var(--red-600);">− ₹8,500</td><td class="text-xs text-muted">Personal loan, EMI 4/24</td><td><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                    <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-7 sm">SI</div>Sneha Iyer</div></td><td><span class="badge badge-success">Earning</span></td><td>Referral bonus</td><td style="font-weight: 700;">+ ₹25,000</td><td class="text-xs text-muted">Hire confirmed</td><td><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                </tbody>
+                            </table>
+
+                            <div style="margin-top: 18px; padding: 14px; background: var(--gray-50); border-radius: var(--radius-md); display: flex; justify-content: space-between;">
+                                <span class="text-muted">5 adjustments · total +₹2,04,700</span>
+                                <button class="btn btn-ghost btn-sm">Bulk upload CSV</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="card">
+                                <div class="card-header"><div><h3 class="card-title">Run summary</h3></div></div>
+                                <div class="summary-row"><span class="text-muted">Period</span><strong>May 2026</strong></div>
+                                <div class="summary-row"><span class="text-muted">Pay date</span><strong>Jun 1, 2026</strong></div>
+                                <div class="summary-row"><span class="text-muted">Employees</span><strong>1,247</strong></div>
+                                <div class="summary-row"><span class="text-muted">Working days</span><strong>22</strong></div>
+                                <div class="summary-row"><span class="text-muted">New hires</span><strong>14</strong></div>
+                                <div class="summary-row"><span class="text-muted">Exits</span><strong>3</strong></div>
+                                <hr style="border: none; border-top: 1px solid var(--border-soft); margin: 14px 0;" />
+                                <div class="summary-row"><span class="text-muted">Est. gross</span><strong>₹14.2 Cr</strong></div>
+                                <div class="summary-row"><span class="text-muted">Adjustments</span><strong style="color: var(--emerald-600);">+ ₹2.05 L</strong></div>
+                                <div class="summary-row"><span class="text-muted">Statutory</span><strong style="color: var(--red-600);">− ₹68.4 L</strong></div>
+                                <div class="summary-row" style="font-size: 16px;"><span><strong>Est. net payout</strong></span><strong style="color: var(--emerald-700);">₹13.55 Cr</strong></div>
+                            </div>
+
+                            <div class="card" style="margin-top: 18px;">
+                                <div class="card-header"><div><h3 class="card-title">Pre-flight checks</h3></div></div>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px;"><span style="color: var(--emerald-600);">✓</span> Attendance synced for all employees</div>
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px;"><span style="color: var(--emerald-600);">✓</span> Leave balances locked</div>
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px;"><span style="color: var(--emerald-600);">✓</span> Statutory rates current (FY26-27)</div>
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px;"><span style="color: var(--amber-600);">⚠</span> 4 employees missing PAN</div>
+                                    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px;"><span style="color: var(--text-muted);">○</span> Bank file generation pending</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

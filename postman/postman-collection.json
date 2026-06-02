@@ -1,0 +1,1492 @@
+{
+  "info": {
+    "_postman_id": "hrms-payroll-collection",
+    "name": "HRMS & Payroll API",
+    "description": "Postman collection for the HRMS & Payroll backend. Grouped by feature module. First, run **Auth → Login** — its test script auto-saves `accessToken` + `refreshToken` to the collection variables; every other request then uses them via the collection-level Bearer auth.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{accessToken}}", "type": "string" }]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api/v1" },
+    { "key": "accessToken", "value": "" },
+    { "key": "refreshToken", "value": "" },
+    { "key": "adminEmail", "value": "admin@company.com" },
+    { "key": "adminPassword", "value": "Admin@123" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health check",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+          }
+        },
+        {
+          "name": "API index",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/", "host": ["{{baseUrl}}"], "path": [""] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login (saves tokens)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const body = pm.response.json();",
+                  "  if (body && body.data && body.data.tokens) {",
+                  "    pm.collectionVariables.set('accessToken', body.data.tokens.accessToken);",
+                  "    pm.collectionVariables.set('refreshToken', body.data.tokens.refreshToken);",
+                  "    console.log('Saved accessToken + refreshToken to collection variables.');",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Refresh token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "  const body = pm.response.json();",
+                  "  if (body && body.data) {",
+                  "    pm.collectionVariables.set('accessToken', body.data.accessToken);",
+                  "    pm.collectionVariables.set('refreshToken', body.data.refreshToken);",
+                  "  }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/auth/refresh", "host": ["{{baseUrl}}"], "path": ["auth", "refresh"] }
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        },
+        {
+          "name": "Change password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"Admin@123\",\n  \"newPassword\": \"NewStrongPw!2026\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/auth/change-password", "host": ["{{baseUrl}}"], "path": ["auth", "change-password"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth", "logout"] }
+          }
+        },
+        {
+          "name": "Register user (ADMIN / HR only)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newhire@company.com\",\n  \"password\": \"TempPw@2026\",\n  \"employeeId\": 11,\n  \"roles\": [\"EMPLOYEE\"]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Departments",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/departments?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["departments"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "q", "value": "", "disabled": true },
+                { "key": "parentDeptId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Engineering\",\n  \"parentDeptId\": null,\n  \"managerId\": null\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/departments", "host": ["{{baseUrl}}"], "path": ["departments"] }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/departments/1", "host": ["{{baseUrl}}"], "path": ["departments", "1"] }
+          }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Engineering - Renamed\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/departments/1", "host": ["{{baseUrl}}"], "path": ["departments", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/departments/1", "host": ["{{baseUrl}}"], "path": ["departments", "1"] }
+          }
+        },
+        {
+          "name": "Employees in department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/departments/1/employees", "host": ["{{baseUrl}}"], "path": ["departments", "1", "employees"] }
+          }
+        },
+        {
+          "name": "Designations in department",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/departments/1/designations", "host": ["{{baseUrl}}"], "path": ["departments", "1", "designations"] }
+          }
+        },
+        {
+          "name": "Children (sub-departments)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/departments/1/children", "host": ["{{baseUrl}}"], "path": ["departments", "1", "children"] }
+          }
+        },
+        {
+          "name": "Full (with parent, children, manager, designations)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/departments/1/full", "host": ["{{baseUrl}}"], "path": ["departments", "1", "full"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Designations",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/designations?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["designations"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "q", "value": "", "disabled": true },
+                { "key": "departmentId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List with department (joined)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/designations/with-department", "host": ["{{baseUrl}}"], "path": ["designations", "with-department"] }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Software Engineer II\",\n  \"grade\": \"L2\",\n  \"departmentId\": 6\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/designations", "host": ["{{baseUrl}}"], "path": ["designations"] }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/designations/1", "host": ["{{baseUrl}}"], "path": ["designations", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Senior Software Engineer\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/designations/1", "host": ["{{baseUrl}}"], "path": ["designations", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/designations/1", "host": ["{{baseUrl}}"], "path": ["designations", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employees?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["employees"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "q", "value": "", "disabled": true },
+                { "key": "departmentId", "value": "", "disabled": true },
+                { "key": "designationId", "value": "", "disabled": true },
+                { "key": "status", "value": "ACTIVE", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"empCode\": \"EMP0099\",\n  \"firstName\": \"Sample\",\n  \"lastName\": \"Hire\",\n  \"email\": \"sample.hire@company.com\",\n  \"phone\": \"9876500099\",\n  \"dob\": \"1995-01-01\",\n  \"gender\": \"MALE\",\n  \"joinDate\": \"2026-05-01\",\n  \"departmentId\": 6,\n  \"designationId\": 1,\n  \"reportingTo\": 2,\n  \"status\": \"ACTIVE\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/employees", "host": ["{{baseUrl}}"], "path": ["employees"] }
+          }
+        },
+        {
+          "name": "Get by empCode",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employees/code/EMP0001", "host": ["{{baseUrl}}"], "path": ["employees", "code", "EMP0001"] } }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employees/1", "host": ["{{baseUrl}}"], "path": ["employees", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9999999999\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employees/1", "host": ["{{baseUrl}}"], "path": ["employees", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/employees/1", "host": ["{{baseUrl}}"], "path": ["employees", "1"] } }
+        },
+        {
+          "name": "Reportees",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employees/1/reportees", "host": ["{{baseUrl}}"], "path": ["employees", "1", "reportees"] } }
+        },
+        {
+          "name": "Set status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"INACTIVE\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employees/1/status", "host": ["{{baseUrl}}"], "path": ["employees", "1", "status"] }
+          }
+        },
+        {
+          "name": "Full profile (department, designation, manager, salary, balances)",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employees/1/profile", "host": ["{{baseUrl}}"], "path": ["employees", "1", "profile"] } }
+        }
+      ]
+    },
+    {
+      "name": "Employment History",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employment-history?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["employment-history"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "employeeId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"departmentId\": 1,\n  \"designationId\": 3,\n  \"effectiveFrom\": \"2023-01-01\",\n  \"effectiveTo\": null,\n  \"reason\": \"Promoted\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/employment-history", "host": ["{{baseUrl}}"], "path": ["employment-history"] }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employment-history/1", "host": ["{{baseUrl}}"], "path": ["employment-history", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"reason\": \"Corrected\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employment-history/1", "host": ["{{baseUrl}}"], "path": ["employment-history", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/employment-history/1", "host": ["{{baseUrl}}"], "path": ["employment-history", "1"] } }
+        },
+        {
+          "name": "By employee",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employment-history/employee/1", "host": ["{{baseUrl}}"], "path": ["employment-history", "employee", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Shifts",
+      "item": [
+        {
+          "name": "List",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/shifts?page=1&limit=20", "host": ["{{baseUrl}}"], "path": ["shifts"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "20" }] } }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Weekend Shift\",\n  \"startTime\": \"10:00:00\",\n  \"endTime\": \"18:00:00\",\n  \"weeklyOffDay\": 0,\n  \"overtimeMultiplier\": 1.5\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/shifts", "host": ["{{baseUrl}}"], "path": ["shifts"] }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/shifts/1", "host": ["{{baseUrl}}"], "path": ["shifts", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"overtimeMultiplier\": 2.0\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/shifts/1", "host": ["{{baseUrl}}"], "path": ["shifts", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/shifts/1", "host": ["{{baseUrl}}"], "path": ["shifts", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Employee Shifts",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee-shifts?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee-shifts"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "employeeId", "value": "", "disabled": true },
+                { "key": "shiftId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"shiftId\": 1,\n  \"effectiveFrom\": \"2024-01-01\",\n  \"effectiveTo\": null\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/employee-shifts", "host": ["{{baseUrl}}"], "path": ["employee-shifts"] }
+          }
+        },
+        {
+          "name": "Current shift for employee",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employee-shifts/employee/1/current", "host": ["{{baseUrl}}"], "path": ["employee-shifts", "employee", "1", "current"] } }
+        },
+        {
+          "name": "Shift history for employee",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employee-shifts/employee/1/history", "host": ["{{baseUrl}}"], "path": ["employee-shifts", "employee", "1", "history"] } }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employee-shifts/1", "host": ["{{baseUrl}}"], "path": ["employee-shifts", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"effectiveTo\": \"2026-12-31\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employee-shifts/1", "host": ["{{baseUrl}}"], "path": ["employee-shifts", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/employee-shifts/1", "host": ["{{baseUrl}}"], "path": ["employee-shifts", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Attendance Logs",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/attendance-logs?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["attendance-logs"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "employeeId", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true },
+                { "key": "from", "value": "", "disabled": true },
+                { "key": "to", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"logDate\": \"2026-05-13\",\n  \"checkIn\": \"2026-05-13 09:05:00\",\n  \"checkOut\": \"2026-05-13 18:10:00\",\n  \"workHours\": 9,\n  \"status\": \"PRESENT\",\n  \"source\": \"BIOMETRIC\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/attendance-logs", "host": ["{{baseUrl}}"], "path": ["attendance-logs"] }
+          }
+        },
+        {
+          "name": "Check-in",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"source\": \"WEB\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/attendance-logs/check-in", "host": ["{{baseUrl}}"], "path": ["attendance-logs", "check-in"] }
+          }
+        },
+        {
+          "name": "Check-out",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"source\": \"WEB\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/attendance-logs/check-out", "host": ["{{baseUrl}}"], "path": ["attendance-logs", "check-out"] }
+          }
+        },
+        {
+          "name": "Monthly summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/attendance-logs/summary/1?year=2026&month=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["attendance-logs", "summary", "1"],
+              "query": [
+                { "key": "year", "value": "2026" },
+                { "key": "month", "value": "5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/attendance-logs/1", "host": ["{{baseUrl}}"], "path": ["attendance-logs", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"LATE\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/attendance-logs/1", "host": ["{{baseUrl}}"], "path": ["attendance-logs", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/attendance-logs/1", "host": ["{{baseUrl}}"], "path": ["attendance-logs", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Leave Types",
+      "item": [
+        {
+          "name": "List",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/leave-types", "host": ["{{baseUrl}}"], "path": ["leave-types"] } }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Compensatory Off\",\n  \"daysAllowed\": 5,\n  \"isPaid\": true,\n  \"carryForward\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/leave-types", "host": ["{{baseUrl}}"], "path": ["leave-types"] }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/leave-types/1", "host": ["{{baseUrl}}"], "path": ["leave-types", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"daysAllowed\": 14\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/leave-types/1", "host": ["{{baseUrl}}"], "path": ["leave-types", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/leave-types/1", "host": ["{{baseUrl}}"], "path": ["leave-types", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Leave Balances",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/leave-balances?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["leave-balances"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "employeeId", "value": "", "disabled": true },
+                { "key": "year", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 1,\n  \"leaveTypeId\": 1,\n  \"year\": 2026,\n  \"allocated\": 12,\n  \"used\": 0\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/leave-balances", "host": ["{{baseUrl}}"], "path": ["leave-balances"] }
+          }
+        },
+        {
+          "name": "By employee",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/leave-balances/employee/1?year=2026",
+              "host": ["{{baseUrl}}"],
+              "path": ["leave-balances", "employee", "1"],
+              "query": [{ "key": "year", "value": "2026" }]
+            }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/leave-balances/1", "host": ["{{baseUrl}}"], "path": ["leave-balances", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"used\": 2\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/leave-balances/1", "host": ["{{baseUrl}}"], "path": ["leave-balances", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/leave-balances/1", "host": ["{{baseUrl}}"], "path": ["leave-balances", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Leave Requests",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/leave-requests?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["leave-requests"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "employeeId", "value": "", "disabled": true },
+                { "key": "status", "value": "PENDING", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List with relations (employee + type + approver)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/leave-requests/with-relations?status=PENDING",
+              "host": ["{{baseUrl}}"],
+              "path": ["leave-requests", "with-relations"],
+              "query": [{ "key": "status", "value": "PENDING" }]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 10,\n  \"leaveTypeId\": 1,\n  \"fromDate\": \"2026-06-01\",\n  \"toDate\": \"2026-06-02\",\n  \"reason\": \"Family event\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/leave-requests", "host": ["{{baseUrl}}"], "path": ["leave-requests"] }
+          }
+        },
+        {
+          "name": "Get by id",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/leave-requests/1", "host": ["{{baseUrl}}"], "path": ["leave-requests", "1"] } }
+        },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"reason\": \"Updated reason\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/leave-requests/1", "host": ["{{baseUrl}}"], "path": ["leave-requests", "1"] }
+          }
+        },
+        {
+          "name": "Delete",
+          "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/leave-requests/1", "host": ["{{baseUrl}}"], "path": ["leave-requests", "1"] } }
+        },
+        {
+          "name": "Approve",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"approvedBy\": 1\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/leave-requests/1/approve", "host": ["{{baseUrl}}"], "path": ["leave-requests", "1", "approve"] }
+          }
+        },
+        {
+          "name": "Reject",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"approvedBy\": 1\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/leave-requests/1/reject", "host": ["{{baseUrl}}"], "path": ["leave-requests", "1", "reject"] }
+          }
+        },
+        {
+          "name": "Cancel",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/leave-requests/1/cancel", "host": ["{{baseUrl}}"], "path": ["leave-requests", "1", "cancel"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Salary Structures",
+      "item": [
+        { "name": "List", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/salary-structures", "host": ["{{baseUrl}}"], "path": ["salary-structures"] } } },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Director Structure\",\n  \"description\": \"For director-level employees\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/salary-structures", "host": ["{{baseUrl}}"], "path": ["salary-structures"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/salary-structures/1", "host": ["{{baseUrl}}"], "path": ["salary-structures", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"description\": \"Updated\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/salary-structures/1", "host": ["{{baseUrl}}"], "path": ["salary-structures", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/salary-structures/1", "host": ["{{baseUrl}}"], "path": ["salary-structures", "1"] } } },
+        { "name": "With components", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/salary-structures/1/components", "host": ["{{baseUrl}}"], "path": ["salary-structures", "1", "components"] } } }
+      ]
+    },
+    {
+      "name": "Salary Components",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/salary-components",
+              "host": ["{{baseUrl}}"],
+              "path": ["salary-components"],
+              "query": [{ "key": "type", "value": "EARNING", "disabled": true }]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bonus\",\n  \"type\": \"EARNING\",\n  \"calcType\": \"FIXED\",\n  \"value\": 5000,\n  \"taxable\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/salary-components", "host": ["{{baseUrl}}"], "path": ["salary-components"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/salary-components/1", "host": ["{{baseUrl}}"], "path": ["salary-components", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"value\": 6000\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/salary-components/1", "host": ["{{baseUrl}}"], "path": ["salary-components", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/salary-components/1", "host": ["{{baseUrl}}"], "path": ["salary-components", "1"] } } }
+      ]
+    },
+    {
+      "name": "Salary Structure Components",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/salary-structure-components",
+              "host": ["{{baseUrl}}"],
+              "path": ["salary-structure-components"],
+              "query": [{ "key": "structureId", "value": "", "disabled": true }]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"structureId\": 1,\n  \"componentId\": 1,\n  \"amount\": 0,\n  \"percentage\": 40\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/salary-structure-components", "host": ["{{baseUrl}}"], "path": ["salary-structure-components"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/salary-structure-components/1", "host": ["{{baseUrl}}"], "path": ["salary-structure-components", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"percentage\": 45\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/salary-structure-components/1", "host": ["{{baseUrl}}"], "path": ["salary-structure-components", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/salary-structure-components/1", "host": ["{{baseUrl}}"], "path": ["salary-structure-components", "1"] } } }
+      ]
+    },
+    {
+      "name": "Employee Salaries",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee-salaries?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee-salaries"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "employeeId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeId\": 10,\n  \"structureId\": 1,\n  \"ctc\": 720000,\n  \"effectiveFrom\": \"2024-01-01\",\n  \"effectiveTo\": null\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/employee-salaries", "host": ["{{baseUrl}}"], "path": ["employee-salaries"] }
+          }
+        },
+        {
+          "name": "Current for employee",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employee-salaries/employee/1/current", "host": ["{{baseUrl}}"], "path": ["employee-salaries", "employee", "1", "current"] } }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employee-salaries/1", "host": ["{{baseUrl}}"], "path": ["employee-salaries", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"ctc\": 800000\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employee-salaries/1", "host": ["{{baseUrl}}"], "path": ["employee-salaries", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/employee-salaries/1", "host": ["{{baseUrl}}"], "path": ["employee-salaries", "1"] } } }
+      ]
+    },
+    {
+      "name": "Payroll Runs",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payroll-runs?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["payroll-runs"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "year", "value": "", "disabled": true },
+                { "key": "month", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"month\": 5,\n  \"year\": 2026\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/payroll-runs", "host": ["{{baseUrl}}"], "path": ["payroll-runs"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/payroll-runs/1", "host": ["{{baseUrl}}"], "path": ["payroll-runs", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"DRAFT\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/payroll-runs/1", "host": ["{{baseUrl}}"], "path": ["payroll-runs", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/payroll-runs/1", "host": ["{{baseUrl}}"], "path": ["payroll-runs", "1"] } } },
+        {
+          "name": "Process (generate payslips)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"processedBy\": 5\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/payroll-runs/1/process", "host": ["{{baseUrl}}"], "path": ["payroll-runs", "1", "process"] }
+          }
+        },
+        {
+          "name": "Lock",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/payroll-runs/1/lock", "host": ["{{baseUrl}}"], "path": ["payroll-runs", "1", "lock"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payslips",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payslips?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["payslips"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "payrollRunId", "value": "", "disabled": true },
+                { "key": "employeeId", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payrollRunId\": 1,\n  \"employeeId\": 1,\n  \"grossSalary\": 200000,\n  \"totalDeductions\": 44000,\n  \"netSalary\": 156000,\n  \"paidDays\": 30,\n  \"lopDays\": 0,\n  \"status\": \"GENERATED\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/payslips", "host": ["{{baseUrl}}"], "path": ["payslips"] }
+          }
+        },
+        {
+          "name": "By employee",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/payslips/employee/1", "host": ["{{baseUrl}}"], "path": ["payslips", "employee", "1"] } }
+        },
+        {
+          "name": "Detailed (line items + statutory)",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/payslips/1/detailed", "host": ["{{baseUrl}}"], "path": ["payslips", "1", "detailed"] } }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/payslips/1", "host": ["{{baseUrl}}"], "path": ["payslips", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"paidDays\": 30\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/payslips/1", "host": ["{{baseUrl}}"], "path": ["payslips", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/payslips/1", "host": ["{{baseUrl}}"], "path": ["payslips", "1"] } } },
+        {
+          "name": "Mark paid",
+          "request": { "method": "POST", "header": [], "url": { "raw": "{{baseUrl}}/payslips/1/mark-paid", "host": ["{{baseUrl}}"], "path": ["payslips", "1", "mark-paid"] } }
+        }
+      ]
+    },
+    {
+      "name": "Payslip Details",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payslip-details",
+              "host": ["{{baseUrl}}"],
+              "path": ["payslip-details"],
+              "query": [{ "key": "payslipId", "value": "", "disabled": true }]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payslipId\": 1,\n  \"componentId\": 1,\n  \"amount\": 80000,\n  \"componentType\": \"EARNING\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/payslip-details", "host": ["{{baseUrl}}"], "path": ["payslip-details"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/payslip-details/1", "host": ["{{baseUrl}}"], "path": ["payslip-details", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"amount\": 85000\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/payslip-details/1", "host": ["{{baseUrl}}"], "path": ["payslip-details", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/payslip-details/1", "host": ["{{baseUrl}}"], "path": ["payslip-details", "1"] } } }
+      ]
+    },
+    {
+      "name": "Statutory Deductions",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/statutory-deductions",
+              "host": ["{{baseUrl}}"],
+              "path": ["statutory-deductions"],
+              "query": [
+                { "key": "payslipId", "value": "", "disabled": true },
+                { "key": "type", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payslipId\": 1,\n  \"type\": \"PF\",\n  \"employeeShare\": 9600,\n  \"employerShare\": 9600,\n  \"taxableIncome\": 200000,\n  \"tdsAmount\": 0\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/statutory-deductions", "host": ["{{baseUrl}}"], "path": ["statutory-deductions"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/statutory-deductions/1", "host": ["{{baseUrl}}"], "path": ["statutory-deductions", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"tdsAmount\": 5000\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/statutory-deductions/1", "host": ["{{baseUrl}}"], "path": ["statutory-deductions", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/statutory-deductions/1", "host": ["{{baseUrl}}"], "path": ["statutory-deductions", "1"] } } }
+      ]
+    },
+    {
+      "name": "Job Postings",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/job-postings?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["job-postings"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "status", "value": "OPEN", "disabled": true },
+                { "key": "departmentId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List with relations (department + designation)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/job-postings/with-relations?status=OPEN",
+              "host": ["{{baseUrl}}"],
+              "path": ["job-postings", "with-relations"],
+              "query": [{ "key": "status", "value": "OPEN" }]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"designationId\": 1,\n  \"departmentId\": 6,\n  \"openings\": 3,\n  \"status\": \"OPEN\",\n  \"postedOn\": \"2026-05-01\",\n  \"closesOn\": \"2026-07-31\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/job-postings", "host": ["{{baseUrl}}"], "path": ["job-postings"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/job-postings/1", "host": ["{{baseUrl}}"], "path": ["job-postings", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"openings\": 5\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/job-postings/1", "host": ["{{baseUrl}}"], "path": ["job-postings", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/job-postings/1", "host": ["{{baseUrl}}"], "path": ["job-postings", "1"] } } },
+        {
+          "name": "Close",
+          "request": { "method": "POST", "header": [], "url": { "raw": "{{baseUrl}}/job-postings/1/close", "host": ["{{baseUrl}}"], "path": ["job-postings", "1", "close"] } }
+        },
+        {
+          "name": "Applicants for posting",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/job-postings/1/applicants", "host": ["{{baseUrl}}"], "path": ["job-postings", "1", "applicants"] } }
+        }
+      ]
+    },
+    {
+      "name": "Applicants",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/applicants?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["applicants"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "jobPostingId", "value": "", "disabled": true },
+                { "key": "status", "value": "", "disabled": true },
+                { "key": "q", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jobPostingId\": 1,\n  \"name\": \"New Candidate\",\n  \"email\": \"candidate@mail.com\",\n  \"phone\": \"9000000100\",\n  \"resumeUrl\": \"https://example.com/resume/new.pdf\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/applicants", "host": ["{{baseUrl}}"], "path": ["applicants"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/applicants/1", "host": ["{{baseUrl}}"], "path": ["applicants", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9111111111\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/applicants/1", "host": ["{{baseUrl}}"], "path": ["applicants", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/applicants/1", "host": ["{{baseUrl}}"], "path": ["applicants", "1"] } } },
+        {
+          "name": "Change status",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"HIRED\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/applicants/1/status", "host": ["{{baseUrl}}"], "path": ["applicants", "1", "status"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interview Stages",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/interview-stages",
+              "host": ["{{baseUrl}}"],
+              "path": ["interview-stages"],
+              "query": [
+                { "key": "applicantId", "value": "", "disabled": true },
+                { "key": "result", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applicantId\": 1,\n  \"stage\": \"System Design\",\n  \"scheduledOn\": \"2026-05-20\",\n  \"interviewerId\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/interview-stages", "host": ["{{baseUrl}}"], "path": ["interview-stages"] }
+          }
+        },
+        {
+          "name": "By applicant",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/interview-stages/applicant/1", "host": ["{{baseUrl}}"], "path": ["interview-stages", "applicant", "1"] } }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/interview-stages/1", "host": ["{{baseUrl}}"], "path": ["interview-stages", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"feedback\": \"Strong design fundamentals\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/interview-stages/1", "host": ["{{baseUrl}}"], "path": ["interview-stages", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/interview-stages/1", "host": ["{{baseUrl}}"], "path": ["interview-stages", "1"] } } },
+        {
+          "name": "Record result",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"result\": \"PASSED\",\n  \"feedback\": \"Great fit\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/interview-stages/1/result", "host": ["{{baseUrl}}"], "path": ["interview-stages", "1", "result"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Appraisal Cycles",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appraisal-cycles",
+              "host": ["{{baseUrl}}"],
+              "path": ["appraisal-cycles"],
+              "query": [{ "key": "status", "value": "ACTIVE", "disabled": true }]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"H2 2026 Review\",\n  \"startDate\": \"2026-07-01\",\n  \"endDate\": \"2026-12-31\",\n  \"status\": \"UPCOMING\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/appraisal-cycles", "host": ["{{baseUrl}}"], "path": ["appraisal-cycles"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/appraisal-cycles/1", "host": ["{{baseUrl}}"], "path": ["appraisal-cycles", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"ACTIVE\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/appraisal-cycles/1", "host": ["{{baseUrl}}"], "path": ["appraisal-cycles", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/appraisal-cycles/1", "host": ["{{baseUrl}}"], "path": ["appraisal-cycles", "1"] } } },
+        {
+          "name": "Appraisals in cycle",
+          "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/appraisal-cycles/1/appraisals", "host": ["{{baseUrl}}"], "path": ["appraisal-cycles", "1", "appraisals"] } }
+        }
+      ]
+    },
+    {
+      "name": "Employee Appraisals",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/employee-appraisals?page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["employee-appraisals"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" },
+                { "key": "cycleId", "value": "", "disabled": true },
+                { "key": "employeeId", "value": "", "disabled": true }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cycleId\": 1,\n  \"employeeId\": 5,\n  \"selfRating\": 4.0,\n  \"managerRating\": 0,\n  \"finalRating\": 0,\n  \"comments\": \"In progress\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": { "raw": "{{baseUrl}}/employee-appraisals", "host": ["{{baseUrl}}"], "path": ["employee-appraisals"] }
+          }
+        },
+        { "name": "Get by id", "request": { "method": "GET", "header": [], "url": { "raw": "{{baseUrl}}/employee-appraisals/1", "host": ["{{baseUrl}}"], "path": ["employee-appraisals", "1"] } } },
+        {
+          "name": "Update",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"managerRating\": 4.2\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employee-appraisals/1", "host": ["{{baseUrl}}"], "path": ["employee-appraisals", "1"] }
+          }
+        },
+        { "name": "Delete", "request": { "method": "DELETE", "header": [], "url": { "raw": "{{baseUrl}}/employee-appraisals/1", "host": ["{{baseUrl}}"], "path": ["employee-appraisals", "1"] } } },
+        {
+          "name": "Finalize rating",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"finalRating\": 4.3\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/employee-appraisals/1/finalize", "host": ["{{baseUrl}}"], "path": ["employee-appraisals", "1", "finalize"] }
+          }
+        }
+      ]
+    }
+  ]
+}

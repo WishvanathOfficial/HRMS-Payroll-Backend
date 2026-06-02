@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Job Posting — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .stat-tile { padding: 16px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-md); }
+            .funnel-step {
+                display: grid; grid-template-columns: 140px 1fr 60px; gap: 14px; align-items: center;
+                padding: 10px 0; border-bottom: 1px solid var(--border-soft);
+            }
+            .funnel-bar { height: 24px; border-radius: var(--radius-sm); background: var(--gray-150); overflow: hidden; }
+            .funnel-bar > div { height: 100%; border-radius: var(--radius-sm); display: flex; align-items: center; padding-left: 10px; color: #fff; font-size: 12px; font-weight: 600; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Recruitment</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Recruitment</div>
+                    <a class="nav-item sub" href="postings.html">Pipeline</a>
+                    <a class="nav-item sub active">Job detail</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <a href="postings.html" class="text-sm text-muted" style="text-decoration: none;">← Back to pipeline</a>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 12px;">
+                        <div>
+                            <div class="card">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                                    <div>
+                                        <span class="badge badge-success"><span class="dot"></span>Open · 18 days remaining</span>
+                                        <h1 style="margin: 8px 0 4px; font-size: 28px;">Senior Frontend Engineer</h1>
+                                        <div class="text-muted">Engineering · Frontend team · Bengaluru / Remote · Full-time</div>
+                                    </div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="btn btn-ghost">Share link</button>
+                                        <button class="btn btn-primary">Edit posting</button>
+                                    </div>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0;">
+                                    <div class="stat-tile"><div class="text-xs text-muted">Applicants</div><div style="font-weight: 700; font-size: 22px;">147</div></div>
+                                    <div class="stat-tile"><div class="text-xs text-muted">Shortlisted</div><div style="font-weight: 700; font-size: 22px;">38</div></div>
+                                    <div class="stat-tile"><div class="text-xs text-muted">In interview</div><div style="font-weight: 700; font-size: 22px;">12</div></div>
+                                    <div class="stat-tile"><div class="text-xs text-muted">Offered</div><div style="font-weight: 700; font-size: 22px;">2</div></div>
+                                </div>
+
+                                <div style="border-top: 1px solid var(--border-soft); padding-top: 18px;">
+                                    <h3 style="margin: 0 0 10px; font-size: 15px;">About the role</h3>
+                                    <p style="margin: 0 0 12px; color: var(--text-secondary); font-size: 14px; line-height: 1.6;">We're looking for a senior frontend engineer who can own the design system end-to-end and partner deeply with our product and design teams. You'll work on our flagship HRMS web app used by 1,200+ employees daily.</p>
+
+                                    <h3 style="margin: 18px 0 10px; font-size: 15px;">What you'll do</h3>
+                                    <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 1.7;">
+                                        <li>Architect and grow our React component library</li>
+                                        <li>Lead frontend RFCs and technical decisions</li>
+                                        <li>Mentor 4 mid-level engineers in your pod</li>
+                                        <li>Partner with design on accessibility &amp; performance</li>
+                                    </ul>
+
+                                    <h3 style="margin: 18px 0 10px; font-size: 15px;">Requirements</h3>
+                                    <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 1.7;">
+                                        <li>5+ years building production React apps</li>
+                                        <li>Deep TypeScript expertise</li>
+                                        <li>Experience leading a small team or pod</li>
+                                        <li>Strong sense for design systems and DX</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="card">
+                                <div class="card-header"><div><h3 class="card-title">Posting details</h3></div></div>
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div><div class="text-xs text-muted">Hiring manager</div><div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;"><div class="avatar avatar-4 sm">DP</div><strong>Diya Patel</strong></div></div>
+                                    <div><div class="text-xs text-muted">Recruiter</div><div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;"><div class="avatar avatar-5 sm">AJ</div><strong>Ananya Joshi</strong></div></div>
+                                    <div><div class="text-xs text-muted">Posted on</div><strong>Apr 26, 2026</strong></div>
+                                    <div><div class="text-xs text-muted">Target close</div><strong>Jun 1, 2026</strong></div>
+                                    <div><div class="text-xs text-muted">Compensation band</div><strong>₹24L — ₹38L CTC</strong></div>
+                                    <div><div class="text-xs text-muted">Openings</div><strong>2 positions</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="card" style="margin-top: 18px;">
+                                <div class="card-header"><div><h3 class="card-title">Pipeline funnel</h3></div></div>
+                                <div class="funnel-step"><div class="text-sm">Applied</div><div class="funnel-bar"><div style="width: 100%; background: var(--primary-500);">147</div></div><div style="text-align: right; font-weight: 700;">100%</div></div>
+                                <div class="funnel-step"><div class="text-sm">Screened</div><div class="funnel-bar"><div style="width: 62%; background: var(--blue-500);">91</div></div><div style="text-align: right; font-weight: 700;">62%</div></div>
+                                <div class="funnel-step"><div class="text-sm">Shortlisted</div><div class="funnel-bar"><div style="width: 26%; background: var(--violet-500);">38</div></div><div style="text-align: right; font-weight: 700;">26%</div></div>
+                                <div class="funnel-step"><div class="text-sm">Interview</div><div class="funnel-bar"><div style="width: 8%; background: var(--amber-500);">12</div></div><div style="text-align: right; font-weight: 700;">8%</div></div>
+                                <div class="funnel-step"><div class="text-sm">Offered</div><div class="funnel-bar"><div style="width: 2%; background: var(--emerald-500);">2</div></div><div style="text-align: right; font-weight: 700;">1%</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

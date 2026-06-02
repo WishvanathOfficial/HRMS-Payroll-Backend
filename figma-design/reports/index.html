@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Reports — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .report-card {
+                padding: 22px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-lg);
+                position: relative; overflow: hidden; transition: all 0.15s;
+            }
+            .report-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--primary-200); cursor: pointer; }
+            .report-card .icon-wrap {
+                width: 48px; height: 48px; border-radius: var(--radius-md); display: grid; place-items: center; margin-bottom: 14px; color: #fff;
+            }
+            .report-card .preview-graphic {
+                position: absolute; right: -10px; top: 10px; opacity: 0.15;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Reports</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search reports…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Reports</h1>
+                            <p class="page-subtitle">Pre-built analytics across the HRMS · export as CSV, PDF, or schedule emails.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Scheduled reports (4)</button>
+                            <button class="btn btn-primary">Custom report</button>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 0 0 14px; font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;">Headcount &amp; people</h3>
+                    <div class="grid grid-3" style="gap: 16px; margin-bottom: 28px;">
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--primary-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Headcount summary</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Total, by department, by location · monthly trend</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: today 09:00</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--pink-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">New hires &amp; exits</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Joiners, leavers, turnover rate · trailing 90 days</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: today 09:00</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--violet-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Diversity dashboard</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Gender, tenure, age band across the org</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: yesterday</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 0 0 14px; font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;">Payroll &amp; compensation</h3>
+                    <div class="grid grid-3" style="gap: 16px; margin-bottom: 28px;">
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--emerald-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Payroll register</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Per-employee gross, deductions, net · monthly</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: May 1, 2026</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--blue-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Compensation analysis</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Distribution by level, dept, gender · benchmarking</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: 3 days ago</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--red-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Statutory · PF / TDS / ESI</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Compliance returns ready for filing</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: May 1, 2026</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 0 0 14px; font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;">Attendance &amp; leave</h3>
+                    <div class="grid grid-3" style="gap: 16px; margin-bottom: 28px;">
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--amber-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Attendance summary</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Hours worked, late check-ins, regularization</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: today 09:00</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--violet-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Leave utilization</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">By type and department · with carry-forward</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: today 09:00</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--gray-700);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Absconding &amp; flight risk</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Employees with anomalous patterns</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: yesterday</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 0 0 14px; font-size: 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em;">Talent &amp; performance</h3>
+                    <div class="grid grid-3" style="gap: 16px;">
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--pink-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Appraisal calibration</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Rating distribution and bias check</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: 1 week ago</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--primary-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Recruitment funnel</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">TTH, source effectiveness, offer accept rate</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: 2 days ago</div>
+                        </div>
+                        <div class="report-card">
+                            <div class="icon-wrap" style="background: var(--emerald-500);">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            </div>
+                            <div style="font-weight: 700; font-size: 16px;">Manager scorecard</div>
+                            <div class="text-muted text-sm" style="margin-top: 4px;">Team health: attendance, leave, ratings</div>
+                            <div class="text-xs text-muted" style="margin-top: 12px;">Last run: today 09:00</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

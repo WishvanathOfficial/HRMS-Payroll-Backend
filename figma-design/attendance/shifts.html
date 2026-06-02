@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Shifts — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .shift-card {
+                padding: 18px; border-radius: var(--radius-lg);
+                background: #fff; border: 1px solid var(--border-soft);
+                position: relative; overflow: hidden;
+            }
+            .shift-card::before {
+                content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            }
+            .shift-card.general::before { background: var(--blue-500); }
+            .shift-card.early::before { background: var(--emerald-500); }
+            .shift-card.late::before { background: var(--violet-500); }
+            .shift-card.night::before { background: var(--gray-700); }
+            .shift-card.flex::before { background: var(--amber-500); }
+            .time-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--gray-50); border-radius: 99px; font-size: 12px; font-weight: 600; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Attendance</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Attendance</div>
+                    <a class="nav-item sub" href="overview.html">Overview</a>
+                    <a class="nav-item sub active">Shifts</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search shifts…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Shifts</h1>
+                            <p class="page-subtitle">Define work patterns and assign them to employees.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Shift assignment</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New shift</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: var(--space-6);">
+                        <div class="kpi-card"><div class="kpi-label">Active shifts</div><div class="kpi-value">5</div><div class="kpi-foot text-muted text-xs">1 archived</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Employees on general</div><div class="kpi-value">982</div><div class="kpi-foot text-muted text-xs">78.7% of workforce</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Night shift</div><div class="kpi-value">42</div><div class="kpi-foot text-muted text-xs">Support &amp; ops only</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Flex schedule</div><div class="kpi-value">186</div><div class="kpi-foot text-muted text-xs">Senior engineering</div></div>
+                    </div>
+
+                    <div class="grid grid-3" style="gap: 16px;">
+                        <div class="shift-card general">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;"><div><div style="font-weight: 700; font-size: 16px;">General · Default</div><div class="text-xs text-muted">Code: GEN · IST</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                                <span class="time-pill">⏰ 09:00 — 18:00</span>
+                                <span class="time-pill">9h work · 1h break</span>
+                            </div>
+                            <div style="display: flex; gap: 12px; margin-top: 14px; font-size: 13px;">
+                                <div><div class="text-xs text-muted">Grace period</div><div style="font-weight: 600;">15 min</div></div>
+                                <div><div class="text-xs text-muted">Half-day after</div><div style="font-weight: 600;">12:00</div></div>
+                                <div><div class="text-xs text-muted">Days/week</div><div style="font-weight: 600;">Mon — Fri</div></div>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+                                <div class="text-sm"><strong>982</strong> <span class="text-muted">employees</span></div>
+                                <button class="btn btn-ghost btn-sm">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="shift-card early">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;"><div><div style="font-weight: 700; font-size: 16px;">Early shift</div><div class="text-xs text-muted">Code: EARLY · IST</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                                <span class="time-pill">⏰ 07:00 — 16:00</span>
+                                <span class="time-pill">9h work · 1h break</span>
+                            </div>
+                            <div style="display: flex; gap: 12px; margin-top: 14px; font-size: 13px;">
+                                <div><div class="text-xs text-muted">Grace period</div><div style="font-weight: 600;">10 min</div></div>
+                                <div><div class="text-xs text-muted">Days/week</div><div style="font-weight: 600;">Mon — Fri</div></div>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+                                <div class="text-sm"><strong>37</strong> <span class="text-muted">employees</span></div>
+                                <button class="btn btn-ghost btn-sm">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="shift-card late">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;"><div><div style="font-weight: 700; font-size: 16px;">Late shift</div><div class="text-xs text-muted">Code: LATE · IST</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                                <span class="time-pill">⏰ 13:00 — 22:00</span>
+                                <span class="time-pill">+ ₹500 allowance/day</span>
+                            </div>
+                            <div style="display: flex; gap: 12px; margin-top: 14px; font-size: 13px;">
+                                <div><div class="text-xs text-muted">Days/week</div><div style="font-weight: 600;">Mon — Fri</div></div>
+                                <div><div class="text-xs text-muted">Used by</div><div style="font-weight: 600;">Sales (US)</div></div>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+                                <div class="text-sm"><strong>56</strong> <span class="text-muted">employees</span></div>
+                                <button class="btn btn-ghost btn-sm">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="shift-card night">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;"><div><div style="font-weight: 700; font-size: 16px;">Night shift</div><div class="text-xs text-muted">Code: NIGHT · IST</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                                <span class="time-pill">🌙 22:00 — 07:00</span>
+                                <span class="time-pill">+ ₹800 allowance/day</span>
+                            </div>
+                            <div style="display: flex; gap: 12px; margin-top: 14px; font-size: 13px;">
+                                <div><div class="text-xs text-muted">Days/week</div><div style="font-weight: 600;">Rotating</div></div>
+                                <div><div class="text-xs text-muted">Cab provided</div><div style="font-weight: 600;">Yes</div></div>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+                                <div class="text-sm"><strong>42</strong> <span class="text-muted">employees</span></div>
+                                <button class="btn btn-ghost btn-sm">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="shift-card flex">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;"><div><div style="font-weight: 700; font-size: 16px;">Flexible</div><div class="text-xs text-muted">Code: FLEX · IST</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                                <span class="time-pill">⏰ Any 9h between 07:00 — 22:00</span>
+                            </div>
+                            <div style="display: flex; gap: 12px; margin-top: 14px; font-size: 13px;">
+                                <div><div class="text-xs text-muted">Core hours</div><div style="font-weight: 600;">11:00 — 16:00</div></div>
+                                <div><div class="text-xs text-muted">Days/week</div><div style="font-weight: 600;">Mon — Fri</div></div>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+                                <div class="text-sm"><strong>186</strong> <span class="text-muted">employees</span></div>
+                                <button class="btn btn-ghost btn-sm">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="shift-card" style="opacity: 0.6;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;"><div><div style="font-weight: 700; font-size: 16px;">Saturday half-day</div><div class="text-xs text-muted">Code: SAT</div></div><span class="badge badge-neutral">Archived</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap;">
+                                <span class="time-pill">⏰ 09:00 — 13:00</span>
+                            </div>
+                            <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center;">
+                                <div class="text-sm"><strong>0</strong> <span class="text-muted">employees · deprecated 2024</span></div>
+                                <button class="btn btn-ghost btn-sm">Restore</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

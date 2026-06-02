@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Employees — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .filter-bar { display: flex; gap: 12px; align-items: center; margin-bottom: var(--space-5); flex-wrap: wrap; }
+            .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--radius-full); border: 1px solid var(--border-soft); font-size: 12.5px; background: #fff; font-weight: 500; }
+            .chip.active { background: var(--primary-50); border-color: var(--primary-200); color: var(--primary-700); }
+            .chip .num { background: var(--gray-100); border-radius: var(--radius-full); padding: 1px 7px; font-size: 11px; font-weight: 700; color: var(--text-secondary); }
+            .chip.active .num { background: var(--primary-100); color: var(--primary-700); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>Admin Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Employees</a>
+                    <a class="nav-item" href="../leave/requests.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Leave<span class="nav-badge">12</span></a>
+                    <a class="nav-item" href="../attendance/overview.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Attendance</a>
+                    <a class="nav-item" href="../payroll/runs.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Payroll</a>
+                    <a class="nav-item" href="../recruitment/postings.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>Recruitment</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search employees, codes, emails…</span></div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></button>
+                        <div class="user-chip"><div class="avatar sm avatar-1">AS</div><div><div class="name">Aarav Sharma</div></div><span class="role">ADMIN</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Employees</h1>
+                            <p class="page-subtitle">1,247 active employees across 7 departments</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add employee</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-bar">
+                        <span class="chip active">All <span class="num">1247</span></span>
+                        <span class="chip">Engineering <span class="num">412</span></span>
+                        <span class="chip">Sales <span class="num">284</span></span>
+                        <span class="chip">Marketing <span class="num">192</span></span>
+                        <span class="chip">Operations <span class="num">163</span></span>
+                        <span class="chip">Finance <span class="num">94</span></span>
+                        <span class="chip">Human Resources <span class="num">62</span></span>
+                        <span class="chip">+ 1 more</span>
+                        <div style="margin-left: auto; display: flex; gap: 8px;">
+                            <button class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>Filter</button>
+                            <select class="form-select" style="height: 32px; padding: 4px 12px; font-size: 12.5px;">
+                                <option>Sort: Recent first</option>
+                                <option>Sort: Name (A-Z)</option>
+                                <option>Sort: Tenure</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 0; overflow: hidden;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Code</th>
+                                    <th>Department</th>
+                                    <th>Designation</th>
+                                    <th>Joined</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><div class="person"><a href="profile.html" style="text-decoration: none; color: inherit;"><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-1 sm">AS</div><div class="meta"><span class="name">Aarav Sharma</span><span class="sub">aarav.sharma@company.com</span></div></div></a></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0001</code></td><td>Engineering</td><td>Engineering Manager</td><td>Jun 2018 · 7 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-2 sm">DP</div><div class="meta"><span class="name">Diya Patel</span><span class="sub">diya.patel@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0002</code></td><td>Backend Team</td><td>Senior Software Engineer</td><td>Mar 2019 · 6 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-3 sm">RK</div><div class="meta"><span class="name">Rohit Kumar</span><span class="sub">rohit.kumar@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0003</code></td><td>Backend Team</td><td>Software Engineer</td><td>Jul 2020 · 5 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-7 sm">SI</div><div class="meta"><span class="name">Sneha Iyer</span><span class="sub">sneha.iyer@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0004</code></td><td>Frontend Team</td><td>Frontend Developer</td><td>Feb 2021 · 4 yrs</td><td><span class="badge badge-warning"><span class="dot"></span>On leave</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-4 sm">VS</div><div class="meta"><span class="name">Vikram Singh</span><span class="sub">vikram.singh@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0005</code></td><td>Human Resources</td><td>HR Manager</td><td>Jan 2017 · 8 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-6 sm">PR</div><div class="meta"><span class="name">Priya Reddy</span><span class="sub">priya.reddy@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0006</code></td><td>Human Resources</td><td>HR Executive</td><td>Sep 2020 · 5 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-5 sm">AM</div><div class="meta"><span class="name">Arjun Mehta</span><span class="sub">arjun.mehta@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0007</code></td><td>Finance</td><td>Accountant</td><td>Nov 2018 · 6 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-9 sm">AJ</div><div class="meta"><span class="name">Ananya Joshi</span><span class="sub">ananya.joshi@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0008</code></td><td>Sales</td><td>Sales Executive</td><td>Apr 2022 · 3 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-10 sm">KV</div><div class="meta"><span class="name">Karan Verma</span><span class="sub">karan.verma@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0009</code></td><td>Marketing</td><td>Marketing Specialist</td><td>Aug 2019 · 6 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-8 sm">MN</div><div class="meta"><span class="name">Meera Nair</span><span class="sub">meera.nair@company.com</span></div></div></td><td><code style="background: var(--gray-100); padding: 2px 8px; border-radius: 4px; font-size: 11.5px;">EMP0010</code></td><td>Backend Team</td><td>Software Engineer</td><td>Jan 2023 · 2 yrs</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td><button class="btn btn-sm btn-ghost">View →</button></td></tr>
+                            </tbody>
+                        </table>
+                        <div style="padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-soft); font-size: 12.5px; color: var(--text-secondary);">
+                            <span>Showing 1 – 10 of 1,247</span>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn btn-sm btn-ghost">← Prev</button>
+                                <button class="btn btn-sm btn-primary">1</button>
+                                <button class="btn btn-sm btn-ghost">2</button>
+                                <button class="btn btn-sm btn-ghost">3</button>
+                                <button class="btn btn-sm btn-ghost">… 125</button>
+                                <button class="btn btn-sm btn-ghost">Next →</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

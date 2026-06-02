@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Manager Review — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+            .self-block, .mgr-block { padding: 14px; border-radius: var(--radius-md); }
+            .self-block { background: var(--blue-50); border: 1px solid var(--blue-100); }
+            .mgr-block { background: var(--primary-50); border: 1px solid var(--primary-200); }
+            .rating-row { display: flex; gap: 6px; }
+            .rating-row .star { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--border-soft); border-radius: 6px; font-size: 14px; }
+            .rating-row .star.filled { background: var(--amber-50); border-color: var(--amber-500); color: var(--amber-600); }
+            .rating-row.compact .star { width: 20px; height: 20px; font-size: 11px; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>Manager</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">My team</div>
+                    <a class="nav-item" href="../dashboard/manager.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/></svg>Appraisals</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-1">PR</div><div><div class="name">Priya Reddy</div></div><span class="role">Manager</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <a href="cycles.html" class="text-sm text-muted" style="text-decoration: none;">← Back to H1 2026 cycle</a>
+
+                    <div class="page-header" style="margin-top: 8px;">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div class="avatar avatar-4 lg" style="width: 60px; height: 60px; font-size: 22px;">DP</div>
+                            <div>
+                                <h1 class="page-title" style="margin: 0;">Diya Patel — H1 2026</h1>
+                                <p class="page-subtitle" style="margin: 2px 0 0;">Sr. Software Engineer · Frontend · 3.2 yrs tenure</p>
+                            </div>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Save draft</button>
+                            <button class="btn btn-primary">Submit for calibration</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 18px; padding: 20px; background: linear-gradient(135deg, var(--primary-50), #fff);">
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;">
+                            <div><div class="text-xs text-muted">Self-rating</div><div style="font-size: 22px; font-weight: 700; color: var(--blue-700);">★ 4.2</div></div>
+                            <div><div class="text-xs text-muted">Your rating</div><div style="font-size: 22px; font-weight: 700; color: var(--primary-700);">★ 4.4</div></div>
+                            <div><div class="text-xs text-muted">Peer feedback (3)</div><div style="font-size: 22px; font-weight: 700;">★ 4.5</div></div>
+                            <div><div class="text-xs text-muted">Goals achieved</div><div style="font-size: 22px; font-weight: 700; color: var(--emerald-700);">7 / 8</div></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><div><h3 class="card-title">Competency ratings</h3><p class="card-subtitle">Compare Diya's self-rating with your assessment</p></div></div>
+
+                        <div style="display: flex; flex-direction: column; gap: 22px;">
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 10px;">Technical proficiency</div>
+                                <div class="comparison">
+                                    <div class="self-block">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;"><span class="text-xs text-muted">SELF</span><span class="rating-row compact"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span></span></div>
+                                        <div class="text-xs">Led the migration to React 19 RSC; mentored 2 juniors. Want to deepen on perf profiling.</div>
+                                    </div>
+                                    <div class="mgr-block">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;"><span class="text-xs" style="color: var(--primary-700); font-weight: 600;">YOUR RATING</span><span class="rating-row"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></span></div>
+                                        <textarea rows="2" style="width: 100%; padding: 8px 10px; border: 1px solid var(--primary-200); border-radius: var(--radius-sm); font-size: 13px; resize: vertical; font-family: inherit; background: #fff;">RSC migration was outstanding — went above and beyond. Underrating self on technical depth.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 10px;">Collaboration &amp; communication</div>
+                                <div class="comparison">
+                                    <div class="self-block">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;"><span class="text-xs text-muted">SELF</span><span class="rating-row compact"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></span></div>
+                                        <div class="text-xs">Drove RFC alignment with backend and design; ran biweekly platform demos.</div>
+                                    </div>
+                                    <div class="mgr-block">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;"><span class="text-xs" style="color: var(--primary-700); font-weight: 600;">YOUR RATING</span><span class="rating-row"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span></span></div>
+                                        <textarea rows="2" style="width: 100%; padding: 8px 10px; border: 1px solid var(--primary-200); border-radius: var(--radius-sm); font-size: 13px; resize: vertical; font-family: inherit; background: #fff;">Aligned with self-assessment. Excellent communication across teams.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="font-weight: 700; margin-bottom: 10px;">Ownership &amp; delivery</div>
+                                <div class="comparison">
+                                    <div class="self-block">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;"><span class="text-xs text-muted">SELF</span><span class="rating-row compact"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span></span></div>
+                                        <div class="text-xs">Shipped 4/5 OKRs. One slipped due to dependency change.</div>
+                                    </div>
+                                    <div class="mgr-block">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;"><span class="text-xs" style="color: var(--primary-700); font-weight: 600;">YOUR RATING</span><span class="rating-row"><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span></span></div>
+                                        <textarea rows="2" style="width: 100%; padding: 8px 10px; border: 1px solid var(--primary-200); border-radius: var(--radius-sm); font-size: 13px; resize: vertical; font-family: inherit; background: #fff;">Strong delivery. The slip wasn't preventable. Aligned with self.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 24px; padding: 18px; background: var(--gray-50); border-radius: var(--radius-md);">
+                            <div style="font-weight: 700; margin-bottom: 10px;">Overall summary &amp; recommendation</div>
+                            <textarea rows="4" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px; resize: vertical; font-family: inherit;">Diya had an outstanding cycle. Technical leadership on the RSC migration was a step-change — she's operating at Staff Engineer scope on technical decisions. Strong cross-team collaboration. Recommendation: promote to Staff Engineer, 15-18% comp adjustment. Final rating: Strong (4.4).</textarea>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 14px;">
+                                <div><label class="text-xs text-muted" style="display: block; margin-bottom: 6px;">Final rating</label><select style="width: 100%; padding: 8px 10px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px;"><option>Exceeds (4.5+)</option><option selected>Strong (4.0 - 4.5)</option><option>Meets (3.0 - 4.0)</option><option>Developing</option></select></div>
+                                <div><label class="text-xs text-muted" style="display: block; margin-bottom: 6px;">Promotion?</label><select style="width: 100%; padding: 8px 10px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px;"><option selected>Recommend</option><option>Hold</option><option>Not now</option></select></div>
+                                <div><label class="text-xs text-muted" style="display: block; margin-bottom: 6px;">Hike %</label><input type="text" value="15%" style="width: 100%; padding: 8px 10px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 13px;" /></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

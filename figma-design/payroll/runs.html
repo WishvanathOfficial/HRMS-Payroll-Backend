@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Payroll Runs — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .run-card { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); }
+            .run-card.active { background: linear-gradient(135deg, #fef3c7, #fed7aa); border-color: var(--amber-300, #fcd34d); }
+            .run-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+            .run-month { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+            .run-sub { color: var(--text-secondary); font-size: 12.5px; margin-top: 2px; }
+            .run-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
+            .run-stats .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+            .run-stats .val { font-size: 16px; font-weight: 700; margin-top: 2px; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item" href="../employees/list.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Employees</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Payroll</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search runs, employees…</span></div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></button>
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Payroll runs</h1>
+                            <p class="page-subtitle">Monthly cycle · process &amp; lock payslips for all active employees</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Start new run</button>
+                        </div>
+                    </div>
+
+                    <!-- Current run hero -->
+                    <div class="card" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); color: #fff; border: 0; padding: 32px; margin-bottom: var(--space-6); position: relative; overflow: hidden;">
+                        <div style="position: absolute; right: -50px; top: -50px; width: 240px; height: 240px; border-radius: 50%; background: rgba(255,255,255,0.08);"></div>
+                        <div style="display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; position: relative; z-index: 1;">
+                            <div>
+                                <div style="opacity: 0.85; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;">In progress · May 2026</div>
+                                <h2 style="font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 4px 0 16px;">Generating payslips for 1,247 employees</h2>
+                                <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                                    <div><div style="opacity: 0.8; font-size: 11px;">Estimated cost</div><div style="font-size: 20px; font-weight: 700;">₹3,24,57,000</div></div>
+                                    <div><div style="opacity: 0.8; font-size: 11px;">Statutory</div><div style="font-size: 20px; font-weight: 700;">₹46,82,000</div></div>
+                                    <div><div style="opacity: 0.8; font-size: 11px;">Closes</div><div style="font-size: 20px; font-weight: 700;">May 31</div></div>
+                                </div>
+                                <div style="margin-top: 18px; background: rgba(255,255,255,0.18); border-radius: var(--radius-full); height: 8px; overflow: hidden;">
+                                    <div style="height: 100%; width: 62%; background: #fff; border-radius: var(--radius-full);"></div>
+                                </div>
+                                <div style="margin-top: 8px; font-size: 12.5px; opacity: 0.9;">774 / 1,247 payslips generated · 62% complete</div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px; min-width: 180px;">
+                                <button class="btn" style="background: #fff; color: var(--amber-600); font-weight: 700;">Continue run →</button>
+                                <button class="btn" style="background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.25); font-weight: 600;">Pause</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent runs grid -->
+                    <h3 style="font-size: 14px; font-weight: 700; margin: 0 0 14px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Recent runs</h3>
+                    <div class="grid grid-3" style="margin-bottom: var(--space-6);">
+                        <div class="run-card">
+                            <div class="run-header">
+                                <div>
+                                    <div class="run-month">April 2026</div>
+                                    <div class="run-sub">Processed May 1 · by Vikram Singh</div>
+                                </div>
+                                <span class="badge badge-success"><span class="dot"></span>Completed</span>
+                            </div>
+                            <div class="run-stats">
+                                <div><div class="lbl">Payslips</div><div class="val">1,223</div></div>
+                                <div><div class="lbl">Gross</div><div class="val">₹3.18 Cr</div></div>
+                                <div><div class="lbl">Net</div><div class="val">₹2.48 Cr</div></div>
+                            </div>
+                        </div>
+                        <div class="run-card">
+                            <div class="run-header">
+                                <div>
+                                    <div class="run-month">March 2026</div>
+                                    <div class="run-sub">Processed Apr 1 · by Vikram Singh</div>
+                                </div>
+                                <span class="badge badge-success"><span class="dot"></span>Locked</span>
+                            </div>
+                            <div class="run-stats">
+                                <div><div class="lbl">Payslips</div><div class="val">1,219</div></div>
+                                <div><div class="lbl">Gross</div><div class="val">₹3.15 Cr</div></div>
+                                <div><div class="lbl">Net</div><div class="val">₹2.46 Cr</div></div>
+                            </div>
+                        </div>
+                        <div class="run-card">
+                            <div class="run-header">
+                                <div>
+                                    <div class="run-month">February 2026</div>
+                                    <div class="run-sub">Processed Mar 1 · by Vikram Singh</div>
+                                </div>
+                                <span class="badge badge-success"><span class="dot"></span>Locked</span>
+                            </div>
+                            <div class="run-stats">
+                                <div><div class="lbl">Payslips</div><div class="val">1,201</div></div>
+                                <div><div class="lbl">Gross</div><div class="val">₹3.11 Cr</div></div>
+                                <div><div class="lbl">Net</div><div class="val">₹2.43 Cr</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Per-employee progress (current run) -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div><h3 class="card-title">May 2026 run · per-employee progress</h3><p class="card-subtitle">62% complete · 473 remaining</p></div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-sm btn-ghost">Filter</button>
+                                <a class="card-link" href="payslip.html">View sample payslip →</a>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead><tr><th>Employee</th><th>CTC</th><th>Gross (May)</th><th>Deductions</th><th>Net</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr><td><div class="person"><div class="avatar avatar-1 sm">AS</div><div class="meta"><span class="name">Aarav Sharma</span><span class="sub">Engineering Manager</span></div></div></td><td>₹24,00,000</td><td>₹2,00,000</td><td>−₹44,000</td><td>₹1,56,000</td><td><span class="badge badge-success">Generated</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-2 sm">DP</div><div class="meta"><span class="name">Diya Patel</span><span class="sub">Sr. Software Engineer</span></div></div></td><td>₹15,00,000</td><td>₹1,25,000</td><td>−₹27,500</td><td>₹97,500</td><td><span class="badge badge-success">Generated</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-3 sm">RK</div><div class="meta"><span class="name">Rohit Kumar</span><span class="sub">Software Engineer</span></div></div></td><td>₹9,00,000</td><td>₹75,000</td><td>−₹16,500</td><td>₹58,500</td><td><span class="badge badge-success">Generated</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-7 sm">SI</div><div class="meta"><span class="name">Sneha Iyer</span><span class="sub">Frontend Developer</span></div></div></td><td>₹11,00,000</td><td>₹91,667</td><td>−₹20,167</td><td>₹71,500</td><td><span class="badge badge-warning">Processing</span></td></tr>
+                                <tr><td><div class="person"><div class="avatar avatar-4 sm">VS</div><div class="meta"><span class="name">Vikram Singh</span><span class="sub">HR Manager</span></div></div></td><td>₹22,00,000</td><td>₹1,83,333</td><td>−₹40,333</td><td>₹1,43,000</td><td><span class="badge badge-neutral">Pending</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

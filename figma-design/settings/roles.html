@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Roles &amp; Permissions — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .perm-row { display: grid; grid-template-columns: 1.5fr repeat(4, 1fr); gap: 14px; padding: 12px 14px; align-items: center; border-bottom: 1px solid var(--border-soft); }
+            .perm-row:last-child { border-bottom: none; }
+            .perm-row.header { background: var(--gray-50); font-weight: 600; font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+            .perm-yes { color: var(--emerald-600); font-weight: 700; }
+            .perm-partial { color: var(--amber-600); font-weight: 700; }
+            .perm-no { color: var(--text-muted); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m7.07 7.07l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m7.07-7.07l4.24-4.24"/></svg>Settings</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Settings</div>
+                    <a class="nav-item sub active">Roles &amp; permissions</a>
+                    <a class="nav-item sub" href="users.html">Users</a>
+                    <a class="nav-item sub" href="general.html">General</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Roles &amp; permissions</h1>
+                            <p class="page-subtitle">Define what each role can see and do across the HRMS.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New role</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: var(--space-6);">
+                        <div class="kpi-card"><div class="kpi-label">ADMIN</div><div class="kpi-value">3</div><div class="kpi-foot text-muted text-xs">Full system access</div></div>
+                        <div class="kpi-card"><div class="kpi-label">HR</div><div class="kpi-value">14</div><div class="kpi-foot text-muted text-xs">People &amp; Culture team</div></div>
+                        <div class="kpi-card"><div class="kpi-label">MANAGER</div><div class="kpi-value">186</div><div class="kpi-foot text-muted text-xs">Team leads / IC managers</div></div>
+                        <div class="kpi-card"><div class="kpi-label">EMPLOYEE</div><div class="kpi-value">1,247</div><div class="kpi-foot text-muted text-xs">All users default</div></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header"><div><h3 class="card-title">Permission matrix</h3><p class="card-subtitle">Compare role capabilities across modules</p></div></div>
+
+                        <div class="perm-row header">
+                            <div>Module / Capability</div>
+                            <div>ADMIN</div>
+                            <div>HR</div>
+                            <div>MANAGER</div>
+                            <div>EMPLOYEE</div>
+                        </div>
+
+                        <div class="perm-row"><div style="font-weight: 600;">Employees · View all</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-partial">Team only</div><div class="perm-no">Self only</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Employees · Create / edit</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Salary · View structures</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Salary · Edit employee CTC</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Payroll · Run payroll</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Payroll · View own payslip</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Leave · Approve requests</div><div class="perm-yes">All</div><div class="perm-yes">All</div><div class="perm-partial">Direct reports</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Leave · Apply</div><div class="perm-yes">Self</div><div class="perm-yes">Self</div><div class="perm-yes">Self</div><div class="perm-yes">Self</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Attendance · View team</div><div class="perm-yes">All</div><div class="perm-yes">All</div><div class="perm-partial">Direct reports</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Recruitment · Manage postings</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-partial">Own openings</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Appraisal · Submit review</div><div class="perm-yes">All</div><div class="perm-yes">All</div><div class="perm-partial">Direct reports</div><div class="perm-yes">Self only</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Organization · Edit structure</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Settings · Manage roles</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Settings · Manage users</div><div class="perm-yes">Full</div><div class="perm-partial">Read-only</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Reports · Headcount</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-partial">Own team</div><div class="perm-no">—</div></div>
+                        <div class="perm-row"><div style="font-weight: 600;">Reports · Payroll register</div><div class="perm-yes">Full</div><div class="perm-yes">Full</div><div class="perm-no">—</div><div class="perm-no">—</div></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

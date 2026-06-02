@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Leave Requests — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .tabs { display: flex; gap: 4px; padding: 4px; background: var(--gray-100); border-radius: var(--radius-md); margin-bottom: var(--space-5); width: fit-content; }
+            .tab { padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: var(--radius-sm); color: var(--text-secondary); cursor: pointer; }
+            .tab.active { background: #fff; color: var(--text-primary); box-shadow: var(--shadow-xs); }
+            .tab .cnt { background: var(--gray-200); padding: 1px 8px; border-radius: var(--radius-full); font-size: 11px; margin-left: 6px; }
+            .tab.active .cnt { background: var(--primary-100); color: var(--primary-700); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item" href="../employees/list.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Employees</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Leave<span class="nav-badge">12</span></a>
+                    <a class="nav-item" href="../attendance/overview.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Attendance</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search employees, dates…</span></div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></button>
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Leave management</h1>
+                            <p class="page-subtitle">Review requests, balances, and holidays across the org.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export CSV</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New leave</button>
+                        </div>
+                    </div>
+
+                    <div class="kpis" style="grid-template-columns: repeat(4, 1fr);">
+                        <div class="kpi"><div class="kpi-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><p class="kpi-label">Pending</p><div class="kpi-value">12</div><span class="kpi-delta flat">3 urgent</span></div>
+                        <div class="kpi"><div class="kpi-icon emerald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><p class="kpi-label">Approved · this month</p><div class="kpi-value">87</div><span class="kpi-delta up">↑ 12% vs Apr</span></div>
+                        <div class="kpi"><div class="kpi-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><p class="kpi-label">Declined</p><div class="kpi-value">4</div><span class="kpi-delta flat">2 reopened</span></div>
+                        <div class="kpi"><div class="kpi-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><p class="kpi-label">On leave today</p><div class="kpi-value">23</div><span class="kpi-delta flat">1.8% of workforce</span></div>
+                    </div>
+
+                    <div class="tabs">
+                        <div class="tab active">Pending <span class="cnt">12</span></div>
+                        <div class="tab">Approved <span class="cnt">87</span></div>
+                        <div class="tab">Declined <span class="cnt">4</span></div>
+                        <div class="tab">All</div>
+                    </div>
+
+                    <div class="card" style="padding: 0;">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Type</th>
+                                    <th>Period</th>
+                                    <th>Days</th>
+                                    <th>Reason</th>
+                                    <th>Balance after</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><div class="person"><div class="avatar avatar-2 sm">DP</div><div class="meta"><span class="name">Diya Patel</span><span class="sub">Backend Team · L2</span></div></div></td>
+                                    <td><span class="badge badge-info">Casual</span></td>
+                                    <td>May 20 — May 22, 2026</td>
+                                    <td>3</td>
+                                    <td><span class="text-muted text-sm">Family event</span></td>
+                                    <td>7 / 12</td>
+                                    <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;"><button class="btn btn-sm btn-success">✓ Approve</button><button class="btn btn-sm">✕ Decline</button></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="person"><div class="avatar avatar-3 sm">RK</div><div class="meta"><span class="name">Rohit Kumar</span><span class="sub">Backend Team · L1</span></div></div></td>
+                                    <td><span class="badge badge-warning">Sick</span></td>
+                                    <td>May 16, 2026</td>
+                                    <td>1</td>
+                                    <td><span class="text-muted text-sm">Fever</span></td>
+                                    <td>4 / 10</td>
+                                    <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;"><button class="btn btn-sm btn-success">✓ Approve</button><button class="btn btn-sm">✕ Decline</button></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="person"><div class="avatar avatar-6 sm">MN</div><div class="meta"><span class="name">Meera Nair</span><span class="sub">Backend Team · L1</span></div></div></td>
+                                    <td><span class="badge badge-success">Earned</span></td>
+                                    <td>Jun 1 — Jun 5, 2026</td>
+                                    <td>5</td>
+                                    <td><span class="text-muted text-sm">Vacation - Europe trip</span></td>
+                                    <td>13 / 18</td>
+                                    <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;"><button class="btn btn-sm btn-success">✓ Approve</button><button class="btn btn-sm">✕ Decline</button></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="person"><div class="avatar avatar-7 sm">SI</div><div class="meta"><span class="name">Sneha Iyer</span><span class="sub">Frontend Team · L1</span></div></div></td>
+                                    <td><span class="badge badge-info">Casual</span></td>
+                                    <td>May 27, 2026</td>
+                                    <td>1</td>
+                                    <td><span class="text-muted text-sm">Personal work</span></td>
+                                    <td>11 / 12</td>
+                                    <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;"><button class="btn btn-sm btn-success">✓ Approve</button><button class="btn btn-sm">✕ Decline</button></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="person"><div class="avatar avatar-8 sm">AJ</div><div class="meta"><span class="name">Ananya Joshi</span><span class="sub">Sales · L1</span></div></div></td>
+                                    <td><span class="badge badge-pink">Maternity</span></td>
+                                    <td>Jul 1 — Dec 28, 2026</td>
+                                    <td>180</td>
+                                    <td><span class="text-muted text-sm">Maternity leave</span></td>
+                                    <td>0 / 180</td>
+                                    <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;"><button class="btn btn-sm btn-success">✓ Approve</button><button class="btn btn-sm">✕ Decline</button></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="person"><div class="avatar avatar-5 sm">AM</div><div class="meta"><span class="name">Arjun Mehta</span><span class="sub">Finance · L1</span></div></div></td>
+                                    <td><span class="badge badge-warning">Sick</span></td>
+                                    <td>May 15 — May 17, 2026</td>
+                                    <td>3</td>
+                                    <td><span class="text-muted text-sm">Flu</span></td>
+                                    <td>5 / 10</td>
+                                    <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;"><button class="btn btn-sm btn-success">✓ Approve</button><button class="btn btn-sm">✕ Decline</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

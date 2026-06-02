@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Designations — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .level-pill { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+            .level-l1 { background: var(--blue-50); color: var(--blue-600); }
+            .level-l2 { background: var(--emerald-50); color: var(--emerald-700); }
+            .level-l3 { background: var(--amber-50); color: var(--amber-600); }
+            .level-l4 { background: var(--pink-50); color: var(--pink-600); }
+            .level-l5 { background: var(--violet-50); color: var(--violet-600); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Organization</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Organization</div>
+                    <a class="nav-item sub" href="departments.html">Departments</a>
+                    <a class="nav-item sub active">Designations</a>
+                    <a class="nav-item sub" href="org-chart.html">Org chart</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search designations…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Designations &amp; job levels</h1>
+                            <p class="page-subtitle">Standardize titles, levels, and compensation bands across the org.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Import CSV</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New designation</button>
+                        </div>
+                    </div>
+
+                    <div class="filters" style="display: flex; gap: 8px; margin-bottom: 18px;">
+                        <button class="chip chip-active">All · 32</button>
+                        <button class="chip">Engineering · 12</button>
+                        <button class="chip">Sales · 8</button>
+                        <button class="chip">Operations · 6</button>
+                        <button class="chip">Leadership · 6</button>
+                    </div>
+
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Level</th>
+                                    <th>Department</th>
+                                    <th>Head count</th>
+                                    <th>Pay band</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><div style="font-weight: 600;">Software Engineer</div><div class="text-xs text-muted">SE · entry</div></td><td><span class="level-pill level-l2">L2</span></td><td>Engineering</td><td>168</td><td>₹8L — ₹14L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Senior Software Engineer</div><div class="text-xs text-muted">SSE · mid</div></td><td><span class="level-pill level-l3">L3</span></td><td>Engineering</td><td>124</td><td>₹14L — ₹22L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Staff Engineer</div><div class="text-xs text-muted">staff · senior</div></td><td><span class="level-pill level-l4">L4</span></td><td>Engineering</td><td>48</td><td>₹22L — ₹38L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Engineering Manager</div><div class="text-xs text-muted">EM · people-lead</div></td><td><span class="level-pill level-l4">L4</span></td><td>Engineering</td><td>32</td><td>₹26L — ₹42L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Director of Engineering</div><div class="text-xs text-muted">director · senior leadership</div></td><td><span class="level-pill level-l5">L5</span></td><td>Engineering</td><td>4</td><td>₹50L — ₹80L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">HR Business Partner</div><div class="text-xs text-muted">HRBP · mid</div></td><td><span class="level-pill level-l3">L3</span></td><td>People &amp; Culture</td><td>6</td><td>₹12L — ₹20L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Talent Acquisition Lead</div><div class="text-xs text-muted">TA · senior</div></td><td><span class="level-pill level-l3">L3</span></td><td>People &amp; Culture</td><td>3</td><td>₹14L — ₹22L</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Account Executive</div><div class="text-xs text-muted">AE · entry to mid</div></td><td><span class="level-pill level-l2">L2</span></td><td>Sales</td><td>56</td><td>₹6L — ₹12L + var</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr><td><div style="font-weight: 600;">Regional Sales Manager</div><div class="text-xs text-muted">RSM · senior</div></td><td><span class="level-pill level-l4">L4</span></td><td>Sales</td><td>9</td><td>₹24L — ₹40L + var</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+                                <tr style="opacity: 0.6;"><td><div style="font-weight: 600;">Junior Analyst</div><div class="text-xs text-muted">JA · deprecated</div></td><td><span class="level-pill level-l1">L1</span></td><td>—</td><td>0</td><td>—</td><td><span class="badge badge-neutral"><span class="dot"></span>Archived</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Restore</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

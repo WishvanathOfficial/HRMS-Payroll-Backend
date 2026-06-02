@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Salary Structures — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .stack-row {
+                display: flex; align-items: center; gap: 16px;
+                padding: 14px 16px; border: 1px solid var(--border-soft);
+                border-radius: var(--radius-md); background: #fff;
+            }
+            .stack-row.earning { background: linear-gradient(90deg, var(--emerald-50), #fff); }
+            .stack-row.deduction { background: linear-gradient(90deg, var(--red-50), #fff); }
+            .struct-card { padding: 18px; border-radius: var(--radius-lg); border: 1px solid var(--border-soft); background: #fff; box-shadow: var(--shadow-sm); }
+            .struct-card.selected { border-color: var(--primary-500); box-shadow: 0 0 0 3px var(--primary-50); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Salary</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Salary</div>
+                    <a class="nav-item sub" href="components.html">Components</a>
+                    <a class="nav-item sub active">Structures</a>
+                    <a class="nav-item sub" href="employee-salary.html">Employee salary</a>
+                    <a class="nav-item sub" href="statutory.html">Statutory</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search structures…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Salary structures</h1>
+                            <p class="page-subtitle">Reusable templates that combine components into an offer or compensation band.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Clone existing</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New structure</button>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 24px;">
+                        <!-- Structure list -->
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="struct-card selected">
+                                <div style="display: flex; justify-content: space-between;"><div style="font-weight: 700;">India · Standard</div><span class="badge badge-success">Active</span></div>
+                                <div class="text-xs text-muted" style="margin-top: 4px;">8 components · 218 employees</div>
+                                <div class="text-xs text-muted" style="margin-top: 2px;">CTC range ₹6L — ₹50L</div>
+                            </div>
+                            <div class="struct-card">
+                                <div style="display: flex; justify-content: space-between;"><div style="font-weight: 700;">Engineering · L4+</div><span class="badge badge-success">Active</span></div>
+                                <div class="text-xs text-muted" style="margin-top: 4px;">11 components · 84 employees</div>
+                                <div class="text-xs text-muted" style="margin-top: 2px;">Includes ESOP allocation</div>
+                            </div>
+                            <div class="struct-card">
+                                <div style="display: flex; justify-content: space-between;"><div style="font-weight: 700;">Sales · Variable</div><span class="badge badge-success">Active</span></div>
+                                <div class="text-xs text-muted" style="margin-top: 4px;">9 components · 218 employees</div>
+                                <div class="text-xs text-muted" style="margin-top: 2px;">70/30 fixed/variable split</div>
+                            </div>
+                            <div class="struct-card">
+                                <div style="display: flex; justify-content: space-between;"><div style="font-weight: 700;">Leadership · C-suite</div><span class="badge badge-success">Active</span></div>
+                                <div class="text-xs text-muted" style="margin-top: 4px;">12 components · 6 employees</div>
+                                <div class="text-xs text-muted" style="margin-top: 2px;">Includes long-term incentives</div>
+                            </div>
+                            <div class="struct-card" style="opacity: 0.6;">
+                                <div style="display: flex; justify-content: space-between;"><div style="font-weight: 700;">Intern · Stipend only</div><span class="badge badge-neutral">Archived</span></div>
+                                <div class="text-xs text-muted" style="margin-top: 4px;">2 components · 0 employees</div>
+                            </div>
+                        </div>
+
+                        <!-- Selected structure detail -->
+                        <div>
+                            <div class="card" style="margin-bottom: 18px;">
+                                <div class="card-header"><div><h3 class="card-title">India · Standard</h3><p class="card-subtitle">Default structure for permanent employees · created Jan 8, 2024 · last edited Apr 12, 2026</p></div><button class="btn btn-primary btn-sm">Edit structure</button></div>
+                                <div class="grid grid-3" style="gap: 14px; padding: 4px 0;">
+                                    <div><div class="text-xs text-muted">Employees assigned</div><div style="font-weight: 700; font-size: 18px;">218</div></div>
+                                    <div><div class="text-xs text-muted">Avg monthly gross</div><div style="font-weight: 700; font-size: 18px;">₹86,400</div></div>
+                                    <div><div class="text-xs text-muted">Avg take-home</div><div style="font-weight: 700; font-size: 18px;">₹72,180</div></div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header"><div><h3 class="card-title">Components</h3><p class="card-subtitle">Order matters · drag to reorder · earnings stack first, then deductions</p></div></div>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div class="stack-row earning"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">Basic Pay</div><div class="text-xs text-muted">Earning · taxable · PF base</div></div><span class="calc-pill">40% of CTC</span><span style="font-weight: 700; min-width: 100px; text-align: right;">₹34,560</span></div>
+                                    <div class="stack-row earning"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">HRA</div><div class="text-xs text-muted">Earning · partial exempt</div></div><span class="calc-pill">50% of Basic</span><span style="font-weight: 700; min-width: 100px; text-align: right;">₹17,280</span></div>
+                                    <div class="stack-row earning"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">Conveyance</div><div class="text-xs text-muted">Earning · non-taxable</div></div><span class="calc-pill">fixed</span><span style="font-weight: 700; min-width: 100px; text-align: right;">₹1,600</span></div>
+                                    <div class="stack-row earning"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">Special Allowance</div><div class="text-xs text-muted">Earning · taxable · balancing</div></div><span class="calc-pill">balance</span><span style="font-weight: 700; min-width: 100px; text-align: right;">₹32,960</span></div>
+                                    <div class="stack-row deduction"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">PF (Employee)</div><div class="text-xs text-muted">Deduction · statutory</div></div><span class="calc-pill">12% of Basic</span><span style="font-weight: 700; min-width: 100px; text-align: right; color: var(--red-600);">−₹1,800</span></div>
+                                    <div class="stack-row deduction"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">Professional Tax</div><div class="text-xs text-muted">Deduction · state</div></div><span class="calc-pill">slab</span><span style="font-weight: 700; min-width: 100px; text-align: right; color: var(--red-600);">−₹200</span></div>
+                                    <div class="stack-row deduction"><span style="width: 22px; color: var(--text-muted);">⋮⋮</span><div style="flex: 1;"><div style="font-weight: 600;">TDS</div><div class="text-xs text-muted">Deduction · income tax</div></div><span class="calc-pill">slab</span><span style="font-weight: 700; min-width: 100px; text-align: right; color: var(--red-600);">−₹11,220</span></div>
+                                </div>
+
+                                <div style="margin-top: 18px; padding: 16px; background: var(--primary-50); border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center;">
+                                    <div><div class="text-xs text-muted">Monthly gross → take-home (sample, ₹10L CTC)</div><div style="font-weight: 700; font-size: 20px; color: var(--primary-700);">₹86,400 → ₹73,180</div></div>
+                                    <button class="btn btn-ghost">Preview offer letter</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

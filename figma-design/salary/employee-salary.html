@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Employee Salary — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .salary-row { transition: background 0.15s; }
+            .salary-row:hover { background: var(--primary-50); }
+            .change-up { color: var(--emerald-600); font-weight: 600; }
+            .change-flat { color: var(--text-muted); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Salary</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Salary</div>
+                    <a class="nav-item sub" href="components.html">Components</a>
+                    <a class="nav-item sub" href="structures.html">Structures</a>
+                    <a class="nav-item sub active">Employee salary</a>
+                    <a class="nav-item sub" href="statutory.html">Statutory</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search by employee, code or designation…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Employee compensation</h1>
+                            <p class="page-subtitle">Current CTC, structure assignment, and compensation history.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Export CSV</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Assign salary</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: var(--space-6);">
+                        <div class="kpi-card"><div class="kpi-label">Total monthly payout</div><div class="kpi-value">₹14.2 Cr</div><div class="kpi-foot text-muted text-xs">Gross across 1,247 employees</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Median CTC</div><div class="kpi-value">₹18.4L</div><div class="kpi-foot text-muted text-xs">Annual</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Hikes pending</div><div class="kpi-value">42</div><div class="kpi-foot"><span class="badge badge-warning">Q2 cycle</span></div></div>
+                        <div class="kpi-card"><div class="kpi-label">Avg take-home</div><div class="kpi-value">82.4%</div><div class="kpi-foot text-muted text-xs">of monthly gross</div></div>
+                    </div>
+
+                    <div class="filters" style="display: flex; gap: 8px; margin-bottom: 18px;">
+                        <button class="chip chip-active">All · 1,247</button>
+                        <button class="chip">India Standard · 218</button>
+                        <button class="chip">Engineering L4+ · 84</button>
+                        <button class="chip">Sales · 218</button>
+                        <button class="chip">Leadership · 6</button>
+                        <button class="chip">Pending hike · 42</button>
+                    </div>
+
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Designation</th>
+                                    <th>Structure</th>
+                                    <th>Current CTC</th>
+                                    <th>Effective</th>
+                                    <th>Last change</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-2 sm">AS</div><div><div style="font-weight: 600;">Aarav Sharma</div><div class="text-xs text-muted">EMP-001247</div></div></div></td><td>Engineering Manager</td><td>Engineering · L4+</td><td><strong>₹38,00,000</strong></td><td>Apr 1, 2026</td><td><span class="change-up">+18% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-4 sm">DP</div><div><div style="font-weight: 600;">Diya Patel</div><div class="text-xs text-muted">EMP-001189</div></div></div></td><td>Sr. Software Engineer</td><td>India · Standard</td><td><strong>₹22,40,000</strong></td><td>Apr 1, 2026</td><td><span class="change-up">+14% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-1 sm">RK</div><div><div style="font-weight: 600;">Rohit Kumar</div><div class="text-xs text-muted">EMP-001098</div></div></div></td><td>Software Engineer</td><td>India · Standard</td><td><strong>₹14,80,000</strong></td><td>Apr 1, 2026</td><td><span class="change-up">+10% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-7 sm">SI</div><div><div style="font-weight: 600;">Sneha Iyer</div><div class="text-xs text-muted">EMP-001056</div></div></div></td><td>Sr. Frontend Engineer</td><td>India · Standard</td><td><strong>₹24,60,000</strong></td><td>Apr 1, 2026</td><td><span class="change-up">+12% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-3 sm">PR</div><div><div style="font-weight: 600;">Priya Reddy</div><div class="text-xs text-muted">EMP-000088</div></div></div></td><td>VP Engineering</td><td>Leadership · C-suite</td><td><strong>₹76,00,000</strong></td><td>Jan 1, 2026</td><td><span class="change-up">+22% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-5 sm">AJ</div><div><div style="font-weight: 600;">Ananya Joshi</div><div class="text-xs text-muted">EMP-001312</div></div></div></td><td>TA Lead</td><td>India · Standard</td><td><strong>₹18,00,000</strong></td><td>Apr 1, 2026</td><td><span class="change-flat">No change</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-6 sm">AM</div><div><div style="font-weight: 600;">Arjun Mehta</div><div class="text-xs text-muted">EMP-001034</div></div></div></td><td>Payroll Specialist</td><td>India · Standard</td><td><strong>₹12,50,000</strong></td><td>Apr 1, 2026</td><td><span class="change-up">+8% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                                <tr class="salary-row"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-8 sm">SK</div><div><div style="font-weight: 600;">Siddharth Kapoor</div><div class="text-xs text-muted">EMP-000124</div></div></div></td><td>VP Sales</td><td>Sales · Variable</td><td><strong>₹62,00,000</strong></td><td>Jan 1, 2026</td><td><span class="change-up">+15% ↑</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">View</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

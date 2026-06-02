@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Add Employee — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .form-section { padding: 24px; background: #fff; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); }
+            .field { display: flex; flex-direction: column; gap: 6px; }
+            .field label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+            .field input, .field select, .field textarea {
+                padding: 10px 12px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); font-size: 14px; font-family: inherit;
+            }
+            .field input:focus, .field select:focus { outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 3px var(--primary-50); }
+            .section-num { width: 30px; height: 30px; border-radius: 50%; background: var(--primary-500); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+            .progress-rail { display: flex; gap: 4px; margin-bottom: 20px; }
+            .progress-rail > div { flex: 1; height: 4px; border-radius: 99px; background: var(--gray-200); }
+            .progress-rail > div.active { background: var(--primary-500); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Employees</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Employees</div>
+                    <a class="nav-item sub" href="list.html">Directory</a>
+                    <a class="nav-item sub active">Add new</a>
+                    <a class="nav-item sub" href="profile.html">Profile</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Add new employee</h1>
+                            <p class="page-subtitle">Onboard a new hire · all sections will be saved to draft.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Save draft</button>
+                            <button class="btn btn-primary">Create employee</button>
+                        </div>
+                    </div>
+
+                    <div class="progress-rail">
+                        <div class="active"></div>
+                        <div class="active"></div>
+                        <div class="active"></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="form-section">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                <div class="section-num">1</div>
+                                <div><h3 style="margin: 0;">Personal information</h3><div class="text-xs text-muted">Basic identifying details</div></div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                                <div class="field"><label>First name *</label><input type="text" value="Karthik" /></div>
+                                <div class="field"><label>Middle name</label><input type="text" /></div>
+                                <div class="field"><label>Last name *</label><input type="text" value="Raman" /></div>
+                                <div class="field"><label>Gender</label><select><option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option></select></div>
+                                <div class="field"><label>Date of birth</label><input type="date" value="1994-08-12" /></div>
+                                <div class="field"><label>Marital status</label><select><option>Single</option><option>Married</option><option>Other</option></select></div>
+                                <div class="field"><label>Personal email</label><input type="email" value="karthik.raman@gmail.com" /></div>
+                                <div class="field"><label>Phone</label><input type="tel" value="+91 98765 43210" /></div>
+                                <div class="field"><label>Blood group</label><select><option>O+</option><option>O−</option><option>A+</option><option>A−</option><option>B+</option><option>B−</option><option>AB+</option><option>AB−</option></select></div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                <div class="section-num">2</div>
+                                <div><h3 style="margin: 0;">Employment</h3><div class="text-xs text-muted">Role, department, reporting</div></div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                                <div class="field"><label>Employee code</label><input type="text" value="EMP-001354" readonly style="background: var(--gray-50);" /></div>
+                                <div class="field"><label>Work email *</label><input type="email" value="karthik.raman@company.com" /></div>
+                                <div class="field"><label>Date of joining *</label><input type="date" value="2026-06-01" /></div>
+                                <div class="field"><label>Department *</label><select><option>Engineering</option><option>Platform</option><option>Frontend</option><option>People &amp; Culture</option></select></div>
+                                <div class="field"><label>Designation *</label><select><option>Senior Software Engineer</option><option>Software Engineer</option><option>Engineering Manager</option></select></div>
+                                <div class="field"><label>Reports to *</label><select><option>Aarav Sharma · EM Platform</option><option>Diya Patel · Frontend Lead</option></select></div>
+                                <div class="field"><label>Employment type</label><select><option>Full-time</option><option>Contract</option><option>Intern</option></select></div>
+                                <div class="field"><label>Work location</label><select><option>Bengaluru HQ</option><option>Pune</option><option>Remote</option></select></div>
+                                <div class="field"><label>Shift</label><select><option>General · 9:00 — 18:00</option><option>Early · 7:00 — 16:00</option><option>Flexible</option></select></div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+                                <div class="section-num">3</div>
+                                <div><h3 style="margin: 0;">Compensation</h3><div class="text-xs text-muted">Salary structure assignment</div></div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                                <div class="field"><label>Salary structure *</label><select><option>India · Standard</option><option>Engineering L4+</option></select></div>
+                                <div class="field"><label>Annual CTC (₹) *</label><input type="text" value="22,40,000" /></div>
+                                <div class="field"><label>Effective from</label><input type="date" value="2026-06-01" /></div>
+                            </div>
+                            <div style="margin-top: 16px; padding: 14px; background: var(--primary-50); border-radius: var(--radius-md); font-size: 13px;">
+                                <strong>Preview:</strong> Monthly gross ₹1,86,667 · Basic ₹74,667 · HRA ₹37,333 · Special ₹73,067 · Take-home ≈ ₹1,52,840 after standard deductions
+                            </div>
+                        </div>
+
+                        <div class="form-section" style="opacity: 0.5;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="section-num" style="background: var(--gray-300);">4</div>
+                                <div><h3 style="margin: 0;">Documents</h3><div class="text-xs text-muted">PAN, Aadhaar, offer letter — fill after creating the record</div></div>
+                            </div>
+                        </div>
+
+                        <div class="form-section" style="opacity: 0.5;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="section-num" style="background: var(--gray-300);">5</div>
+                                <div><h3 style="margin: 0;">Account &amp; access</h3><div class="text-xs text-muted">User account, role, system permissions</div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Admin Dashboard — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .welcome {
+                background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #8b5cf6 100%);
+                color: #fff;
+                border-radius: var(--radius-xl);
+                padding: 28px 32px;
+                position: relative;
+                overflow: hidden;
+                margin-bottom: var(--space-6);
+            }
+            .welcome::after {
+                content: '';
+                position: absolute;
+                right: -40px;
+                top: -40px;
+                width: 240px;
+                height: 240px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.08);
+            }
+            .welcome::before {
+                content: '';
+                position: absolute;
+                right: 60px;
+                bottom: -60px;
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.06);
+            }
+            .welcome h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+            .welcome p { margin: 0; font-size: 13.5px; color: rgba(255,255,255,0.85); }
+            .welcome .actions { margin-top: 16px; display: flex; gap: 8px; }
+            .welcome .btn-light {
+                background: rgba(255,255,255,0.15);
+                color: #fff;
+                border: 1px solid rgba(255,255,255,0.2);
+                backdrop-filter: blur(8px);
+            }
+            .welcome .btn-light:hover { background: rgba(255,255,255,0.25); }
+            .welcome .btn-white {
+                background: #fff;
+                color: var(--primary-700);
+            }
+
+            /* Charts */
+            .chart-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: var(--space-4);
+                margin-bottom: var(--space-6);
+            }
+            @media (max-width: 1100px) {
+                .chart-grid { grid-template-columns: 1fr; }
+            }
+
+            .dept-row {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+            .dept-row .lbl { font-size: 13px; font-weight: 500; width: 130px; }
+            .dept-row .bar {
+                flex: 1;
+                height: 8px;
+                background: var(--gray-150);
+                border-radius: var(--radius-full);
+                overflow: hidden;
+            }
+            .dept-row .fill {
+                height: 100%;
+                border-radius: var(--radius-full);
+            }
+            .dept-row .num { font-size: 13px; font-weight: 700; min-width: 36px; text-align: right; }
+
+            .pipeline {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: var(--space-3);
+            }
+            .pipeline-step {
+                background: var(--gray-50);
+                border: 1px solid var(--border-soft);
+                border-radius: var(--radius-md);
+                padding: 12px;
+                text-align: center;
+            }
+            .pipeline-step .count { font-size: 22px; font-weight: 700; }
+            .pipeline-step .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; }
+            .pipeline-step.active {
+                background: var(--primary-50);
+                border-color: var(--primary-200);
+            }
+            .pipeline-step.active .count { color: var(--primary-700); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-brand">
+                    <div class="logo">H</div>
+                    <div class="brand-text">
+                        Hyrius HR
+                        <small>Admin Workspace</small>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item active">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                        Dashboard
+                    </a>
+                    <a class="nav-item" href="../employees/list.html">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Employees
+                    </a>
+                    <a class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                        Organization
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">People Ops</div>
+                    <a class="nav-item" href="../attendance/overview.html">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Attendance
+                    </a>
+                    <a class="nav-item" href="../leave/requests.html">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        Leave
+                        <span class="nav-badge">12</span>
+                    </a>
+                    <a class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                        Appraisal
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Compensation</div>
+                    <a class="nav-item" href="../payroll/runs.html">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        Payroll
+                    </a>
+                    <a class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        Salary structures
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Talent</div>
+                    <a class="nav-item" href="../recruitment/postings.html">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        Recruitment
+                        <span class="nav-badge" style="background: var(--amber-500);">5</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-section" style="margin-top: auto;">
+                    <div class="sidebar-section-label">System</div>
+                    <a class="nav-item">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Settings
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Main -->
+            <main class="main">
+                <header class="topbar">
+                    <div class="search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <span>Search employees, payroll, leave…</span>
+                    </div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                            <span class="dot"></span>
+                        </button>
+                        <div class="user-chip">
+                            <div class="avatar sm avatar-1">AS</div>
+                            <div>
+                                <div class="name">Aarav Sharma</div>
+                            </div>
+                            <span class="role">ADMIN</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <!-- Welcome -->
+                    <div class="welcome">
+                        <h1>Good morning, Aarav 👋</h1>
+                        <p>Here's what's happening across the org today — Thursday, May 14, 2026.</p>
+                        <div class="actions">
+                            <button class="btn btn-white">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                Start May payroll run
+                            </button>
+                            <button class="btn btn-light">Export report</button>
+                        </div>
+                    </div>
+
+                    <!-- KPIs -->
+                    <div class="kpis">
+                        <div class="kpi">
+                            <div class="kpi-icon indigo">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <p class="kpi-label">Active employees</p>
+                            <div class="kpi-value">1,247</div>
+                            <span class="kpi-delta up">↑ 24 this month</span>
+                        </div>
+
+                        <div class="kpi">
+                            <div class="kpi-icon emerald">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <p class="kpi-label">Attendance today</p>
+                            <div class="kpi-value">96.4%</div>
+                            <span class="kpi-delta up">↑ 1.2% vs. last week</span>
+                        </div>
+
+                        <div class="kpi">
+                            <div class="kpi-icon amber">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <p class="kpi-label">Pending leave requests</p>
+                            <div class="kpi-value">12</div>
+                            <span class="kpi-delta flat">3 awaiting your approval</span>
+                        </div>
+
+                        <div class="kpi">
+                            <div class="kpi-icon blue">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                            </div>
+                            <p class="kpi-label">May payroll</p>
+                            <div class="kpi-value">₹3.2 Cr</div>
+                            <span class="kpi-delta up">Draft · ready to process</span>
+                        </div>
+                    </div>
+
+                    <!-- Charts row -->
+                    <div class="chart-grid">
+                        <!-- Attendance trend -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Attendance trend</h3>
+                                    <p class="card-subtitle">Last 30 days · org-wide</p>
+                                </div>
+                                <div style="display: flex; gap: 14px; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
+                                        <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--primary-500); display: inline-block;"></span>
+                                        Present
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
+                                        <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--amber-500); display: inline-block;"></span>
+                                        Late
+                                    </div>
+                                </div>
+                            </div>
+                            <svg class="chart" viewBox="0 0 800 240" preserveAspectRatio="none">
+                                <defs>
+                                    <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#6366f1" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                                    </linearGradient>
+                                    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+                                        <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Grid lines -->
+                                <g stroke="#e5e7eb" stroke-dasharray="3,3">
+                                    <line x1="0" y1="60" x2="800" y2="60"/>
+                                    <line x1="0" y1="120" x2="800" y2="120"/>
+                                    <line x1="0" y1="180" x2="800" y2="180"/>
+                                </g>
+                                <!-- Present area -->
+                                <path d="M0,100 L40,90 L80,85 L120,75 L160,80 L200,65 L240,70 L280,55 L320,60 L360,50 L400,45 L440,55 L480,40 L520,50 L560,42 L600,35 L640,45 L680,30 L720,40 L760,28 L800,35 L800,240 L0,240 Z" fill="url(#g1)"/>
+                                <path d="M0,100 L40,90 L80,85 L120,75 L160,80 L200,65 L240,70 L280,55 L320,60 L360,50 L400,45 L440,55 L480,40 L520,50 L560,42 L600,35 L640,45 L680,30 L720,40 L760,28 L800,35" fill="none" stroke="#6366f1" stroke-width="2.5"/>
+                                <!-- Late area -->
+                                <path d="M0,200 L40,195 L80,190 L120,185 L160,195 L200,190 L240,185 L280,175 L320,180 L360,175 L400,170 L440,180 L480,170 L520,175 L560,170 L600,165 L640,175 L680,165 L720,170 L760,160 L800,165 L800,240 L0,240 Z" fill="url(#g2)"/>
+                                <path d="M0,200 L40,195 L80,190 L120,185 L160,195 L200,190 L240,185 L280,175 L320,180 L360,175 L400,170 L440,180 L480,170 L520,175 L560,170 L600,165 L640,175 L680,165 L720,170 L760,160 L800,165" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+                                <!-- Highlight point -->
+                                <circle cx="760" cy="28" r="5" fill="#fff" stroke="#6366f1" stroke-width="2.5"/>
+                            </svg>
+                            <div style="display: flex; justify-content: space-between; color: var(--text-muted); font-size: 11px; padding-top: 8px;">
+                                <span>Apr 14</span><span>Apr 21</span><span>Apr 28</span><span>May 5</span><span>May 12</span>
+                            </div>
+                        </div>
+
+                        <!-- Headcount donut -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Workforce composition</h3>
+                                    <p class="card-subtitle">Status breakdown</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 18px;">
+                                <div class="donut" style="--p: 78; --c: var(--primary-500); --s: 160px;">
+                                    <div class="donut-center">
+                                        <div class="val">1,247</div>
+                                        <div class="label">Total headcount</div>
+                                    </div>
+                                </div>
+                                <div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                        <span style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="width: 10px; height: 10px; border-radius: 3px; background: var(--primary-500);"></span>
+                                            Active
+                                        </span>
+                                        <strong>972 · 78%</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                        <span style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="width: 10px; height: 10px; border-radius: 3px; background: var(--amber-500);"></span>
+                                            On leave
+                                        </span>
+                                        <strong>187 · 15%</strong>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                                        <span style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="width: 10px; height: 10px; border-radius: 3px; background: var(--gray-300);"></span>
+                                            Inactive
+                                        </span>
+                                        <strong>88 · 7%</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mid grid: dept breakdown + recent hires -->
+                    <div class="grid grid-3" style="margin-bottom: var(--space-6);">
+                        <div class="card col-span-2">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Headcount by department</h3>
+                                    <p class="card-subtitle">Click a bar to drill in</p>
+                                </div>
+                                <a class="card-link">View all →</a>
+                            </div>
+                            <div class="dept-row">
+                                <span class="lbl">Engineering</span>
+                                <div class="bar"><div class="fill" style="width: 82%; background: linear-gradient(90deg, #6366f1, #4338ca);"></div></div>
+                                <span class="num">412</span>
+                            </div>
+                            <div class="dept-row">
+                                <span class="lbl">Sales</span>
+                                <div class="bar"><div class="fill" style="width: 56%; background: linear-gradient(90deg, #ef4444, #b91c1c);"></div></div>
+                                <span class="num">284</span>
+                            </div>
+                            <div class="dept-row">
+                                <span class="lbl">Marketing</span>
+                                <div class="bar"><div class="fill" style="width: 38%; background: linear-gradient(90deg, #ec4899, #db2777);"></div></div>
+                                <span class="num">192</span>
+                            </div>
+                            <div class="dept-row">
+                                <span class="lbl">Operations</span>
+                                <div class="bar"><div class="fill" style="width: 32%; background: linear-gradient(90deg, #f59e0b, #b45309);"></div></div>
+                                <span class="num">163</span>
+                            </div>
+                            <div class="dept-row">
+                                <span class="lbl">Finance</span>
+                                <div class="bar"><div class="fill" style="width: 18%; background: linear-gradient(90deg, #10b981, #047857);"></div></div>
+                                <span class="num">94</span>
+                            </div>
+                            <div class="dept-row">
+                                <span class="lbl">Human Resources</span>
+                                <div class="bar"><div class="fill" style="width: 12%; background: linear-gradient(90deg, #06b6d4, #0e7490);"></div></div>
+                                <span class="num">62</span>
+                            </div>
+                            <div class="dept-row" style="margin-bottom: 0;">
+                                <span class="lbl">Legal</span>
+                                <div class="bar"><div class="fill" style="width: 8%; background: linear-gradient(90deg, #8b5cf6, #6d28d9);"></div></div>
+                                <span class="num">40</span>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Recent hires</h3>
+                                    <p class="card-subtitle">Last 30 days</p>
+                                </div>
+                                <a class="card-link">All →</a>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-item">
+                                    <div class="avatar avatar-2 sm">PG</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Priyanka Gupta joined Backend Team</p>
+                                        <p class="activity-meta">Software Engineer · 2 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-3 sm">SR</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Saurav Roy joined Frontend Team</p>
+                                        <p class="activity-meta">UI Developer · 4 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-5 sm">NK</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Neha Kapoor joined Sales</p>
+                                        <p class="activity-meta">Account Executive · 6 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-7 sm">RM</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Rahul Mishra joined Backend Team</p>
+                                        <p class="activity-meta">Senior Engineer · 10 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recruitment pipeline -->
+                    <div class="card" style="margin-bottom: var(--space-6);">
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">Hiring pipeline</h3>
+                                <p class="card-subtitle">Active applicants across stages · 47 open roles</p>
+                            </div>
+                            <a class="card-link" href="../recruitment/postings.html">Open pipeline →</a>
+                        </div>
+                        <div class="pipeline">
+                            <div class="pipeline-step">
+                                <div class="count">128</div>
+                                <div class="label">Applied</div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="count">52</div>
+                                <div class="label">Shortlisted</div>
+                            </div>
+                            <div class="pipeline-step active">
+                                <div class="count">23</div>
+                                <div class="label">Interviewing</div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="count">8</div>
+                                <div class="label">Offered</div>
+                            </div>
+                            <div class="pipeline-step">
+                                <div class="count">3</div>
+                                <div class="label">Hired</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending approvals + top performers -->
+                    <div class="grid grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Pending approvals</h3>
+                                    <p class="card-subtitle">3 require your action</p>
+                                </div>
+                                <a class="card-link" href="../leave/requests.html">View all →</a>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Type</th>
+                                        <th>Dates</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="person">
+                                                <div class="avatar avatar-2 sm">DP</div>
+                                                <div class="meta">
+                                                    <span class="name">Diya Patel</span>
+                                                    <span class="sub">Backend Team</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-info">Casual</span></td>
+                                        <td>May 20 — 22</td>
+                                        <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;">
+                                            <button class="btn btn-sm btn-success">Approve</button>
+                                            <button class="btn btn-sm">Decline</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="person">
+                                                <div class="avatar avatar-3 sm">RK</div>
+                                                <div class="meta">
+                                                    <span class="name">Rohit Kumar</span>
+                                                    <span class="sub">Backend Team</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-warning">Sick</span></td>
+                                        <td>May 16</td>
+                                        <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;">
+                                            <button class="btn btn-sm btn-success">Approve</button>
+                                            <button class="btn btn-sm">Decline</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="person">
+                                                <div class="avatar avatar-6 sm">MN</div>
+                                                <div class="meta">
+                                                    <span class="name">Meera Nair</span>
+                                                    <span class="sub">Backend Team</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge badge-success">Earned</span></td>
+                                        <td>Jun 1 — 5</td>
+                                        <td style="text-align: right; display: flex; gap: 6px; justify-content: flex-end;">
+                                            <button class="btn btn-sm btn-success">Approve</button>
+                                            <button class="btn btn-sm">Decline</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3 class="card-title">Top performers</h3>
+                                    <p class="card-subtitle">H1 2026 Review · current standings</p>
+                                </div>
+                                <a class="card-link">Review →</a>
+                            </div>
+
+                            <div class="activity">
+                                <div class="activity-item">
+                                    <div class="avatar avatar-1 sm">AS</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Aarav Sharma <span class="badge badge-success" style="margin-left: 6px;">★ 4.55</span></p>
+                                        <p class="activity-meta">Engineering Manager · Engineering</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-2 sm">DP</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Diya Patel <span class="badge badge-success" style="margin-left: 6px;">★ 4.40</span></p>
+                                        <p class="activity-meta">Senior Software Engineer · Backend</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-7 sm">SI</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Sneha Iyer <span class="badge badge-info" style="margin-left: 6px;">★ 4.10</span></p>
+                                        <p class="activity-meta">Frontend Developer · Frontend</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="avatar avatar-4 sm">VS</div>
+                                    <div class="activity-text">
+                                        <p class="activity-title">Vikram Singh <span class="badge badge-info" style="margin-left: 6px;">★ 4.05</span></p>
+                                        <p class="activity-meta">HR Manager · Human Resources</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

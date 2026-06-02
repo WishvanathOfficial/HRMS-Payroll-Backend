@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Leave Balances — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .mini-meter { display: flex; align-items: center; gap: 6px; }
+            .mini-meter .bar { width: 50px; height: 6px; background: var(--gray-150); border-radius: 99px; overflow: hidden; }
+            .mini-meter .bar > div { height: 100%; border-radius: 99px; }
+            .util-low > div { background: var(--emerald-500); }
+            .util-mid > div { background: var(--amber-500); }
+            .util-high > div { background: var(--red-500); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Leave</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Leave</div>
+                    <a class="nav-item sub" href="requests.html">Requests</a>
+                    <a class="nav-item sub" href="types.html">Types</a>
+                    <a class="nav-item sub active">Balances</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search employees…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Leave balances</h1>
+                            <p class="page-subtitle">Year-to-date balance and utilization for every employee · FY 2026-27</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Bulk credit</button>
+                            <button class="btn btn-primary">Export</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: var(--space-6);">
+                        <div class="kpi-card"><div class="kpi-label">Avg utilization</div><div class="kpi-value">38%</div><div class="kpi-foot text-muted text-xs">Across all leave types</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Highest taker</div><div class="kpi-value" style="font-size: 16px;">Aarav Sharma</div><div class="kpi-foot text-muted text-xs">14 days used</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Not used any leave</div><div class="kpi-value">128</div><div class="kpi-foot"><span class="badge badge-warning">10% of org</span></div></div>
+                        <div class="kpi-card"><div class="kpi-label">EL to encash on exit</div><div class="kpi-value">412 days</div><div class="kpi-foot text-muted text-xs">Across recent exits</div></div>
+                    </div>
+
+                    <div class="filters" style="display: flex; gap: 8px; margin-bottom: 18px;">
+                        <button class="chip chip-active">All · 1,247</button>
+                        <button class="chip">Engineering · 412</button>
+                        <button class="chip">Sales · 218</button>
+                        <button class="chip">Low utilization · 128</button>
+                        <button class="chip">High utilization · 84</button>
+                    </div>
+
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Department</th>
+                                    <th>Casual (12)</th>
+                                    <th>Sick (10)</th>
+                                    <th>Earned (20)</th>
+                                    <th>Comp-off</th>
+                                    <th>Used YTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-2 sm">AS</div><strong>Aarav Sharma</strong></div></td><td>Engineering</td><td><span class="mini-meter"><span>9</span><span class="bar util-mid"><div style="width: 25%;"></div></span></span></td><td><span class="mini-meter"><span>6</span><span class="bar util-mid"><div style="width: 40%;"></div></span></span></td><td><span class="mini-meter"><span>16</span><span class="bar util-low"><div style="width: 20%;"></div></span></span></td><td>2</td><td><strong>14 days</strong></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-4 sm">DP</div><strong>Diya Patel</strong></div></td><td>Engineering</td><td><span class="mini-meter"><span>9</span><span class="bar util-mid"><div style="width: 25%;"></div></span></span></td><td><span class="mini-meter"><span>8</span><span class="bar util-low"><div style="width: 20%;"></div></span></span></td><td><span class="mini-meter"><span>18</span><span class="bar util-low"><div style="width: 10%;"></div></span></span></td><td>0</td><td><strong>9 days</strong></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-1 sm">RK</div><strong>Rohit Kumar</strong></div></td><td>Engineering</td><td><span class="mini-meter"><span>11</span><span class="bar util-low"><div style="width: 8%;"></div></span></span></td><td><span class="mini-meter"><span>10</span><span class="bar util-low"><div style="width: 0%;"></div></span></span></td><td><span class="mini-meter"><span>19</span><span class="bar util-low"><div style="width: 5%;"></div></span></span></td><td>1</td><td><strong>2 days</strong></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-7 sm">SI</div><strong>Sneha Iyer</strong></div></td><td>Engineering</td><td><span class="mini-meter"><span>6</span><span class="bar util-high"><div style="width: 50%;"></div></span></span></td><td><span class="mini-meter"><span>10</span><span class="bar util-low"><div style="width: 0%;"></div></span></span></td><td><span class="mini-meter"><span>12</span><span class="bar util-mid"><div style="width: 40%;"></div></span></span></td><td>0</td><td><strong>14 days</strong></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-5 sm">AJ</div><strong>Ananya Joshi</strong></div></td><td>People &amp; Culture</td><td><span class="mini-meter"><span>10</span><span class="bar util-low"><div style="width: 17%;"></div></span></span></td><td><span class="mini-meter"><span>9</span><span class="bar util-low"><div style="width: 10%;"></div></span></span></td><td><span class="mini-meter"><span>17</span><span class="bar util-low"><div style="width: 15%;"></div></span></span></td><td>3</td><td><strong>7 days</strong></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-6 sm">AM</div><strong>Arjun Mehta</strong></div></td><td>Finance &amp; Ops</td><td><span class="mini-meter"><span>12</span><span class="bar util-low"><div style="width: 0%;"></div></span></span></td><td><span class="mini-meter"><span>10</span><span class="bar util-low"><div style="width: 0%;"></div></span></span></td><td><span class="mini-meter"><span>20</span><span class="bar util-low"><div style="width: 0%;"></div></span></span></td><td>0</td><td><strong style="color: var(--red-600);">0 days ⚠</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

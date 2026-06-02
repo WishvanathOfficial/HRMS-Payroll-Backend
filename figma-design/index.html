@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>HRMS &amp; Payroll — UI Mockups</title>
+        <link rel="stylesheet" href="assets/shared.css" />
+        <style>
+            body { background: var(--bg-app); }
+            .hero {
+                padding: 80px 40px 60px;
+                background: linear-gradient(135deg, #4338ca 0%, #6366f1 50%, #8b5cf6 100%);
+                color: #fff;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background:
+                    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15), transparent 40%),
+                    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1), transparent 40%);
+                pointer-events: none;
+            }
+            .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+            .hero-tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.15);
+                padding: 6px 14px;
+                border-radius: var(--radius-full);
+                font-size: 12.5px;
+                font-weight: 600;
+                margin-bottom: 20px;
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            .hero h1 {
+                font-size: 44px;
+                font-weight: 700;
+                letter-spacing: -0.025em;
+                margin: 0 0 18px;
+                line-height: 1.1;
+            }
+            .hero p {
+                font-size: 17px;
+                max-width: 680px;
+                color: rgba(255, 255, 255, 0.85);
+                margin: 0 0 28px;
+                line-height: 1.55;
+            }
+            .hero-stats {
+                display: flex;
+                gap: 40px;
+                margin-top: 32px;
+                flex-wrap: wrap;
+            }
+            .hero-stat .num { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+            .hero-stat .lbl { font-size: 12px; color: rgba(255, 255, 255, 0.75); margin-top: 2px; }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 56px 40px 80px;
+            }
+
+            .module-section {
+                margin-bottom: var(--space-10);
+            }
+
+            .module-header {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: var(--space-5);
+            }
+
+            .module-header .module-icon {
+                width: 44px;
+                height: 44px;
+                border-radius: var(--radius-md);
+                display: grid;
+                place-items: center;
+                box-shadow: var(--shadow-sm);
+            }
+
+            .module-header .module-icon svg { width: 22px; height: 22px; }
+
+            .module-header h2 {
+                margin: 0;
+                font-size: 22px;
+                letter-spacing: -0.01em;
+            }
+
+            .module-header p {
+                margin: 4px 0 0;
+                color: var(--text-secondary);
+                font-size: 13.5px;
+            }
+
+            .screens {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: var(--space-4);
+            }
+
+            .screen-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-soft);
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-sm);
+                overflow: hidden;
+                transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .screen-card:hover {
+                transform: translateY(-3px);
+                box-shadow: var(--shadow-lg);
+                border-color: var(--primary-300, #a5b4fc);
+            }
+
+            .screen-preview {
+                aspect-ratio: 16 / 10;
+                background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .screen-preview .mini {
+                position: absolute;
+                inset: 12px;
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .mini-bar {
+                height: 16px;
+                background: linear-gradient(90deg, var(--primary-500), var(--primary-700));
+            }
+
+            .mini-body {
+                flex: 1;
+                padding: 8px;
+                display: flex;
+                gap: 6px;
+            }
+
+            .mini-side {
+                width: 26%;
+                background: var(--gray-100);
+                border-radius: 4px;
+            }
+
+            .mini-main {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .mini-row {
+                height: 12px;
+                background: var(--gray-150);
+                border-radius: 3px;
+            }
+
+            .mini-row.short { width: 60%; }
+            .mini-row.tall { height: 30px; }
+
+            .mini-tiles {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 4px;
+                margin-top: 2px;
+            }
+
+            .mini-tile { height: 28px; background: var(--gray-100); border-radius: 4px; }
+            .mini-tile.accent-i { background: linear-gradient(135deg, #ede9fe, #c4b5fd); }
+            .mini-tile.accent-e { background: linear-gradient(135deg, #d1fae5, #6ee7b7); }
+            .mini-tile.accent-a { background: linear-gradient(135deg, #fef3c7, #fcd34d); }
+
+            .screen-info {
+                padding: 14px 16px 16px;
+                border-top: 1px solid var(--border-soft);
+            }
+
+            .screen-info .name {
+                font-weight: 700;
+                font-size: 14px;
+                margin: 0 0 4px;
+            }
+
+            .screen-info .desc {
+                font-size: 12.5px;
+                color: var(--text-secondary);
+                margin: 0 0 10px;
+                line-height: 1.45;
+            }
+
+            .screen-info .link {
+                color: var(--primary-600);
+                font-size: 12px;
+                font-weight: 700;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <section class="hero">
+            <div class="hero-inner">
+                <span class="hero-tag">✦ High-fidelity mockups</span>
+                <h1>HRMS &amp; Payroll<br />UI Design System</h1>
+                <p>
+                    Complete enterprise-grade screen designs for every module — Auth, Organization, Employee,
+                    Attendance, Leave, Salary, Payroll, Recruitment, and Appraisal. Built off the 26-table schema
+                    in <code style="background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 6px;">src/migrations/</code>,
+                    optimized for role-based dashboards.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="num">9</div>
+                        <div class="lbl">Modules</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">35+</div>
+                        <div class="lbl">Screens</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">4</div>
+                        <div class="lbl">Role-based dashboards</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="num">26</div>
+                        <div class="lbl">Backed by DB tables</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Dashboards (focus) -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--primary-50); color: var(--primary-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+                    </div>
+                    <div>
+                        <h2>Dashboards <span style="color: var(--text-muted); font-size: 14px; font-weight: 500;">★ primary focus</span></h2>
+                        <p>Role-tailored landing screens for the four primary personas — each with KPIs, charts, activity feeds, and quick actions.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="dashboard/admin.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-i"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-a"></div>
+                                        </div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Admin Dashboard</p>
+                            <p class="desc">Org-wide headcount, payroll status, attendance trend, hiring pipeline, top performers.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+
+                    <a href="dashboard/hr.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #ec4899, #db2777);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-i"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-a"></div>
+                                        </div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">HR Dashboard</p>
+                            <p class="desc">New joiners, pending leave approvals, payroll readiness, headcount by department.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+
+                    <a href="dashboard/manager.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-i"></div>
+                                        </div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Manager Dashboard</p>
+                            <p class="desc">Team attendance, leave queue, ongoing appraisals, direct-report headcount.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+
+                    <a href="dashboard/employee.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-a"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-i"></div>
+                                        </div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Employee Self-Service</p>
+                            <p class="desc">Today's check-in, leave balance, latest payslip, upcoming holidays.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Auth -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--violet-50); color: var(--violet-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <div>
+                        <h2>Authentication</h2>
+                        <p>Login screen with brand visual + role-based welcome.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="auth/login.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #ede9fe, #ddd6fe);">
+                            <div class="mini">
+                                <div class="mini-body" style="flex-direction: column; justify-content: center; gap: 8px; padding: 20px;">
+                                    <div style="width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #6366f1, #4338ca); margin-bottom: 8px;"></div>
+                                    <div class="mini-row" style="width: 60%;"></div>
+                                    <div class="mini-row" style="width: 80%; height: 28px;"></div>
+                                    <div class="mini-row" style="width: 80%; height: 28px;"></div>
+                                    <div class="mini-row" style="width: 80%; height: 24px; background: #6366f1;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Login</p>
+                            <p class="desc">Email + password, branded split-pane.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="auth/forgot-password.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #ede9fe, #ddd6fe);">
+                            <div class="mini">
+                                <div class="mini-body" style="flex-direction: column; justify-content: center; gap: 8px; padding: 24px;">
+                                    <div style="width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #6366f1, #4338ca);"></div>
+                                    <div class="mini-row" style="width: 70%;"></div>
+                                    <div class="mini-row" style="width: 90%; height: 28px;"></div>
+                                    <div class="mini-row" style="width: 100%; height: 22px; background: #6366f1;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Forgot Password</p>
+                            <p class="desc">Email-based reset link request flow.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="auth/reset-password.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #ede9fe, #ddd6fe);">
+                            <div class="mini">
+                                <div class="mini-body" style="flex-direction: column; justify-content: center; gap: 6px; padding: 22px;">
+                                    <div style="width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #6366f1, #4338ca);"></div>
+                                    <div class="mini-row" style="width: 70%;"></div>
+                                    <div class="mini-row" style="width: 90%; height: 24px;"></div>
+                                    <div class="mini-row" style="width: 90%; height: 24px;"></div>
+                                    <div class="mini-row" style="width: 90%; height: 16px; background: #d1fae5;"></div>
+                                    <div class="mini-row" style="width: 100%; height: 20px; background: #6366f1;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Reset Password</p>
+                            <p class="desc">New password with live strength meter + rule checks.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Organization -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--primary-50); color: var(--primary-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <h2>Organization</h2>
+                        <p>Department hierarchy, designations &amp; pay bands, full org chart.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="organization/departments.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-row tall"></div><div class="mini-row tall"></div><div class="mini-row" style="width: 80%;"></div><div class="mini-row" style="width: 60%;"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Departments</p>
+                            <p class="desc">Hierarchical tree with head, headcount, and cost centers.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="organization/designations.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-tiles"><div class="mini-tile accent-i"></div><div class="mini-tile accent-e"></div><div class="mini-tile accent-a"></div></div><div class="mini-row tall"></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Designations</p>
+                            <p class="desc">Titles, levels, pay bands · standardized across the org.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="organization/org-chart.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #eef2ff, #c7d2fe);">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main" style="align-items: center; justify-content: center; padding: 4px;"><div style="width: 38px; height: 14px; background: #6366f1; border-radius: 4px;"></div><div style="display: flex; gap: 4px;"><div style="width: 22px; height: 12px; background: #c7d2fe; border-radius: 3px;"></div><div style="width: 22px; height: 12px; background: #c7d2fe; border-radius: 3px;"></div><div style="width: 22px; height: 12px; background: #c7d2fe; border-radius: 3px;"></div></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Org Chart</p>
+                            <p class="desc">Visual reporting hierarchy · zoom &amp; pan.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Employee -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--emerald-50); color: var(--emerald-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                        <h2>Employees</h2>
+                        <p>Directory, profile, employment history, status &amp; reporting tree.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="employees/list.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row tall"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Employee Directory</p>
+                            <p class="desc">Searchable, filterable list with status + designation + department.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="employees/profile.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div style="display: flex; gap: 6px;">
+                                            <div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #4338ca);"></div>
+                                            <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+                                                <div class="mini-row short"></div>
+                                                <div class="mini-row" style="width: 40%; height: 8px;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-i"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                        </div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Employee Profile</p>
+                            <p class="desc">Personal info, employment history, salary, leave balance.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="employees/add.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div style="display: flex; gap: 3px;"><div class="mini-row" style="flex: 1;"></div><div class="mini-row" style="flex: 1;"></div></div><div class="mini-row tall"></div><div class="mini-row tall"></div><div class="mini-row"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Add Employee</p>
+                            <p class="desc">5-section onboarding form: personal, employment, comp, docs, access.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Salary -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--emerald-50); color: var(--emerald-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/></svg>
+                    </div>
+                    <div>
+                        <h2>Salary &amp; Compensation</h2>
+                        <p>Components catalog, structure builder, per-employee CTC, statutory rules.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="salary/components.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-tiles"><div class="mini-tile accent-e"></div><div class="mini-tile" style="background: #fee2e2;"></div><div class="mini-tile accent-i"></div></div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row short"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Components</p>
+                            <p class="desc">Earnings, deductions, employer contributions with calc rules.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="salary/structures.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-row tall"></div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row" style="background: #ecfdf5; height: 14px;"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Structures</p>
+                            <p class="desc">Reusable templates · drag-and-drop component builder.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="salary/employee-salary.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-row tall"></div><div class="mini-row tall"></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Employee Compensation</p>
+                            <p class="desc">CTC table, structure assignment, hike tracker.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="salary/statutory.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-tiles"><div class="mini-tile accent-i"></div><div class="mini-tile accent-e"></div></div><div class="mini-row tall"></div><div class="mini-row"></div><div class="mini-row short"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Statutory Deductions</p>
+                            <p class="desc">PF, ESI, PT, TDS slabs · old vs new regime.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Attendance -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--blue-50); color: var(--blue-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <div>
+                        <h2>Attendance</h2>
+                        <p>Check-in / out, shift planning, monthly summary, anomaly view.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="attendance/overview.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #3b82f6, #1d4ed8);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-i"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-a"></div>
+                                        </div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Attendance Overview</p>
+                            <p class="desc">Trend chart, today's check-ins, late/absent breakdown, shift map.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="attendance/my-attendance.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #eef2ff, #c7d2fe);">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row tall" style="background: linear-gradient(135deg, #6366f1, #4f46e5);"></div><div class="mini-tiles" style="grid-template-columns: repeat(7, 1fr); gap: 2px;"><div class="mini-tile" style="background: #d1fae5; height: 14px;"></div><div class="mini-tile" style="background: #d1fae5; height: 14px;"></div><div class="mini-tile" style="background: #dbeafe; height: 14px;"></div><div class="mini-tile" style="background: #fef3c7; height: 14px;"></div><div class="mini-tile" style="background: #d1fae5; height: 14px;"></div><div class="mini-tile" style="background: #ede9fe; height: 14px;"></div><div class="mini-tile" style="background: #f3f4f6; height: 14px;"></div></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">My Attendance</p>
+                            <p class="desc">Employee self-view: check-in box, monthly calendar, summary.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="attendance/shifts.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #3b82f6, #1d4ed8);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-tiles" style="grid-template-columns: repeat(2, 1fr); gap: 4px;"><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #dbeafe, #93c5fd);"></div><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #d1fae5, #6ee7b7);"></div><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #ede9fe, #c4b5fd);"></div><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #fef3c7, #fcd34d);"></div></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Shifts</p>
+                            <p class="desc">General / early / late / night / flex with timing and allowances.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Leave -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--emerald-50); color: var(--emerald-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                    <div>
+                        <h2>Leave</h2>
+                        <p>Apply, approve, balance, calendar.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="leave/requests.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row tall"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Leave Requests</p>
+                            <p class="desc">Approval queue with one-click approve / reject + balance preview.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="leave/my-leave.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div style="display: flex; gap: 4px;"><div style="width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(#10b981 75%, #e5e7eb 0);"></div><div style="width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(#3b82f6 60%, #e5e7eb 0);"></div><div style="width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(#8b5cf6 90%, #e5e7eb 0);"></div></div><div class="mini-row tall"></div><div class="mini-row"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">My Leave</p>
+                            <p class="desc">Apply for leave + balance donuts + my request history.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="leave/types.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-tiles" style="grid-template-columns: repeat(3, 1fr);"><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #d1fae5, #6ee7b7);"></div><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #dbeafe, #93c5fd);"></div><div class="mini-tile" style="height: 38px; background: linear-gradient(135deg, #ede9fe, #c4b5fd);"></div></div><div class="mini-row"></div><div class="mini-row short"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Leave Types</p>
+                            <p class="desc">Casual, sick, earned, maternity, paternity, comp-off configs.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="leave/balances.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #10b981, #047857);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-row tall"></div><div class="mini-row tall"></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Leave Balances</p>
+                            <p class="desc">Org-wide balance grid with utilization meters.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Payroll -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--amber-50); color: var(--amber-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div>
+                        <h2>Payroll</h2>
+                        <p>Monthly run, payslips, statutory deductions.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="payroll/runs.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-tiles">
+                                            <div class="mini-tile accent-a"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-i"></div>
+                                        </div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Payroll Runs</p>
+                            <p class="desc">Stepper for the May run + per-employee progress.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="payroll/payslip.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #f97316, #c2410c);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Payslip Detail</p>
+                            <p class="desc">Earnings / deductions breakdown with downloadable PDF.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="payroll/create-run.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div style="display: flex; gap: 2px;"><div class="mini-tile accent-e" style="flex: 1; height: 12px;"></div><div class="mini-tile accent-e" style="flex: 1; height: 12px;"></div><div class="mini-tile accent-i" style="flex: 1; height: 12px;"></div><div class="mini-tile" style="flex: 1; height: 12px;"></div><div class="mini-tile" style="flex: 1; height: 12px;"></div></div><div class="mini-row tall"></div><div class="mini-row"></div><div class="mini-row short"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Create Payroll Run</p>
+                            <p class="desc">5-step wizard with pre-flight checks and adjustments.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="payroll/my-payslips.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-tiles"><div class="mini-tile accent-e"></div><div class="mini-tile accent-i"></div><div class="mini-tile" style="background: #fde68a;"></div></div><div class="mini-row tall"></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">My Payslips</p>
+                            <p class="desc">Employee view of monthly payslips · download PDFs.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Recruitment -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--red-50); color: var(--red-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    </div>
+                    <div>
+                        <h2>Recruitment</h2>
+                        <p>Job postings, applicant pipeline, interview tracker.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="recruitment/postings.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #ef4444, #b91c1c);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-tiles" style="grid-template-columns: repeat(4, 1fr);">
+                                            <div class="mini-tile accent-i"></div>
+                                            <div class="mini-tile accent-e"></div>
+                                            <div class="mini-tile accent-a"></div>
+                                            <div class="mini-tile" style="background: #fde68a;"></div>
+                                        </div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Recruitment Pipeline</p>
+                            <p class="desc">Kanban-style applicant board across stages.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="recruitment/job-detail.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #ef4444, #b91c1c);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-tiles"><div class="mini-tile accent-i"></div><div class="mini-tile accent-e"></div><div class="mini-tile accent-a"></div></div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row short"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Job Posting Detail</p>
+                            <p class="desc">Job description + applicant funnel breakdown.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="recruitment/applicant.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #ef4444, #b91c1c);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div style="display: flex; gap: 6px;"><div style="width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #ef4444, #b91c1c);"></div><div style="flex: 1; display: flex; flex-direction: column; gap: 3px;"><div class="mini-row short"></div><div class="mini-row" style="width: 40%; height: 8px;"></div></div></div><div class="mini-row"></div><div class="mini-row"></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Applicant Profile</p>
+                            <p class="desc">Resume, interview history, scorecard, advance/reject.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Appraisal -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--pink-50); color: var(--pink-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+                    </div>
+                    <div>
+                        <h2>Appraisal</h2>
+                        <p>Performance cycles and per-employee reviews.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="appraisal/cycles.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #ec4899, #db2777);"></div>
+                                <div class="mini-body">
+                                    <div class="mini-side"></div>
+                                    <div class="mini-main">
+                                        <div class="mini-row short"></div>
+                                        <div class="mini-row tall"></div>
+                                        <div class="mini-row"></div>
+                                        <div class="mini-row"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Appraisal Cycles</p>
+                            <p class="desc">Cycle list + completion meter + per-employee rating distribution.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="appraisal/self-review.html" class="screen-card">
+                        <div class="screen-preview" style="background: linear-gradient(135deg, #fdf2f8, #fbcfe8);">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div style="display: flex; gap: 3px;"><div class="mini-tile accent-e" style="flex: 1; height: 14px;"></div><div class="mini-tile accent-i" style="flex: 1; height: 14px;"></div><div class="mini-tile" style="flex: 1; height: 14px;"></div><div class="mini-tile" style="flex: 1; height: 14px;"></div></div><div class="mini-row tall"></div><div class="mini-row"></div><div class="mini-row"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Self Review</p>
+                            <p class="desc">5-step self-assessment with star ratings + narrative.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="appraisal/review.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #ec4899, #db2777);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div style="display: flex; gap: 6px;"><div style="width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #db2777);"></div><div style="flex: 1; display: flex; flex-direction: column; gap: 3px;"><div class="mini-row short"></div><div class="mini-row" style="width: 40%; height: 8px;"></div></div></div><div class="mini-tiles"><div class="mini-tile" style="background: #dbeafe;"></div><div class="mini-tile accent-i"></div></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Manager Review</p>
+                            <p class="desc">Side-by-side self vs manager ratings with calibration.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--gray-100); color: var(--gray-700);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <div>
+                        <h2>Settings</h2>
+                        <p>Roles &amp; permissions matrix, user accounts, organization-wide preferences.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="settings/roles.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #4b5563, #1f2937);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-tiles" style="grid-template-columns: repeat(4, 1fr);"><div class="mini-tile" style="background: #fecaca;"></div><div class="mini-tile" style="background: #fef3c7;"></div><div class="mini-tile" style="background: #dbeafe;"></div><div class="mini-tile" style="background: #f3f4f6;"></div></div><div class="mini-row tall"></div><div class="mini-row"></div><div class="mini-row"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Roles &amp; Permissions</p>
+                            <p class="desc">Visual matrix across ADMIN / HR / MANAGER / EMPLOYEE.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="settings/users.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #4b5563, #1f2937);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-row tall"></div><div class="mini-row tall"></div><div class="mini-row tall"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Users</p>
+                            <p class="desc">User accounts, role assignment, 2FA status, invites.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                    <a href="settings/general.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #4b5563, #1f2937);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-row"></div><div class="mini-row"></div><div style="display: flex; align-items: center; gap: 4px;"><div class="mini-row" style="flex: 1; height: 8px;"></div><div style="width: 18px; height: 10px; background: #6366f1; border-radius: 99px;"></div></div><div style="display: flex; align-items: center; gap: 4px;"><div class="mini-row" style="flex: 1; height: 8px;"></div><div style="width: 18px; height: 10px; background: #d1d5db; border-radius: 99px;"></div></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">General</p>
+                            <p class="desc">Organization profile, locale, fiscal year, feature flags.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Reports -->
+            <section class="module-section">
+                <div class="module-header">
+                    <div class="module-icon" style="background: var(--blue-50); color: var(--blue-600);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                    </div>
+                    <div>
+                        <h2>Reports</h2>
+                        <p>Pre-built analytics across all modules · headcount, payroll, attendance, performance.</p>
+                    </div>
+                </div>
+                <div class="screens">
+                    <a href="reports/index.html" class="screen-card">
+                        <div class="screen-preview">
+                            <div class="mini">
+                                <div class="mini-bar" style="background: linear-gradient(90deg, #3b82f6, #1d4ed8);"></div>
+                                <div class="mini-body"><div class="mini-side"></div><div class="mini-main"><div class="mini-row short"></div><div class="mini-tiles"><div class="mini-tile accent-i"></div><div class="mini-tile accent-e"></div><div class="mini-tile accent-a"></div></div><div class="mini-tiles"><div class="mini-tile" style="background: #fde68a;"></div><div class="mini-tile" style="background: #fce7f3;"></div><div class="mini-tile" style="background: #f3f4f6;"></div></div></div></div>
+                            </div>
+                        </div>
+                        <div class="screen-info">
+                            <p class="name">Reports Landing</p>
+                            <p class="desc">12+ pre-built reports across all HRMS modules.</p>
+                            <span class="link">Open mockup →</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

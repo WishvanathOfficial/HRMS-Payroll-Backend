@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Salary Components — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .comp-card { padding: 16px; border: 1px solid var(--border-soft); border-radius: var(--radius-md); background: #fff; }
+            .type-earning { border-left: 3px solid var(--emerald-500); }
+            .type-deduction { border-left: 3px solid var(--red-500); }
+            .type-employer { border-left: 3px solid var(--blue-500); }
+            .calc-pill { background: var(--gray-100); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-family: ui-monospace, monospace; color: var(--text-secondary); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="12"/><line x1="12" y1="12" x2="16" y2="14"/></svg>Salary</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Salary</div>
+                    <a class="nav-item sub active">Components</a>
+                    <a class="nav-item sub" href="structures.html">Structures</a>
+                    <a class="nav-item sub" href="employee-salary.html">Employee salary</a>
+                    <a class="nav-item sub" href="statutory.html">Statutory</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search components…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Salary components</h1>
+                            <p class="page-subtitle">Earnings, deductions, and employer contributions used in payroll calculation.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New component</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: var(--space-6);">
+                        <div class="kpi-card" style="border-left: 3px solid var(--emerald-500);"><div class="kpi-label">Earnings</div><div class="kpi-value">12</div><div class="kpi-foot text-muted text-xs">Basic, HRA, allowances, bonuses</div></div>
+                        <div class="kpi-card" style="border-left: 3px solid var(--red-500);"><div class="kpi-label">Deductions</div><div class="kpi-value">7</div><div class="kpi-foot text-muted text-xs">PF, ESI, tax, loans</div></div>
+                        <div class="kpi-card" style="border-left: 3px solid var(--blue-500);"><div class="kpi-label">Employer contributions</div><div class="kpi-value">4</div><div class="kpi-foot text-muted text-xs">PF, gratuity, ESI</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Active in payroll</div><div class="kpi-value">21</div><div class="kpi-foot text-muted text-xs">of 23 total · 2 archived</div></div>
+                    </div>
+
+                    <div class="filters" style="display: flex; gap: 8px; margin-bottom: 18px;">
+                        <button class="chip chip-active">All · 23</button>
+                        <button class="chip">Earnings · 12</button>
+                        <button class="chip">Deductions · 7</button>
+                        <button class="chip">Employer · 4</button>
+                        <button class="chip">Taxable · 9</button>
+                    </div>
+
+                    <div class="grid grid-2" style="gap: 16px;">
+                        <div class="comp-card type-earning">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">Basic Pay</div><div class="text-xs text-muted">BAS · earning</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">40% of CTC</span><span class="calc-pill">taxable</span><span class="calc-pill">PF eligible</span></div>
+                        </div>
+                        <div class="comp-card type-earning">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">House Rent Allowance</div><div class="text-xs text-muted">HRA · earning</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">50% of Basic (metro)</span><span class="calc-pill">partial exempt</span></div>
+                        </div>
+                        <div class="comp-card type-earning">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">Conveyance Allowance</div><div class="text-xs text-muted">CONV · earning</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">Fixed ₹1,600/mo</span><span class="calc-pill">non-taxable</span></div>
+                        </div>
+                        <div class="comp-card type-earning">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">Special Allowance</div><div class="text-xs text-muted">SPL · earning · balancing</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">balancing figure</span><span class="calc-pill">taxable</span></div>
+                        </div>
+                        <div class="comp-card type-deduction">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">Provident Fund (Employee)</div><div class="text-xs text-muted">PF · deduction · statutory</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">12% of Basic</span><span class="calc-pill">capped ₹15,000 base</span></div>
+                        </div>
+                        <div class="comp-card type-deduction">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">Professional Tax</div><div class="text-xs text-muted">PT · deduction · state</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">slab-based</span><span class="calc-pill">₹200/mo Karnataka</span></div>
+                        </div>
+                        <div class="comp-card type-deduction">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">TDS / Income Tax</div><div class="text-xs text-muted">TDS · deduction · statutory</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">slab-based</span><span class="calc-pill">new + old regime</span></div>
+                        </div>
+                        <div class="comp-card type-employer">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">PF (Employer share)</div><div class="text-xs text-muted">PF-E · contribution</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">12% of Basic</span><span class="calc-pill">part of CTC</span></div>
+                        </div>
+                        <div class="comp-card type-employer">
+                            <div style="display: flex; justify-content: space-between;"><div><div style="font-weight: 700;">Gratuity</div><div class="text-xs text-muted">GRAT · contribution</div></div><span class="badge badge-success">Active</span></div>
+                            <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;"><span class="calc-pill">4.81% of Basic</span><span class="calc-pill">5-yr vesting</span></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Users — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>Settings</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Settings</div>
+                    <a class="nav-item sub" href="roles.html">Roles &amp; permissions</a>
+                    <a class="nav-item sub active">Users</a>
+                    <a class="nav-item sub" href="general.html">General</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search users…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">User accounts</h1>
+                            <p class="page-subtitle">Login accounts linked to employees · invite, deactivate, and assign roles.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Bulk invite</button>
+                            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Invite user</button>
+                        </div>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: var(--space-6);">
+                        <div class="kpi-card"><div class="kpi-label">Total users</div><div class="kpi-value">1,250</div><div class="kpi-foot text-muted text-xs">3 system + 1,247 employees</div></div>
+                        <div class="kpi-card"><div class="kpi-label">Active in last 30 days</div><div class="kpi-value">1,184</div><div class="kpi-foot text-muted text-xs">94.7% activity</div></div>
+                        <div class="kpi-card"><div class="kpi-label">2FA enabled</div><div class="kpi-value">312</div><div class="kpi-foot"><span class="badge badge-warning">25% · push wider rollout</span></div></div>
+                        <div class="kpi-card"><div class="kpi-label">Pending invites</div><div class="kpi-value">14</div><div class="kpi-foot text-muted text-xs">Sent in last 7 days</div></div>
+                    </div>
+
+                    <div class="filters" style="display: flex; gap: 8px; margin-bottom: 18px;">
+                        <button class="chip chip-active">All · 1,250</button>
+                        <button class="chip">ADMIN · 3</button>
+                        <button class="chip">HR · 14</button>
+                        <button class="chip">MANAGER · 186</button>
+                        <button class="chip">EMPLOYEE · 1,047</button>
+                        <button class="chip">Inactive · 66</button>
+                    </div>
+
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
+                                    <th>2FA</th>
+                                    <th>Last login</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-1 sm">SA</div><div><div style="font-weight: 600;">System Admin</div><div class="text-xs text-muted">Bootstrap account</div></div></div></td><td>admin@company.com</td><td><span class="badge badge-danger">ADMIN</span></td><td>✓</td><td>2 min ago</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-4 sm">VS</div><div><div style="font-weight: 600;">Vikram Singh</div><div class="text-xs text-muted">Chief People Officer</div></div></div></td><td>vikram.singh@company.com</td><td><span class="badge badge-warning">HR</span> <span class="badge badge-info">MANAGER</span></td><td>✓</td><td>14 min ago</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-3 sm">PR</div><div><div style="font-weight: 600;">Priya Reddy</div><div class="text-xs text-muted">VP Engineering</div></div></div></td><td>priya.reddy@company.com</td><td><span class="badge badge-info">MANAGER</span></td><td>✓</td><td>1 hr ago</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-2 sm">AS</div><div><div style="font-weight: 600;">Aarav Sharma</div><div class="text-xs text-muted">Engineering Manager</div></div></div></td><td>aarav.sharma@company.com</td><td><span class="badge badge-info">MANAGER</span></td><td>✗</td><td>3 hrs ago</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-5 sm">AJ</div><div><div style="font-weight: 600;">Ananya Joshi</div><div class="text-xs text-muted">TA Lead</div></div></div></td><td>ananya.joshi@company.com</td><td><span class="badge badge-warning">HR</span></td><td>✓</td><td>Yesterday</td><td><span class="badge badge-success"><span class="dot"></span>Active</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">⋯</button></td></tr>
+                                <tr><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-7 sm">KR</div><div><div style="font-weight: 600;">Karthik Raman</div><div class="text-xs text-muted">Sr. Frontend Engineer</div></div></div></td><td>karthik.raman@company.com</td><td><span class="badge badge-neutral">EMPLOYEE</span></td><td>—</td><td>Never logged in</td><td><span class="badge badge-warning"><span class="dot"></span>Invited</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Resend</button></td></tr>
+                                <tr style="opacity: 0.6;"><td><div style="display: flex; align-items: center; gap: 10px;"><div class="avatar avatar-6 sm">RG</div><div><div style="font-weight: 600;">Rakesh Gupta</div><div class="text-xs text-muted">Former employee</div></div></div></td><td>rakesh.gupta@company.com</td><td><span class="badge badge-neutral">EMPLOYEE</span></td><td>—</td><td>2 months ago</td><td><span class="badge badge-neutral"><span class="dot"></span>Deactivated</span></td><td style="text-align: right;"><button class="btn btn-ghost btn-sm">Restore</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

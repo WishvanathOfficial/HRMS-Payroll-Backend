@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Org Chart — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .org-canvas { padding: 24px; background: var(--gray-50); border-radius: var(--radius-lg); border: 1px solid var(--border-soft); overflow-x: auto; }
+            .node {
+                width: 200px; padding: 14px; background: #fff;
+                border: 1px solid var(--border-soft); border-radius: var(--radius-md);
+                box-shadow: var(--shadow-sm); text-align: center;
+            }
+            .node .avatar { margin: 0 auto 10px; }
+            .node .name { font-weight: 700; font-size: 14px; }
+            .node .title { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+            .node .reports { font-size: 11px; color: var(--primary-600); font-weight: 600; margin-top: 8px; }
+            .row { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Organization</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Organization</div>
+                    <a class="nav-item sub" href="departments.html">Departments</a>
+                    <a class="nav-item sub" href="designations.html">Designations</a>
+                    <a class="nav-item sub active">Org chart</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search org…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Organization chart</h1>
+                            <p class="page-subtitle">Reporting hierarchy · zoom and pan to navigate.</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <button class="btn btn-ghost">Fit to screen</button>
+                            <button class="btn btn-ghost">Export PNG</button>
+                            <button class="btn btn-primary">Switch to department view</button>
+                        </div>
+                    </div>
+
+                    <div class="org-canvas">
+                        <!-- CEO -->
+                        <div class="row" style="margin-bottom: 8px;">
+                            <div class="node" style="background: linear-gradient(135deg, var(--primary-500), var(--primary-600)); color: #fff; border: none;">
+                                <div class="avatar avatar-2" style="border: 3px solid rgba(255,255,255,0.5);">RM</div>
+                                <div class="name" style="color: #fff;">Rohan Malhotra</div>
+                                <div class="title" style="color: rgba(255,255,255,0.85);">Chief Executive Officer</div>
+                                <div class="reports" style="color: rgba(255,255,255,0.9);">5 direct reports</div>
+                            </div>
+                        </div>
+
+                        <svg width="100%" height="32" style="display: block;"><line x1="50%" y1="0" x2="50%" y2="32" stroke="var(--border-strong)" stroke-width="1.5"/></svg>
+
+                        <!-- C-suite -->
+                        <div class="row" style="margin-bottom: 8px;">
+                            <div class="node"><div class="avatar avatar-1">PR</div><div class="name">Priya Reddy</div><div class="title">VP Engineering</div><div class="reports">8 direct reports</div></div>
+                            <div class="node"><div class="avatar avatar-3">VS</div><div class="name">Vikram Singh</div><div class="title">Chief People Officer</div><div class="reports">3 direct reports</div></div>
+                            <div class="node"><div class="avatar avatar-5">MN</div><div class="name">Meera Nair</div><div class="title">CFO</div><div class="reports">4 direct reports</div></div>
+                            <div class="node"><div class="avatar avatar-6">SK</div><div class="name">Siddharth Kapoor</div><div class="title">VP Sales</div><div class="reports">6 direct reports</div></div>
+                            <div class="node"><div class="avatar avatar-7">AT</div><div class="name">Anjali Trivedi</div><div class="title">CMO</div><div class="reports">3 direct reports</div></div>
+                        </div>
+
+                        <svg width="100%" height="32" style="display: block;"><line x1="50%" y1="0" x2="50%" y2="32" stroke="var(--border-strong)" stroke-width="1.5"/></svg>
+
+                        <!-- Engineering leads -->
+                        <div class="row">
+                            <div class="node"><div class="avatar avatar-2">AS</div><div class="name">Aarav Sharma</div><div class="title">Platform Lead</div><div class="reports">12 reports</div></div>
+                            <div class="node"><div class="avatar avatar-4">DP</div><div class="name">Diya Patel</div><div class="title">Frontend Lead</div><div class="reports">9 reports</div></div>
+                            <div class="node"><div class="avatar avatar-1">RK</div><div class="name">Rohit Kumar</div><div class="title">Data &amp; ML Lead</div><div class="reports">7 reports</div></div>
+                            <div class="node"><div class="avatar avatar-3">SI</div><div class="name">Sneha Iyer</div><div class="title">Design Systems Lead</div><div class="reports">4 reports</div></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-3" style="margin-top: 24px;">
+                        <div class="card"><div class="kpi-label">Total reports under CEO</div><div class="kpi-value">1,247</div></div>
+                        <div class="card"><div class="kpi-label">Max depth</div><div class="kpi-value">6 levels</div></div>
+                        <div class="card"><div class="kpi-label">Avg span of control</div><div class="kpi-value">5.8</div></div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

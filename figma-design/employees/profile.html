@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Diya Patel — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .profile-hero { background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; border-radius: var(--radius-xl); padding: 28px 32px; position: relative; overflow: hidden; margin-bottom: var(--space-6); }
+            .profile-hero::after { content:''; position:absolute; right:-40px; top:-40px; width: 220px; height: 220px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+            .profile-hero .row { display: flex; gap: 24px; align-items: center; position: relative; z-index: 1; }
+            .profile-hero h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; }
+            .profile-hero .designation { color: rgba(255,255,255,0.85); font-size: 14px; }
+            .profile-hero .meta-row { display: flex; gap: 20px; margin-top: 12px; font-size: 12.5px; color: rgba(255,255,255,0.85); }
+            .profile-hero .meta-row span { display: flex; align-items: center; gap: 6px; }
+            .profile-hero .meta-row svg { width: 14px; height: 14px; }
+
+            .tabs { display: flex; gap: 4px; padding: 4px; background: var(--gray-100); border-radius: var(--radius-md); margin-bottom: var(--space-6); width: fit-content; }
+            .tab { padding: 8px 14px; font-size: 13px; font-weight: 600; border-radius: var(--radius-sm); color: var(--text-secondary); cursor: pointer; }
+            .tab.active { background: #fff; color: var(--text-primary); box-shadow: var(--shadow-xs); }
+
+            .info-grid { display: grid; grid-template-columns: 200px 1fr; gap: 14px 24px; font-size: 13.5px; }
+            .info-grid .lbl { color: var(--text-muted); font-size: 12.5px; }
+            .info-grid .val { color: var(--text-primary); font-weight: 500; }
+
+            .timeline-item {
+                display: flex;
+                gap: 16px;
+                padding-bottom: 18px;
+                position: relative;
+            }
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: 14px;
+                top: 30px;
+                bottom: -8px;
+                width: 2px;
+                background: var(--gray-150);
+            }
+            .timeline-item:last-child::before { display: none; }
+            .timeline-dot {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: var(--primary-50);
+                color: var(--primary-600);
+                display: grid;
+                place-items: center;
+                flex-shrink: 0;
+                position: relative;
+                z-index: 1;
+                border: 3px solid var(--bg-card);
+            }
+            .timeline-dot svg { width: 14px; height: 14px; }
+            .timeline-text .when { font-size: 11.5px; color: var(--text-muted); margin-bottom: 2px; }
+            .timeline-text .what { font-weight: 600; font-size: 13.5px; margin-bottom: 2px; }
+            .timeline-text .where { font-size: 12.5px; color: var(--text-secondary); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>Admin Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item active" href="list.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Employees</a>
+                    <a class="nav-item" href="../leave/requests.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Leave<span class="nav-badge">12</span></a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></button>
+                        <div class="user-chip"><div class="avatar sm avatar-1">AS</div><div><div class="name">Aarav Sharma</div></div><span class="role">ADMIN</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="profile-hero">
+                        <div class="row">
+                            <div class="avatar avatar-2 xl">DP</div>
+                            <div style="flex: 1;">
+                                <h1>Diya Patel</h1>
+                                <div class="designation">Senior Software Engineer · Backend Team</div>
+                                <div class="meta-row">
+                                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>EMP0002</span>
+                                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>diya.patel@company.com</span>
+                                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+91 98765 00002</span>
+                                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Joined Mar 15, 2019</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn" style="background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.25);">Message</button>
+                                <button class="btn" style="background: #fff; color: var(--primary-700);">Edit profile</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tabs">
+                        <div class="tab active">Overview</div>
+                        <div class="tab">Employment</div>
+                        <div class="tab">Compensation</div>
+                        <div class="tab">Attendance</div>
+                        <div class="tab">Leave</div>
+                        <div class="tab">Documents</div>
+                    </div>
+
+                    <div class="grid grid-3">
+                        <!-- Personal info -->
+                        <div class="card col-span-2">
+                            <div class="card-header"><div><h3 class="card-title">Personal information</h3></div><button class="btn btn-sm btn-ghost">Edit</button></div>
+                            <div class="info-grid">
+                                <div class="lbl">Full name</div><div class="val">Diya Patel</div>
+                                <div class="lbl">Employee code</div><div class="val">EMP0002</div>
+                                <div class="lbl">Date of birth</div><div class="val">Sep 23, 1991 · 34 yrs</div>
+                                <div class="lbl">Gender</div><div class="val">Female</div>
+                                <div class="lbl">Department</div><div class="val">Backend Team <span class="badge badge-indigo" style="margin-left: 6px;">Engineering</span></div>
+                                <div class="lbl">Designation</div><div class="val">Senior Software Engineer · L2</div>
+                                <div class="lbl">Reports to</div><div class="val"><div class="person"><div class="avatar avatar-1 sm">AS</div><div class="meta"><span class="name">Aarav Sharma</span><span class="sub">Engineering Manager</span></div></div></div>
+                                <div class="lbl">Status</div><div class="val"><span class="badge badge-success"><span class="dot"></span>Active</span></div>
+                                <div class="lbl">Join date</div><div class="val">Mar 15, 2019 · 6 yrs tenure</div>
+                                <div class="lbl">Current shift</div><div class="val">General Day · 09:00 — 18:00</div>
+                            </div>
+                        </div>
+
+                        <!-- Current pay -->
+                        <div>
+                            <div class="card" style="margin-bottom: 16px;">
+                                <div class="card-header"><div><h3 class="card-title">Current CTC</h3><p class="card-subtitle">Effective Jan 2024</p></div></div>
+                                <div style="font-size: 32px; font-weight: 700; letter-spacing: -0.01em;">₹15,00,000</div>
+                                <div class="text-muted text-xs" style="margin-top: 4px;">Standard Structure · ~₹1,25,000 / month</div>
+                                <div class="divider"></div>
+                                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+                                    <div style="display: flex; justify-content: space-between;"><span>Basic (40%)</span><strong>₹50,000</strong></div>
+                                    <div style="display: flex; justify-content: space-between;"><span>HRA (20%)</span><strong>₹25,000</strong></div>
+                                    <div style="display: flex; justify-content: space-between;"><span>Special</span><strong>₹37,500</strong></div>
+                                    <div style="display: flex; justify-content: space-between; color: var(--red-600);"><span>Deductions</span><strong>−₹27,500</strong></div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header"><div><h3 class="card-title">Leave balance</h3></div></div>
+                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                    <div><div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px;"><span>Casual</span><strong>10 / 12</strong></div><div class="progress"><div class="progress-bar" style="width: 83%; background: var(--emerald-500);"></div></div></div>
+                                    <div><div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px;"><span>Sick</span><strong>8 / 10</strong></div><div class="progress"><div class="progress-bar" style="width: 80%; background: var(--blue-500);"></div></div></div>
+                                    <div><div style="display: flex; justify-content: space-between; font-size: 12.5px; margin-bottom: 4px;"><span>Earned</span><strong>15 / 18</strong></div><div class="progress"><div class="progress-bar" style="width: 83%; background: var(--primary-500);"></div></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Employment timeline -->
+                    <div class="card" style="margin-top: var(--space-6);">
+                        <div class="card-header"><div><h3 class="card-title">Employment history</h3><p class="card-subtitle">3 milestones at Hyrius</p></div></div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: var(--primary-50); color: var(--primary-600);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+                            <div class="timeline-text">
+                                <div class="when">Mar 15, 2022 — Present</div>
+                                <div class="what">Promoted to Senior Software Engineer</div>
+                                <div class="where">Backend Team · Engineering · reporting to Aarav Sharma</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: var(--pink-50); color: var(--pink-600);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/></svg></div>
+                            <div class="timeline-text">
+                                <div class="when">Mar 15, 2019 — Mar 14, 2022</div>
+                                <div class="what">Software Engineer</div>
+                                <div class="where">Backend Team · Engineering</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: var(--emerald-50); color: var(--emerald-600);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+                            <div class="timeline-text">
+                                <div class="when">Mar 15, 2019</div>
+                                <div class="what">Joined Hyrius</div>
+                                <div class="where">Software Engineer · Backend Team</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

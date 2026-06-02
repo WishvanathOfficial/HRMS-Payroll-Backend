@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Applicant — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .timeline-item { display: flex; gap: 14px; position: relative; padding-bottom: 18px; }
+            .timeline-item:not(:last-child)::after {
+                content: ''; position: absolute; left: 17px; top: 36px; bottom: 0; width: 2px; background: var(--border-soft);
+            }
+            .timeline-dot { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; color: #fff; font-size: 14px; }
+            .stage-done { background: var(--emerald-500); }
+            .stage-active { background: var(--primary-500); box-shadow: 0 0 0 4px var(--primary-100); }
+            .stage-pending { background: var(--gray-300); }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/></svg>Dashboard</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/></svg>Recruitment</a>
+                </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Recruitment</div>
+                    <a class="nav-item sub" href="postings.html">Pipeline</a>
+                    <a class="nav-item sub" href="job-detail.html">Job detail</a>
+                    <a class="nav-item sub active">Applicant</a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <a href="postings.html" class="text-sm text-muted" style="text-decoration: none;">← Back to pipeline</a>
+
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 12px;">
+                        <div>
+                            <div class="card">
+                                <div style="display: flex; gap: 18px; align-items: flex-start;">
+                                    <div class="avatar avatar-6 lg" style="width: 80px; height: 80px; font-size: 28px;">KR</div>
+                                    <div style="flex: 1;">
+                                        <h1 style="margin: 0; font-size: 26px;">Karthik Raman</h1>
+                                        <div class="text-muted" style="font-size: 14px; margin-top: 2px;">Sr. Frontend Engineer @ Razorpay · 6 yrs experience</div>
+                                        <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge badge-info">React</span>
+                                            <span class="badge badge-info">TypeScript</span>
+                                            <span class="badge badge-info">Design Systems</span>
+                                            <span class="badge badge-info">Next.js</span>
+                                            <span class="badge badge-info">Performance</span>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <span class="badge badge-warning"><span class="dot"></span>Interview round 3</span>
+                                        <div class="text-xs text-muted" style="margin-top: 6px;">Applied Apr 28 · 16 days in pipeline</div>
+                                    </div>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; padding: 16px; background: var(--gray-50); border-radius: var(--radius-md);">
+                                    <div><div class="text-xs text-muted">Source</div><div style="font-weight: 600;">LinkedIn</div></div>
+                                    <div><div class="text-xs text-muted">Expected CTC</div><div style="font-weight: 600;">₹32L</div></div>
+                                    <div><div class="text-xs text-muted">Notice period</div><div style="font-weight: 600;">60 days</div></div>
+                                    <div><div class="text-xs text-muted">Location</div><div style="font-weight: 600;">Bengaluru</div></div>
+                                </div>
+
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn btn-primary">Advance to next stage</button>
+                                    <button class="btn btn-ghost">Schedule interview</button>
+                                    <button class="btn btn-ghost">Send email</button>
+                                    <button class="btn btn-ghost" style="color: var(--red-600); margin-left: auto;">Reject</button>
+                                </div>
+                            </div>
+
+                            <div class="card" style="margin-top: 18px;">
+                                <div class="card-header"><div><h3 class="card-title">Interview history</h3></div></div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-dot stage-done">✓</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between;"><strong>Recruiter screen</strong><span class="text-xs text-muted">Apr 30, 2026</span></div>
+                                        <div class="text-sm text-muted">30 min with Ananya Joshi · Outcome: <span style="color: var(--emerald-600); font-weight: 600;">Pass</span></div>
+                                        <div style="margin-top: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 13px;">Strong communication, clear motivation. Salary expectations align with band. Recommend technical screen.</div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-dot stage-done">✓</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between;"><strong>Technical screen</strong><span class="text-xs text-muted">May 4, 2026</span></div>
+                                        <div class="text-sm text-muted">60 min coding with Diya Patel · Outcome: <span style="color: var(--emerald-600); font-weight: 600;">Strong hire</span></div>
+                                        <div style="margin-top: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 13px;">Excellent TypeScript depth, idiomatic React. Solved core problem with elegant abstraction. Asked great clarifying questions.</div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-dot stage-done">✓</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between;"><strong>System design</strong><span class="text-xs text-muted">May 8, 2026</span></div>
+                                        <div class="text-sm text-muted">90 min with Aarav Sharma · Outcome: <span style="color: var(--emerald-600); font-weight: 600;">Hire</span></div>
+                                        <div style="margin-top: 8px; padding: 10px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 13px;">Designed a component library architecture clearly. Trade-offs articulated well. Some gaps around perf measurement but coachable.</div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-dot stage-active">3</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; justify-content: space-between;"><strong>Hiring manager round</strong><span class="text-xs text-muted">Scheduled May 16, 11:00</span></div>
+                                        <div class="text-sm text-muted">60 min with Diya Patel</div>
+                                    </div>
+                                </div>
+
+                                <div class="timeline-item">
+                                    <div class="timeline-dot stage-pending">4</div>
+                                    <div style="flex: 1;">
+                                        <div><strong>Culture &amp; values</strong></div>
+                                        <div class="text-sm text-muted">Pending scheduling</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="card">
+                                <div class="card-header"><div><h3 class="card-title">Applying for</h3></div></div>
+                                <div style="font-weight: 700;">Senior Frontend Engineer</div>
+                                <div class="text-xs text-muted">Engineering · Frontend</div>
+                                <a href="job-detail.html" class="text-sm" style="color: var(--primary-600); margin-top: 8px; display: inline-block;">View posting →</a>
+                            </div>
+
+                            <div class="card" style="margin-top: 18px;">
+                                <div class="card-header"><div><h3 class="card-title">Documents</h3></div></div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--gray-50); border-radius: var(--radius-sm);"><span style="font-size: 18px;">📄</span><div style="flex: 1;"><div style="font-weight: 600; font-size: 13px;">Resume_KarthikRaman.pdf</div><div class="text-xs text-muted">328 KB</div></div></div>
+                                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--gray-50); border-radius: var(--radius-sm);"><span style="font-size: 18px;">📄</span><div style="flex: 1;"><div style="font-weight: 600; font-size: 13px;">CoverLetter.pdf</div><div class="text-xs text-muted">112 KB</div></div></div>
+                                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--gray-50); border-radius: var(--radius-sm);"><span style="font-size: 18px;">🔗</span><div style="flex: 1;"><div style="font-weight: 600; font-size: 13px;">github.com/karthikr</div><div class="text-xs text-muted">Portfolio</div></div></div>
+                                </div>
+                            </div>
+
+                            <div class="card" style="margin-top: 18px;">
+                                <div class="card-header"><div><h3 class="card-title">Average rating</h3></div></div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 48px; font-weight: 800; color: var(--amber-600);">4.3</div>
+                                    <div class="text-muted" style="font-size: 13px;">3 interviewers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

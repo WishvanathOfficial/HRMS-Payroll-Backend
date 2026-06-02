@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Attendance — HRMS</title>
+        <link rel="stylesheet" href="../assets/shared.css" />
+        <style>
+            .heat { display: grid; grid-template-columns: repeat(31, 1fr); gap: 3px; }
+            .heat-cell {
+                aspect-ratio: 1;
+                border-radius: 2px;
+                background: var(--gray-150);
+                position: relative;
+            }
+            .heat-cell.l1 { background: #bbf7d0; }
+            .heat-cell.l2 { background: #4ade80; }
+            .heat-cell.l3 { background: #16a34a; }
+            .heat-cell.l4 { background: #15803d; }
+            .heat-cell.absent { background: #fecaca; }
+        </style>
+    </head>
+    <body>
+        <div class="app">
+            <aside class="sidebar">
+                <div class="sidebar-brand"><div class="logo">H</div><div class="brand-text">Hyrius HR<small>HR Workspace</small></div></div>
+                <div class="sidebar-section">
+                    <div class="sidebar-section-label">Workspace</div>
+                    <a class="nav-item" href="../dashboard/admin.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</a>
+                    <a class="nav-item" href="../employees/list.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Employees</a>
+                    <a class="nav-item active"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Attendance</a>
+                    <a class="nav-item" href="../leave/requests.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>Leave<span class="nav-badge">12</span></a>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="topbar">
+                    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Search…</span></div>
+                    <div class="topbar-actions">
+                        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg></button>
+                        <div class="user-chip"><div class="avatar sm avatar-4">VS</div><div><div class="name">Vikram Singh</div></div><span class="role">HR</span></div>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <div class="page-header">
+                        <div>
+                            <h1 class="page-title">Attendance</h1>
+                            <p class="page-subtitle">Today · Thursday, May 14, 2026 · 1,247 active employees</p>
+                        </div>
+                        <div class="page-header-actions">
+                            <select class="form-select" style="height: 36px; padding: 6px 12px;">
+                                <option>May 2026</option><option>April 2026</option>
+                            </select>
+                            <button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export</button>
+                        </div>
+                    </div>
+
+                    <div class="kpis">
+                        <div class="kpi"><div class="kpi-icon emerald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><p class="kpi-label">Present today</p><div class="kpi-value">1,202</div><span class="kpi-delta up">96.4% · ↑ 1.2%</span></div>
+                        <div class="kpi"><div class="kpi-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><p class="kpi-label">Late today</p><div class="kpi-value">42</div><span class="kpi-delta down">3.4% · ↑ 0.5%</span></div>
+                        <div class="kpi"><div class="kpi-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div><p class="kpi-label">Absent</p><div class="kpi-value">22</div><span class="kpi-delta flat">1.8% · 7 unreported</span></div>
+                        <div class="kpi"><div class="kpi-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg></div><p class="kpi-label">On leave</p><div class="kpi-value">23</div><span class="kpi-delta flat">1.8%</span></div>
+                    </div>
+
+                    <!-- Attendance trend -->
+                    <div class="card" style="margin-bottom: var(--space-6);">
+                        <div class="card-header">
+                            <div><h3 class="card-title">Daily attendance · May 2026</h3><p class="card-subtitle">Each cell = one day · greener = higher %</p></div>
+                            <div style="display: flex; gap: 14px; align-items: center; font-size: 12px;">
+                                <span>Less</span>
+                                <span style="width: 12px; height: 12px; background: #bbf7d0; border-radius: 2px;"></span>
+                                <span style="width: 12px; height: 12px; background: #4ade80; border-radius: 2px;"></span>
+                                <span style="width: 12px; height: 12px; background: #16a34a; border-radius: 2px;"></span>
+                                <span style="width: 12px; height: 12px; background: #15803d; border-radius: 2px;"></span>
+                                <span>More</span>
+                            </div>
+                        </div>
+                        <div class="heat">
+                            <div class="heat-cell l3"></div><div class="heat-cell l3"></div><div class="heat-cell l2"></div><div class="heat-cell l1"></div><div class="heat-cell l4"></div><div class="heat-cell l4"></div><div class="heat-cell l3"></div>
+                            <div class="heat-cell l4"></div><div class="heat-cell l3"></div><div class="heat-cell l3"></div><div class="heat-cell l2"></div><div class="heat-cell l3"></div><div class="heat-cell l4"></div><div class="heat-cell l4"></div>
+                            <div class="heat-cell l3"></div><div class="heat-cell l4"></div><div class="heat-cell l3"></div><div class="heat-cell l4"></div><div class="heat-cell l4" style="outline: 2px solid var(--primary-600);"></div><div class="heat-cell"></div><div class="heat-cell"></div>
+                            <div class="heat-cell"></div><div class="heat-cell"></div><div class="heat-cell"></div><div class="heat-cell"></div><div class="heat-cell"></div><div class="heat-cell"></div><div class="heat-cell"></div>
+                            <div class="heat-cell"></div><div class="heat-cell"></div><div class="heat-cell"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px; color: var(--text-muted); font-size: 11px;">
+                            <span>1</span><span>7</span><span>14 ← today</span><span>21</span><span>31</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-3">
+                        <!-- Today's late-comers -->
+                        <div class="card col-span-2">
+                            <div class="card-header"><div><h3 class="card-title">Today's late check-ins</h3><p class="card-subtitle">42 employees · sorted by tardiness</p></div></div>
+                            <table class="table">
+                                <thead><tr><th>Employee</th><th>Shift starts</th><th>Checked in</th><th>Late by</th><th>Reason</th></tr></thead>
+                                <tbody>
+                                    <tr><td><div class="person"><div class="avatar avatar-3 sm">RK</div><div class="meta"><span class="name">Rohit Kumar</span><span class="sub">Backend Team</span></div></div></td><td>09:00 AM</td><td>09:24 AM</td><td><span class="badge badge-warning">24 min</span></td><td class="text-muted text-sm">Traffic</td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-9 sm">PG</div><div class="meta"><span class="name">Priyanka Gupta</span><span class="sub">Backend Team</span></div></div></td><td>09:00 AM</td><td>09:18 AM</td><td><span class="badge badge-warning">18 min</span></td><td class="text-muted text-sm">—</td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-8 sm">AJ</div><div class="meta"><span class="name">Ananya Joshi</span><span class="sub">Sales</span></div></div></td><td>09:00 AM</td><td>09:12 AM</td><td><span class="badge badge-warning">12 min</span></td><td class="text-muted text-sm">Doctor visit</td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-10 sm">KV</div><div class="meta"><span class="name">Karan Verma</span><span class="sub">Marketing</span></div></div></td><td>09:00 AM</td><td>09:08 AM</td><td><span class="badge badge-warning">8 min</span></td><td class="text-muted text-sm">—</td></tr>
+                                    <tr><td><div class="person"><div class="avatar avatar-5 sm">AM</div><div class="meta"><span class="name">Arjun Mehta</span><span class="sub">Finance</span></div></div></td><td>09:00 AM</td><td>09:05 AM</td><td><span class="badge badge-neutral">5 min</span></td><td class="text-muted text-sm">—</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Status donut -->
+                        <div class="card">
+                            <div class="card-header"><div><h3 class="card-title">Today's status</h3></div></div>
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div class="donut" style="--p: 96; --c: var(--emerald-500); --s: 160px; --b: 14px;">
+                                    <div class="donut-center"><div class="val">96.4%</div><div class="label">Present</div></div>
+                                </div>
+                                <div style="margin-top: 18px; width: 100%; display: flex; flex-direction: column; gap: 8px; font-size: 13px;">
+                                    <div style="display: flex; justify-content: space-between;"><span><span style="display:inline-block; width:10px;height:10px;background:var(--emerald-500);border-radius:3px;margin-right:6px;"></span>Present</span><strong>1,202</strong></div>
+                                    <div style="display: flex; justify-content: space-between;"><span><span style="display:inline-block; width:10px;height:10px;background:var(--amber-500);border-radius:3px;margin-right:6px;"></span>Late</span><strong>42</strong></div>
+                                    <div style="display: flex; justify-content: space-between;"><span><span style="display:inline-block; width:10px;height:10px;background:var(--blue-500);border-radius:3px;margin-right:6px;"></span>On leave</span><strong>23</strong></div>
+                                    <div style="display: flex; justify-content: space-between;"><span><span style="display:inline-block; width:10px;height:10px;background:var(--red-500);border-radius:3px;margin-right:6px;"></span>Absent</span><strong>22</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
