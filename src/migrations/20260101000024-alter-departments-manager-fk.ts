@@ -9,15 +9,19 @@ import { QueryInterface } from 'sequelize';
  */
 export const up = (queryInterface: QueryInterface) =>
     queryInterface.sequelize.transaction(async (transaction) => {
-        await queryInterface.addConstraint('Departments', {
-            fields: ['ManagerId'],
-            type: 'foreign key',
-            name: 'fk_departments_manager',
-            references: { table: 'Employees', field: 'Id' },
-            onDelete: 'SET NULL',
-            onUpdate: 'CASCADE',
-            transaction,
-        });
+        try {
+            await queryInterface.addConstraint('Departments', {
+                fields: ['ManagerId'],
+                type: 'foreign key',
+                name: 'fk_departments_manager',
+                references: { table: 'Employees', field: 'Id' },
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+                transaction,
+            });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_FK_DUP_NAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>

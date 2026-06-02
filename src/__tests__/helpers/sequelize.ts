@@ -40,17 +40,24 @@ export const mockSequelize = () => ({
  * jest.fns by default but can be overridden.
  */
 export const mockInstance = <T extends Record<string, unknown>>(attrs: T) => {
-    const instance = {
+    type Instance = T & {
+        get: jest.Mock;
+        update: jest.Mock;
+        destroy: jest.Mock;
+        reload: jest.Mock;
+    };
+
+    const instance: Instance = {
         ...attrs,
         get: jest.fn((key: string) => attrs[key]),
-        update: jest.fn(async function (this: typeof instance, patch: Partial<T>) {
+        update: jest.fn(async function (this: Instance, patch: Partial<T>) {
             Object.assign(attrs, patch);
             return this;
         }),
         destroy: jest.fn(),
-        reload: jest.fn(async function (this: typeof instance) {
+        reload: jest.fn(async function (this: Instance) {
             return this;
         }),
-    };
+    } as Instance;
     return instance;
 };

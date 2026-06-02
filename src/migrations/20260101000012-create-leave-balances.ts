@@ -52,7 +52,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
             { transaction },
         );
         // One balance row per (employee, leave_type, year)
-        await queryInterface.addIndex(TABLE_NAME, ['EmployeeId', 'LeaveTypeId', 'Year'], { unique: true, transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['EmployeeId', 'LeaveTypeId', 'Year'], { unique: true, transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>

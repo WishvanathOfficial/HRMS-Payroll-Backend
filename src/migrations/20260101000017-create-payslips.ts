@@ -64,7 +64,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
             { transaction },
         );
         // One payslip per employee per run
-        await queryInterface.addIndex(TABLE_NAME, ['PayrollRunId', 'EmployeeId'], { unique: true, transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['PayrollRunId', 'EmployeeId'], { unique: true, transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>

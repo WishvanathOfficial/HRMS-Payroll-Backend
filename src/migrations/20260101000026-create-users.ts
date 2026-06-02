@@ -50,7 +50,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
         );
         // Login lookups happen by email; the unique constraint already indexes it,
         // but we also want a fast filter for "active users" on the login path.
-        await queryInterface.addIndex(TABLE_NAME, ['IsActive'], { transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['IsActive'], { transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>
