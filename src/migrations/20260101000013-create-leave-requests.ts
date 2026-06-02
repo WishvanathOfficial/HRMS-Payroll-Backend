@@ -66,7 +66,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
             { transaction },
         );
         // Drives the "pending leave requests for employee" dashboard query
-        await queryInterface.addIndex(TABLE_NAME, ['EmployeeId', 'Status'], { transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['EmployeeId', 'Status'], { transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>

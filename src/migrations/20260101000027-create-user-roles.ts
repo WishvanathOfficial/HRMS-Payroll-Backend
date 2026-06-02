@@ -48,7 +48,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
             { transaction },
         );
         // One row per (user, role)
-        await queryInterface.addIndex(TABLE_NAME, ['UserId', 'RoleId'], { unique: true, transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['UserId', 'RoleId'], { unique: true, transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>

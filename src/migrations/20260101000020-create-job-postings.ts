@@ -57,7 +57,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
             { transaction },
         );
         // Common filter: "open postings"
-        await queryInterface.addIndex(TABLE_NAME, ['Status'], { transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['Status'], { transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>

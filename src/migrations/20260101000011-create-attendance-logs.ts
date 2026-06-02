@@ -56,7 +56,11 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
             { transaction },
         );
         // One row per employee per day + drives date-range lookups
-        await queryInterface.addIndex(TABLE_NAME, ['EmployeeId', 'LogDate'], { unique: true, transaction });
+        try {
+            await queryInterface.addIndex(TABLE_NAME, ['EmployeeId', 'LogDate'], { unique: true, transaction });
+        } catch (err: any) {
+            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        }
     });
 
 export const down = (queryInterface: QueryInterface) =>
