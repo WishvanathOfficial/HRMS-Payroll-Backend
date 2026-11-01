@@ -19,8 +19,9 @@ export const up = (queryInterface: QueryInterface) =>
                 onUpdate: 'CASCADE',
                 transaction,
             });
-        } catch (err: any) {
-            if (err.original?.code !== 'ER_FK_DUP_NAME') throw err;
+        } catch (err: unknown) {
+            const code = (err as { original?: { code?: string } } | null | undefined)?.original?.code;
+            if (code !== 'ER_FK_DUP_NAME') throw err;
         }
     });
 

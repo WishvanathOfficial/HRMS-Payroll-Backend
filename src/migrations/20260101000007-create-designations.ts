@@ -1,8 +1,8 @@
-import { QueryInterface, literal } from 'sequelize';
+import { QueryInterface, literal, DataTypes } from 'sequelize';
 
 const TABLE_NAME = 'Designations';
 
-export const up = (queryInterface: QueryInterface, Sequelize: any) =>
+export const up = (queryInterface: QueryInterface, Sequelize: typeof DataTypes) =>
     queryInterface.sequelize.transaction(async (transaction) => {
         await queryInterface.createTable(
             TABLE_NAME,
@@ -43,8 +43,9 @@ export const up = (queryInterface: QueryInterface, Sequelize: any) =>
         );
         try {
             await queryInterface.addIndex(TABLE_NAME, ['Title', 'DepartmentId'], { unique: true, transaction });
-        } catch (err: any) {
-            if (err.original?.code !== 'ER_DUP_KEYNAME') throw err;
+        } catch (err: unknown) {
+            const code = (err as { original?: { code?: string } } | null | undefined)?.original?.code;
+            if (code !== 'ER_DUP_KEYNAME') throw err;
         }
     });
 

@@ -6,6 +6,7 @@
 import { migrator, seeder, runPendingMigrations, runPendingSeeders } from './migrator';
 import { sequelize } from '../config/database';
 import { logger } from '../config/logger';
+import { env } from '../config/env';
 
 const main = async () => {
     const cmd = process.argv[2];
@@ -33,21 +34,26 @@ const main = async () => {
                 logger.info('[cli] Last seeder rolled back.');
                 break;
             case 'reset': {
+                if (env.nodeEnv === 'production') {
+                    throw new Error('db:reset is disabled in production because it destroys application data');
+                }
                 try {
                     logger.info('[cli] Rolling back all migrations...');
                     let count = 0;
-                    // Keep rolling back until no more executed migrations
-                    while (true) {
-                        const executed = await migrator.executed();
-                        if (executed.length === 0) break;
+                    let executed = await migrator.executed();
+                    while (executed.length > 0) {
                         await migrator.down();
                         count++;
+                        executed = await migrator.executed();
                     }
                     logger.info(`[cli] Rolled back ${count} migration(s).`);
                     logger.info('[cli] Applying all migrations...');
                     await migrator.up();
                     logger.info('[cli] Seeding database...');
-                    await seeder.up();
+                    const queryInterface = sequelize.getQueryInterface();
+                    const tables = await queryInterface.showAllTables();
+                    if (tables.includes('SequelizeSeeds')) await queryInterface.dropTable('SequelizeSeeds');
+                    await runPendingSeeders();
                     logger.info('[cli] Reset complete.');
                 } catch (resetErr) {
                     logger.error('[cli] Reset failed', { err: resetErr });

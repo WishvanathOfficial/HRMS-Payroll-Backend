@@ -1,8 +1,8 @@
-import { QueryInterface, literal } from 'sequelize';
+import { QueryInterface, literal, DataTypes } from 'sequelize';
 
 const TABLE_NAME = 'StatutoryDeductions';
 
-export const up = (queryInterface: QueryInterface, Sequelize: any) =>
+export const up = (queryInterface: QueryInterface, Sequelize: typeof DataTypes) =>
     queryInterface.sequelize.transaction(async (transaction) => {
         await queryInterface.createTable(
             TABLE_NAME,
