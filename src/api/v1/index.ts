@@ -31,6 +31,40 @@ const v1 = Router();
 /* ----------------------- Public (no JWT required) ------------------------ */
 v1.use('/auth', authRoutes);
 
+/* -------------------------------- Index ---------------------------------- */
+v1.get('/', (_req, res) => {
+    res.json({
+        success: true,
+        statusCode: 200,
+        message: 'HRMS & Payroll API v1',
+        data: {
+            modules: {
+                auth: [
+                    '/auth/login',
+                    '/auth/refresh',
+                    '/auth/me',
+                    '/auth/change-password',
+                    '/auth/register',
+                    '/auth/logout',
+                ],
+                organization: ['/departments', '/designations'],
+                employee: ['/employees', '/employment-history'],
+                attendance: ['/shifts', '/employee-shifts', '/attendance-logs'],
+                leave: ['/leave-types', '/leave-balances', '/leave-requests'],
+                salary: [
+                    '/salary-structures',
+                    '/salary-components',
+                    '/salary-structure-components',
+                    '/employee-salaries',
+                ],
+                payroll: ['/payroll-runs', '/payslips', '/payslip-details', '/statutory-deductions'],
+                recruitment: ['/job-postings', '/applicants', '/interview-stages'],
+                appraisal: ['/appraisal-cycles', '/employee-appraisals'],
+            },
+        },
+    });
+});
+
 /* ----------------------- Authenticated routes ---------------------------- */
 // Everything below this guard requires a valid Bearer token.
 const guarded = Router();
@@ -76,39 +110,5 @@ guarded.use('/appraisal-cycles', appraisalCycleRoutes);
 guarded.use('/employee-appraisals', employeeAppraisalRoutes);
 
 v1.use(guarded);
-
-/* ------------------------------- Index ----------------------------------- */
-v1.get('/', (_req, res) => {
-    res.json({
-        success: true,
-        statusCode: 200,
-        message: 'HRMS & Payroll API v1',
-        data: {
-            modules: {
-                auth: [
-                    '/auth/login',
-                    '/auth/refresh',
-                    '/auth/me',
-                    '/auth/change-password',
-                    '/auth/register',
-                    '/auth/logout',
-                ],
-                organization: ['/departments', '/designations'],
-                employee: ['/employees', '/employment-history'],
-                attendance: ['/shifts', '/employee-shifts', '/attendance-logs'],
-                leave: ['/leave-types', '/leave-balances', '/leave-requests'],
-                salary: [
-                    '/salary-structures',
-                    '/salary-components',
-                    '/salary-structure-components',
-                    '/employee-salaries',
-                ],
-                payroll: ['/payroll-runs', '/payslips', '/payslip-details', '/statutory-deductions'],
-                recruitment: ['/job-postings', '/applicants', '/interview-stages'],
-                appraisal: ['/appraisal-cycles', '/employee-appraisals'],
-            },
-        },
-    });
-});
 
 export default v1;
