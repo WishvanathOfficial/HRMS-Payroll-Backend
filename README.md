@@ -173,27 +173,66 @@ In development, `src/server.ts` does this on startup by default. Set `AUTO_MIGRA
 
 Adding a new migration file under `src/migrations/` and restarting the development server applies it. Production disables automatic migrations by default; run them as a release step before starting the new application version.
 
-## Production Deployment
+## Deployment Guide
 
-The container uses Node.js 20, compiles only runtime code, runs as the unprivileged `node` user, and starts with `npm start`. Supply configuration through the deployment platform's secret/environment settings; do not copy `.env.example` unchanged into production.
+### Prerequisites
 
-Required production settings are `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, and `CORS_ORIGIN`. Use a dedicated database user, two different randomly generated JWT secrets of at least 32 characters, and the exact browser origin that should access the API. Startup rejects placeholder secrets, root DB access, wildcard CORS, invalid numeric/boolean settings, or `AUTO_SEED=true` in production. Automatic migrations default off in production.
+- Node.js 20 or the provided Docker image.
+- A reachable MySQL 8 database with the `hrms_payroll` schema created using `utf8mb4`.
+- A dedicated database account. Do not use MySQL `root`; the account needs the schema permissions required by both the app and its migrations.
+- A secret manager or deployment environment settings for credentials. Do not put production secrets in the image or commit them to the repository.
 
-Build and migrate as part of the release process, then run the service:
+### Configure the service
+
+Set these required variables in the deployment platform:
+
+| Variable                                       | Requirement                                                                         |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `NODE_ENV`                                     | `production`                                                                        |
+| `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME` | MySQL connection; use a dedicated user                                              |
+| `JWT_SECRET`, `JWT_REFRESH_SECRET`             | Different random secrets, at least 32 characters each                               |
+| `CORS_ORIGIN`                                  | Exact allowed browser origin, for example `https://hr.example.com`; `*` is rejected |
+
+`DB_PORT` defaults to `3306`; `PORT` defaults to `5000`. Configure `BOOTSTRAP_ADMIN_PASSWORD` only for first-time bootstrap, with a unique value of at least 16 characters. Production rejects missing or placeholder secrets, root DB access, invalid boolean/numeric settings, and `AUTO_SEED=true`. Automatic migrations default off so application replicas cannot race schema changes.
+
+### Build and release
+
+Run the release steps in order, using the same build artifact for migration and service startup:
 
 ```bash
 npm ci
 npm run verify
 npm run build
 npm run db:migrate:prod
-# On initial database provisioning, with BOOTSTRAP_ADMIN_PASSWORD configured:
-npm run db:seed
+# First database provisioning only; set BOOTSTRAP_ADMIN_PASSWORD securely first.
+npm run db:seed:prod
 npm start
 ```
 
-For container deployments, build with `docker build -t hrms-payroll-api .` and run the image with the required environment variables. Run `npm run db:migrate:prod` once as the release job from the same built artifact before routing traffic to the new service. Configure the platform's readiness probe to call `GET /api/v1/health`; it returns `503` while MySQL is unavailable.
+Run the seed command only when provisioning a new database. In production it creates the standard roles and bootstrap administrator only; it does not insert demo employees or shared employee passwords. The destructive `db:reset` command is disabled in production.
 
-Never enable `AUTO_SEED` in production. After migrations, `npm run db:seed` in production applies only the standard roles and bootstrap admin; it does not create demo employees or shared employee passwords. Set a unique `BOOTSTRAP_ADMIN_PASSWORD` of at least 16 characters for that release job. The destructive `db:reset` command is disabled in production.
+### Docker deployment
+
+Build the image from the repository root:
+
+```bash
+docker build -t hrms-payroll-api .
+```
+
+The image uses Node.js 20, includes production dependencies and compiled runtime files only, and runs as the unprivileged `node` user. Provide database credentials, JWT secrets, and CORS settings at runtime through the platform's secret manager. Do not bake a `.env` file into the image.
+
+Before starting or replacing service replicas, run one release job from the image to apply migrations. For a local Docker deployment, provide the production settings in an untracked `.env` file and run:
+
+```bash
+docker run --rm --env-file .env hrms-payroll-api npm run db:migrate:prod
+# First database provisioning only; .env must also contain BOOTSTRAP_ADMIN_PASSWORD.
+docker run --rm --env-file .env hrms-payroll-api npm run db:seed:prod
+docker run -d --name hrms-payroll-api --env-file .env -p 5000:5000 hrms-payroll-api
+```
+
+On a deployment platform, use its release-job and secret-management features for the same migration and optional one-time seed commands. Start the service replicas only after the migration job succeeds; expose the configured port (default `5000`).
+
+Configure the platform readiness probe to call `GET /api/v1/health`; it returns `503` if MySQL is unreachable. After deployment, verify this probe is healthy and test `POST /api/v1/auth/login` with the bootstrap administrator credentials, then rotate that password.
 
 ## Project Structure
 

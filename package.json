@@ -25,6 +25,7 @@
         "db:migrate:down": "ts-node -r tsconfig-paths/register src/db/cli.ts down",
         "db:migrate:status": "ts-node -r tsconfig-paths/register src/db/cli.ts status",
         "db:migrate:prod": "node dist/db/cli.js up",
+        "db:seed:prod": "node dist/db/cli.js seed",
         "db:seed": "ts-node -r tsconfig-paths/register src/db/cli.ts seed",
         "db:reset": "ts-node -r tsconfig-paths/register src/db/cli.ts reset",
         "db:setup": "npm run db:migrate && npm run db:seed",
