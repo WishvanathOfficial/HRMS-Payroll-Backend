@@ -20,6 +20,7 @@ import { logger } from '../config/logger';
 // running from `src/` (dev via ts-node) or `dist/` (compiled).
 const migrationsGlob = path.resolve(__dirname, '..', 'migrations', '*.{js,ts}');
 const seedersGlob = path.resolve(__dirname, '..', 'seeders', '*.{js,ts}');
+const productionSeedersGlob = path.resolve(__dirname, '..', 'seeders', '20260101000009-roles-and-admin.{js,ts}');
 
 const resolveMigration = ({
     name,
@@ -75,10 +76,20 @@ export const runPendingMigrations = async (): Promise<void> => {
 /** Apply all pending seeders (idempotent — tracked in SequelizeSeeds). */
 export const runPendingSeeders = async (): Promise<void> => {
     try {
+        const isProduction = process.env.NODE_ENV === 'production';
+        if (isProduction) {
+            const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
+            if (!password || password.length < 16 || /^(admin@123|change-me|replace-with)/i.test(password)) {
+                throw new Error(
+                    'Production seeding requires a unique BOOTSTRAP_ADMIN_PASSWORD of at least 16 characters',
+                );
+            }
+        }
+
         // Ensure SequelizeSeeds table exists before initializing seeder
-        await sequelize.getQueryInterface().createTable(
-            'SequelizeSeeds',
-            {
+        await sequelize
+            .getQueryInterface()
+            .createTable('SequelizeSeeds', {
                 name: {
                     type: DataTypes.STRING,
                     primaryKey: true,
@@ -87,10 +98,10 @@ export const runPendingSeeders = async (): Promise<void> => {
                     type: DataTypes.DATE,
                     defaultValue: SequelizeStatic.fn('now'),
                 },
-            },
-        ).catch(() => {
-            // Table might already exist, ignore error
-        });
+            })
+            .catch(() => {
+                // Table might already exist, ignore error
+            });
 
         // Remove seeder entries from SequelizeMeta if they exist (they should be in SequelizeSeeds instead)
         const seederNames = [
@@ -105,17 +116,17 @@ export const runPendingSeeders = async (): Promise<void> => {
             '20260101000009-roles-and-admin.ts',
         ];
         for (const name of seederNames) {
-            await sequelize.getQueryInterface().sequelize.query(
-                'DELETE FROM SequelizeMeta WHERE name = ?',
-                { replacements: [name], raw: true },
-            ).catch(() => {
-                // Might fail if no such entry
-            });
+            await sequelize
+                .getQueryInterface()
+                .sequelize.query('DELETE FROM SequelizeMeta WHERE name = ?', { replacements: [name], raw: true })
+                .catch(() => {
+                    // Might fail if no such entry
+                });
         }
 
         // Reinitialize seeder after cleanup
         const seederReinit = new Umzug({
-            migrations: { glob: seedersGlob, resolve: resolveMigration },
+            migrations: { glob: isProduction ? productionSeedersGlob : seedersGlob, resolve: resolveMigration },
             context: sequelize.getQueryInterface(),
             storage: new SequelizeStorage({ sequelize, tableName: 'SequelizeSeeds' }),
             logger: log,

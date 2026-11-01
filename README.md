@@ -7,7 +7,7 @@
 
 Complete REST API for an HRMS and Payroll Management application built with **Node.js, Express.js, TypeScript, Sequelize ORM** and **MySQL**.
 
-Migrations run automatically on startup so the schema always stays in sync with what's checked into the repo.
+Development starts apply migrations automatically. Production starts require a separate migration release step to avoid concurrent instances changing the schema at the same time.
 
 ## Tech Stack
 
@@ -33,7 +33,7 @@ Migrations run automatically on startup so the schema always stays in sync with 
 # 1. Install + scaffold .env (also installs husky hooks)
 npm run setup
 
-# 2. Create the empty database
+# 2. Set DB_PASSWORD in .env, then create the empty database
 mysql -u root -p -e "CREATE DATABASE hrms_payroll CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
 # 3. Start the dev server (port 5000)
@@ -156,14 +156,36 @@ BOOTSTRAP_ADMIN_PASSWORD=Admin@123
 
 ## Auto-migration on startup
 
-When `npm run dev` / `npm start` boots, `src/server.ts` does this in order:
+In development, `src/server.ts` does this on startup by default. Set `AUTO_MIGRATE=false` to skip it:
 
 1. `await testConnection()` — confirms MySQL is reachable.
 2. `await runPendingMigrations()` — applies any **new** migrations from `src/migrations/`. Already-executed ones are skipped (tracked in `SequelizeMeta`).
 3. (Optional) `await runPendingSeeders()` if `AUTO_SEED=true` — tracked in `SequelizeSeeds`.
 4. `app.listen(5000)`.
 
-Adding a new migration file under `src/migrations/` is the only thing you need to do — restart the server and the DB auto-syncs. Skip behavior is controlled by `AUTO_MIGRATE` (default `true`).
+Adding a new migration file under `src/migrations/` and restarting the development server applies it. Production disables automatic migrations by default; run them as a release step before starting the new application version.
+
+## Production Deployment
+
+The container uses Node.js 20, compiles only runtime code, runs as the unprivileged `node` user, and starts with `npm start`. Supply configuration through the deployment platform's secret/environment settings; do not copy `.env.example` unchanged into production.
+
+Required production settings are `DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `JWT_SECRET`, `JWT_REFRESH_SECRET`, and `CORS_ORIGIN`. Use a dedicated database user, two different randomly generated JWT secrets of at least 32 characters, and the exact browser origin that should access the API. Startup rejects placeholder secrets, root DB access, wildcard CORS, invalid numeric/boolean settings, or `AUTO_SEED=true` in production. Automatic migrations default off in production.
+
+Build and migrate as part of the release process, then run the service:
+
+```bash
+npm ci
+npm run verify
+npm run build
+npm run db:migrate:prod
+# On initial database provisioning, with BOOTSTRAP_ADMIN_PASSWORD configured:
+npm run db:seed
+npm start
+```
+
+For container deployments, build with `docker build -t hrms-payroll-api .` and run the image with the required environment variables. Run `npm run db:migrate:prod` once as the release job from the same built artifact before routing traffic to the new service. Configure the platform's readiness probe to call `GET /api/v1/health`; it returns `503` while MySQL is unavailable.
+
+Never enable `AUTO_SEED` in production. After migrations, `npm run db:seed` in production applies only the standard roles and bootstrap admin; it does not create demo employees or shared employee passwords. Set a unique `BOOTSTRAP_ADMIN_PASSWORD` of at least 16 characters for that release job. The destructive `db:reset` command is disabled in production.
 
 ## Project Structure
 

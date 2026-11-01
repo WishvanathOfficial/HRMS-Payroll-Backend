@@ -12,6 +12,7 @@ const scopedFindOne = jest.fn();
 const scopedFindByPk = jest.fn();
 
 jest.mock('../models', () => ({
+    __esModule: true,
     sequelize: mockSequelize(),
     User: {
         scope: jest.fn(() => ({
@@ -20,6 +21,7 @@ jest.mock('../models', () => ({
         })),
         create: jest.fn(),
         findOne: jest.fn(),
+        findByPk: jest.fn(),
     },
     Role: {
         findAll: jest.fn(),
@@ -35,7 +37,7 @@ jest.mock('../models', () => ({
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { authService } from './auth.service';
-import { User, Role, UserRole, Employee } from '../models';
+import { User, Role, UserRole, Employee, sequelize } from '../models';
 import { env } from '../config/env';
 
 const Bcrypt = bcrypt as unknown as { compare: jest.Mock; hash: jest.Mock };
@@ -43,6 +45,7 @@ const U = User as unknown as { scope: jest.Mock; create: jest.Mock; findOne: jes
 const R = Role as unknown as { findAll: jest.Mock };
 const UR = UserRole as unknown as { bulkCreate: jest.Mock };
 const Emp = Employee as unknown as { findByPk: jest.Mock };
+const db = sequelize as unknown as { transaction: jest.Mock };
 
 const instance = (overrides: Record<string, unknown> = {}) =>
     mockInstance({
@@ -56,7 +59,11 @@ const instance = (overrides: Record<string, unknown> = {}) =>
     });
 
 describe('authService', () => {
-    beforeEach(() => jest.clearAllMocks());
+    beforeEach(() => {
+        jest.clearAllMocks();
+        db.transaction.mockImplementation(async (callback: (transaction: object) => unknown) => callback({}));
+        U.scope.mockReturnValue({ findOne: scopedFindOne, findByPk: scopedFindByPk });
+    });
 
     describe('login', () => {
         it('400s when email or password missing', async () => {

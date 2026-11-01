@@ -9,14 +9,18 @@ jest.mock('../models', () => ({
 }));
 
 import { leaveRequestService } from './leaveRequest.service';
-import { LeaveRequest, LeaveBalance, Employee, LeaveType } from '../models';
+import { LeaveRequest, LeaveBalance, Employee, LeaveType, sequelize } from '../models';
 const LR = LeaveRequest as unknown as ReturnType<typeof mockModel>;
 const LB = LeaveBalance as unknown as ReturnType<typeof mockModel>;
 const Emp = Employee as unknown as ReturnType<typeof mockModel>;
 const LT = LeaveType as unknown as ReturnType<typeof mockModel>;
+const db = sequelize as unknown as { transaction: jest.Mock };
 
 describe('leaveRequestService', () => {
-    beforeEach(() => jest.clearAllMocks());
+    beforeEach(() => {
+        jest.clearAllMocks();
+        db.transaction.mockImplementation(async (callback: (transaction: object) => unknown) => callback({}));
+    });
 
     it('list returns count + rows', async () => {
         LR.findAndCountAll.mockResolvedValue({ rows: [], count: 0 });

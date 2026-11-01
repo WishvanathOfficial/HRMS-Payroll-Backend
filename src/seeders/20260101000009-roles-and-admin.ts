@@ -5,9 +5,8 @@ import bcrypt from 'bcryptjs';
  * Seeds the four standard roles (ADMIN / HR / MANAGER / EMPLOYEE) and a
  * single bootstrap admin user so the very first developer can log in.
  *
- * The admin password is set from the BOOTSTRAP_ADMIN_PASSWORD env var when
- * available, otherwise falls back to "Admin@123" (which MUST be rotated on
- * first login in any non-dev environment).
+ * Production bootstrap runs only this roles/admin seeder and requires
+ * BOOTSTRAP_ADMIN_PASSWORD to be set by the deployment environment.
  */
 export const up = (queryInterface: QueryInterface) =>
     queryInterface.sequelize.transaction(async (transaction) => {
@@ -60,6 +59,8 @@ export const up = (queryInterface: QueryInterface) =>
         await queryInterface.bulkInsert('UserRoles', [{ UserId: 1, RoleId: 1, CreatedOn: now, UpdatedOn: now }], {
             transaction,
         });
+
+        if (process.env.NODE_ENV === 'production') return;
 
         // Also create login accounts for the seeded employees with role EMPLOYEE,
         // plus role HR for the HR manager (Vikram, id 5) and role MANAGER for

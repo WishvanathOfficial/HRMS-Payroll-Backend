@@ -8,7 +8,7 @@ const config: Config = {
     testMatch: ['**/?(*.)+(test|spec).ts'],
     moduleFileExtensions: ['ts', 'js', 'json'],
     transform: {
-        '^.+\\.ts$': ['ts-jest', { diagnostics: false, isolatedModules: true }],
+        '^.+\\.ts$': ['ts-jest', { diagnostics: false }],
     },
     clearMocks: true,
     resetMocks: true,

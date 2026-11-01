@@ -20,6 +20,7 @@ import {
     EmployeeSalary,
     SalaryStructureComponent,
     SalaryComponent,
+    sequelize,
 } from '../models';
 const PR = PayrollRun as unknown as ReturnType<typeof mockModel>;
 const PS = Payslip as unknown as ReturnType<typeof mockModel>;
@@ -28,9 +29,13 @@ const SD = StatutoryDeduction as unknown as ReturnType<typeof mockModel>;
 const ES = EmployeeSalary as unknown as ReturnType<typeof mockModel>;
 const SSC = SalaryStructureComponent as unknown as ReturnType<typeof mockModel>;
 const SC = SalaryComponent as unknown as ReturnType<typeof mockModel>;
+const db = sequelize as unknown as { transaction: jest.Mock };
 
 describe('payrollRunService', () => {
-    beforeEach(() => jest.clearAllMocks());
+    beforeEach(() => {
+        jest.clearAllMocks();
+        db.transaction.mockImplementation(async (callback: (transaction: object) => unknown) => callback({}));
+    });
 
     it('list returns count + rows', async () => {
         PR.findAndCountAll.mockResolvedValue({ rows: [], count: 0 });

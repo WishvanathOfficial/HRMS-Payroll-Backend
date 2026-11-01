@@ -1,5 +1,6 @@
 import rateLimit from 'express-rate-limit';
 import { StatusCodes } from 'http-status-codes';
+import { env } from '../config/env';
 
 /**
  * Sensible default rate limit applied to /api/v1.
@@ -10,7 +11,7 @@ import { StatusCodes } from 'http-status-codes';
  */
 export const apiRateLimiter = rateLimit({
     windowMs: 60_000,
-    max: Number(process.env.RATE_LIMIT_MAX || 300),
+    max: env.rateLimitMax,
     standardHeaders: true,
     legacyHeaders: false,
     message: {
